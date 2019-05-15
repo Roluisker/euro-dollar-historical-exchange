@@ -1,0 +1,14 @@
+ext {
+    dependencies {
+        implementation deps.navigation.core
+        implementation deps.navigation.fragment
+        implementation deps.images.picasso
+        implementation deps.support.appCompat
+        implementation deps.support.androidxCore
+        implementation deps.support.constraint
+        implementation deps.desing.material
+        testImplementation deps.test.junit
+        androidTestImplementation deps.test.androidxTestRunner
+        androidTestImplementation deps.test.androidxTestEspresso
+    }
+}
