@@ -1,5 +1,5 @@
 package com.sc.core
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 
-class BaseActivity : Activity()
+open class BaseActivity : AppCompatActivity()
