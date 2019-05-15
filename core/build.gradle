@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../base_libraries.gradle'
+apply from: '../base_dagger_libraries.gradle'
 
 android {
 
