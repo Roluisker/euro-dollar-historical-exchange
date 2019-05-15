@@ -1,0 +1,9 @@
+ext {
+    dependencies {
+         implementation deps.dagger.core
+    	 implementation deps.dagger.android
+    	 implementation deps.dagger.androidSupport
+    	 kapt deps.dagger.compiler
+    	 kapt deps.dagger.androidProcessor
+    }
+}

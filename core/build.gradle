@@ -26,6 +26,7 @@ android {
 }
 
 dependencies {
+    api deps.log.timber
     implementation deps.kotlin.stdlib
     implementation deps.lifecycle.extensions
     implementation deps.lifecycle.reactStreams
@@ -34,13 +35,7 @@ dependencies {
     implementation deps.retrofit.adapterRxJava2
     implementation deps.retrofit.converterGson
     implementation deps.okHttp3.core
-    implementation deps.log.timber
     implementation deps.database.roomRuntime
     kapt deps.database.roomCompiler
     implementation deps.database.roomRxjava2
-    implementation deps.dagger.core
-    implementation deps.dagger.android
-    implementation deps.dagger.androidSupport
-    kapt deps.dagger.compiler
-    kapt deps.dagger.androidProcessor
 }
