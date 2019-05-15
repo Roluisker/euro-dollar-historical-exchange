@@ -1,14 +1,14 @@
 ext {
     dependencies {
-        implementation deps.navigation.core
-        implementation deps.navigation.fragment
-        implementation deps.images.picasso
-        implementation deps.support.appCompat
-        implementation deps.support.androidxCore
-        implementation deps.support.constraint
-        implementation deps.desing.material
-        testImplementation deps.test.junit
-        androidTestImplementation deps.test.androidxTestRunner
-        androidTestImplementation deps.test.androidxTestEspresso
+        api deps.navigation.core
+        api deps.navigation.fragment
+        api deps.images.picasso
+        api deps.support.appCompat
+        api deps.support.androidxCore
+        api deps.support.constraint
+        api deps.desing.material
+        api deps.test.junit
+        api deps.test.androidxTestRunner
+        api deps.test.androidxTestEspresso
     }
 }
