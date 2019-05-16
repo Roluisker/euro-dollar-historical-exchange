@@ -3,21 +3,24 @@ package com.sc.lydianlion.provide
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.sc.core.BuildConfig
+import com.sc.core.CoreConstants.Companion.API_KEY_LABEL
 import com.sc.core.CoreConstants.Companion.OK_HTTP_CONNECT_TIME_OUT
 import com.sc.core.CoreConstants.Companion.OK_HTTP_READ_TIME_OUT
 import com.sc.core.CoreConstants.Companion.OK_HTTP_WRITE_TIME_OUT
 import com.sc.core.api.MoneyApi
 import com.sc.core.net.RequestInterceptor
-import com.sc.lydianlion.BuildConfig
 import com.sc.lydianlion.repository.history.HistoricalRepository
 import com.sc.lydianlion.repository.history.HistoricalRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -28,10 +31,11 @@ class DataModule {
     @Reusable
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
+            .baseUrl(BuildConfig.BASE_URL)
+            //.addConverterFactory(MoshiConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
 
@@ -44,9 +48,10 @@ class DataModule {
 
     @Provides
     @Reusable
-    fun provideOkHttpClient(interceptor: RequestInterceptor): OkHttpClient {
+    fun provideOkHttpClient(interceptor: RequestInterceptor, apiKeyInterceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .addInterceptor(apiKeyInterceptor)
             .connectTimeout(OK_HTTP_CONNECT_TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(OK_HTTP_WRITE_TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(OK_HTTP_READ_TIME_OUT, TimeUnit.SECONDS)
@@ -55,7 +60,7 @@ class DataModule {
 
     @Provides
     @Reusable
-    fun provideMovAneyi(retrofit: Retrofit): MoneyApi {
+    fun provideMoneyApi(retrofit: Retrofit): MoneyApi {
         return retrofit.create(MoneyApi::class.java)
     }
 
@@ -63,6 +68,22 @@ class DataModule {
     @Reusable
     fun provideInterceptor(): RequestInterceptor {
         return RequestInterceptor()
+    }
+
+    @Provides
+    @Reusable
+    fun provideRequestInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val newUrl = chain.request().url()
+                .newBuilder()
+                .addQueryParameter(API_KEY_LABEL, BuildConfig.API_KEY)
+                .build()
+            val newRequest = chain.request()
+                .newBuilder()
+                .url(newUrl)
+                .build()
+            chain.proceed(newRequest)
+        }
     }
 
     @Provides

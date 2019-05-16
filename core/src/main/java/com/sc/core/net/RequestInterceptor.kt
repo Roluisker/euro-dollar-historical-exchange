@@ -24,8 +24,8 @@ class RequestInterceptor : Interceptor {
         val t2 = System.nanoTime()
         Timber.i(
             String.format(
-                "Received response for %s in %.1fms%n%s",
-                response.request().url(), (t2 - t1) / 1e6, response.headers()
+                "Received response for %s in %.1fms%n%s %s",
+                response.request().url(), (t2 - t1) / 1e6, response.headers(), response.message()
             )
         )
 

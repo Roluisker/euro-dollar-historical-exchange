@@ -23,6 +23,9 @@ android {
 
 dependencies {
     implementation project(":core")
+
+    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
 }
 
 /*

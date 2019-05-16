@@ -5,5 +5,5 @@ import androidx.lifecycle.ViewModel
 import com.sc.core.net.DataResponse
 
 open class BaseViewModel : ViewModel() {
-    val liveData = MutableLiveData<DataResponse>()
+    //val liveData = MutableLiveData<DataResponse>()
 }

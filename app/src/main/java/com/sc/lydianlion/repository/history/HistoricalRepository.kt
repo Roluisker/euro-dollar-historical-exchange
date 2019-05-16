@@ -1,5 +1,7 @@
 package com.sc.lydianlion.repository.history
 
+import com.sc.core.model.remote.TimeSeriesRemote
+
 interface HistoricalRepository {
-    fun showHistorical(startDate: String, endDate: String)
+    suspend fun showHistorical(startDate: String, endDate: String): TimeSeriesRemote?
 }
