@@ -1,5 +1,5 @@
 package com.sc.core.model.local
 
 data class TimeSeries(
-    val USD: String
+    val rateItem: HashMap<String, ArrayList<String>> = HashMap()
 )

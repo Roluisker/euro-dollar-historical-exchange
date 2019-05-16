@@ -11,7 +11,7 @@ class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseRepository(
         Timber.i("showHistorical")
 
         return safeApiCall(
-            call = { moneyApi.getMoneyTimeSeriesByDate(startDate, endDate).await() },
+            call = { moneyApi.getMoneyTimeSeriesByDateAsync(startDate, endDate).await() },
             errorMessage = "Error Fetching"
         )
 
