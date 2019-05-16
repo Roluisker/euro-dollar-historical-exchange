@@ -1,6 +1,5 @@
 package com.sc.lydianlion.ui.view
 
-
 import android.os.Bundle
 import com.sc.core.BaseActivity
 import com.sc.lydianlion.R

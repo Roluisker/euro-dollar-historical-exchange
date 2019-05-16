@@ -8,12 +8,14 @@ android {
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguardTest-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://werwrewer.com/v2/"'
         }
         debug {
             minifyEnabled false
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguardTest-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://werwrewer.com/v2/"'
         }
     }
 

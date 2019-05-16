@@ -29,12 +29,12 @@ android {
 dependencies {
     api deps.log.timber
     implementation deps.kotlin.stdlib
-    implementation deps.lifecycle.extensions
-    implementation deps.lifecycle.reactStreams
+    api deps.lifecycle.extensions
+    api deps.lifecycle.reactStreams
     implementation deps.data.gsonCore
-    implementation deps.retrofit.core
-    implementation deps.retrofit.adapterRxJava2
-    implementation deps.retrofit.converterGson
+    api deps.retrofit.core
+    api deps.retrofit.adapterRxJava2
+    api deps.retrofit.converterGson
     implementation deps.okHttp3.core
     implementation deps.database.roomRuntime
     kapt deps.database.roomCompiler
