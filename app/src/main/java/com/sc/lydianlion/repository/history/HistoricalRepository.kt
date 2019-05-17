@@ -1,7 +1,14 @@
 package com.sc.lydianlion.repository.history
 
+import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.model.remote.TimeSeriesRemote
+import com.sc.core.net.DataResponse
 
 interface HistoricalRepository {
-    suspend fun showHistorical(startDate: String, endDate: String): TimeSeriesRemote?
+
+    suspend fun showHistorical(
+        startDate: String,
+        endDate: String, @FixerRequest request: String
+    ): DataResponse<TimeSeriesRemote>?
+
 }
