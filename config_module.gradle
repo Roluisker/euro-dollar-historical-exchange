@@ -2,6 +2,13 @@ android {
 
     compileSdkVersion versions.compileSdk
 
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdkVersion
+        versionCode versions.moduleVersionCode
+        versionName versions.moduleVersionName
+    }
+
     buildTypes {
         release {
             minifyEnabled false
