@@ -14,6 +14,19 @@
 
     </fragment>
 
+    <!--
+
+     <fragment
+        android:id="@+id/questionsFragment"
+        android:name="me.vponomarenko.modular.navigation.questions.QuestionsFragment"
+        android:label="QuestionsFragment">
+        <action
+            android:id="@+id/action_questionsFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
+
+    -->
+
     <activity
             android:id="@+id/mainAppActivity"
             tools:layout="@layout/activity_main"

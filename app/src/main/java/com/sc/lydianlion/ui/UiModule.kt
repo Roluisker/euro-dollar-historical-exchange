@@ -2,7 +2,7 @@ package com.sc.lydianlion.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.sc.core.di.AppViewModelFactory
+import com.sc.lydianlion.core.di.AppViewModelFactory
 import com.sc.lydianlion.ui.view.history.HistoricalModule
 import dagger.Module
 import dagger.Provides

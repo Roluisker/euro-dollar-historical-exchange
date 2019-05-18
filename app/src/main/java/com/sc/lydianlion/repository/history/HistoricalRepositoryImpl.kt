@@ -1,10 +1,10 @@
 package com.sc.lydianlion.repository.history
 
-import com.sc.core.BaseRepository
-import com.sc.core.annotation.net.FixerRequest
-import com.sc.core.api.MoneyApi
-import com.sc.core.model.remote.TimeSeriesRemote
-import com.sc.core.net.DataResponse
+import com.sc.lydianlion.core.BaseRepository
+import com.sc.lydianlion.core.annotation.net.FixerRequest
+import com.sc.lydianlion.core.api.MoneyApi
+import com.sc.lydianlion.core.model.remote.TimeSeriesRemote
+import com.sc.lydianlion.core.net.DataResponse
 import timber.log.Timber
 
 class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseRepository(), HistoricalRepository {

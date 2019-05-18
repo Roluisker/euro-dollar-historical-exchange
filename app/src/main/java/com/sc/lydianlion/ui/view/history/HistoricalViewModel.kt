@@ -1,7 +1,7 @@
 package com.sc.lydianlion.ui.view.history
 
-import com.sc.core.BaseViewModel
-import com.sc.core.annotation.net.TIME_SERIES
+import com.sc.lydianlion.core.BaseViewModel
+import com.sc.lydianlion.core.annotation.net.TIME_SERIES
 import com.sc.lydianlion.repository.history.HistoricalRepository
 import kotlinx.coroutines.*
 import timber.log.Timber

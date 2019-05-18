@@ -1,8 +1,8 @@
 package com.sc.lydianlion.repository.history
 
-import com.sc.core.annotation.net.FixerRequest
-import com.sc.core.model.remote.TimeSeriesRemote
-import com.sc.core.net.DataResponse
+import com.sc.lydianlion.core.annotation.net.FixerRequest
+import com.sc.lydianlion.core.model.remote.TimeSeriesRemote
+import com.sc.lydianlion.core.net.DataResponse
 
 interface HistoricalRepository {
 

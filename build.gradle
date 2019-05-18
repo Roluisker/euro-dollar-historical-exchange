@@ -70,9 +70,9 @@ buildscript {
                     'gsonCore': "com.google.code.gson:gson:${versions.gsonCore}"
             ],
             retrofit  : [
-                    'core'          : "com.squareup.retrofit2:retrofit:${versions.retrofitNet}",
+                    'core'         : "com.squareup.retrofit2:retrofit:${versions.retrofitNet}",
                     //'adapterRxJava2': "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofitNet}",
-                    'converterGson' : "com.squareup.retrofit2:converter-gson:${versions.retrofitNet}"
+                    'converterGson': "com.squareup.retrofit2:converter-gson:${versions.retrofitNet}"
             ],
             okHttp3   : [
                     'core': "com.squareup.okhttp3:okhttp:${versions.okHttpNet}"
@@ -90,7 +90,8 @@ buildscript {
             navigation: [
                     'fragment'           : "androidx.navigation:navigation-fragment:${versions.xNavigation}",
                     'core'               : "androidx.navigation:navigation-ui:${versions.xNavigation}",
-                    'gradlePluginSafeArg': "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.xNavigation}"
+                    'gradlePluginSafeArg': "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.xNavigation}",
+                    'fragmentKtx'        : "android.arch.navigation:navigation-fragment-ktx:1.0.0"
             ],
             desing    : [
                     'material': "com.google.android.material:material:${versions.googleMaterial}"

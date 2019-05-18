@@ -1,13 +1,12 @@
 package com.sc.lydianlion.ui.view.history
 
 import android.os.Bundle
-import androidx.lifecycle.LiveData
-
-import com.sc.core.BaseFragment
-import com.sc.core.annotation.net.FixerRequest
-import com.sc.core.net.BasicError
-import com.sc.core.net.DataResponse
+import androidx.lifecycle.MutableLiveData
+import com.sc.lydianlion.core.BaseFragment
+import com.sc.lydianlion.core.net.BasicError
+import com.sc.lydianlion.core.net.DataResponse
 import com.sc.lydianlion.R
+import com.sc.lydianlion.core.annotation.net.FixerRequest
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -31,6 +30,6 @@ class HistoricalFragment : BaseFragment() {
 
     override fun fragmentLayout(): Int = R.layout.historical_fragment
 
-    override fun mutableLiveData(): LiveData<DataResponse<Any>> = historicalViewModel.liveData
+    override fun mutableLiveData(): MutableLiveData<DataResponse<Any>> = historicalViewModel.liveData
 
 }

@@ -1,7 +1,7 @@
 ext {
     dependencies {
-        api deps.navigation.core
-        api deps.navigation.fragment
+        //api deps.navigation.core
+        api deps.navigation.fragmentKtx
         api deps.images.picasso
         api deps.support.appCompat
         api deps.support.androidxCore

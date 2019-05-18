@@ -2,7 +2,6 @@ package com.sc.lydianlion
 
 import android.app.Application
 import androidx.fragment.app.Fragment
-import com.sc.core.BuildConfig
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import timber.log.Timber
