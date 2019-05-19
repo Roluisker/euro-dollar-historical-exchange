@@ -7,21 +7,7 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.moduleVersionCode
         versionName versions.moduleVersionName
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            useProguard false
-            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //testProguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguardTest-rules.pro'
-        }
-        debug {
-            minifyEnabled false
-            useProguard false
-            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //testProguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguardTest-rules.pro'
-        }
+        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {

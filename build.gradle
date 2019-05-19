@@ -9,7 +9,7 @@ buildscript {
             'moduleVersionCode' : 1,
             'moduleVersionName' : "1",
             'gsonCore'          : '2.8.5',
-            'androidPlugin'     : '3.4.0',
+            'androidPlugin'     : '3.3.0',
             'androidxCore'      : '1.1.0-alpha04',
             'androidxAppCompat' : '1.0.0-beta01',
             'androidxConstrains': '1.1.3',

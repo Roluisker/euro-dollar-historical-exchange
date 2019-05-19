@@ -1,1 +1,1 @@
-include ':app', ':convert', ':timeline'
+include ':app', ':core', ':timeline', ':convert'

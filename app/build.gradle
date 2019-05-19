@@ -22,14 +22,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", '"http://data.fixer.io/api/"'
-            buildConfigField "String", "API_KEY", '"f53fe70184f79507a924e35b9e2dd52f"'
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", '"http://data.fixer.io/api/"'
-            buildConfigField "String", "API_KEY", '"f53fe70184f79507a924e35b9e2dd52f"'
         }
     }
 
@@ -38,58 +34,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dynamicFeatures = [":timeline"]
-}
-
-/*
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs"
-apply from: '../config_module.gradle'
-apply from: '../base_dagger_libraries.gradle'
-
-
-android {
-
-    defaultConfig {
-        applicationId versions.applicationId
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdkVersion
-        vectorDrawables.useSupportLibrary = true
-        multiDexEnabled true
-        versionCode versions.moduleVersionCode
-        versionName versions.moduleVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
     dynamicFeatures = [":convert"]
 
-}*/
-
-dependencies {
-    //implementation project(':core')
-    api deps.log.timber
-    implementation deps.kotlin.stdlib
-    api deps.lifecycle.extensions
-    api deps.lifecycle.reactStreams
-    implementation deps.data.gsonCore
-    api deps.retrofit.core
-    //api deps.retrofit.adapterRxJava2
-    api deps.retrofit.converterGson
-    implementation deps.okHttp3.core
-    implementation deps.database.roomRuntime
-    kapt deps.database.roomCompiler
-    //implementation deps.database.roomRxjava2
-    api "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
-
 }
 
-/*
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
- */
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':core')
+    implementation project(':timeline')
+}

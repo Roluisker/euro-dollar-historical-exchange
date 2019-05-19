@@ -8,28 +8,15 @@
 
     <fragment
             android:id="@+id/historical"
-            android:name="com.sc.lydianlion.ui.view.history.HistoricalFragment"
+            android:name="com.sc.timeline.ui.HistoricalFragment"
             android:label="fragment_list_movies"
             tools:layout="@layout/historical_fragment">
 
     </fragment>
 
-    <!--
-
-     <fragment
-        android:id="@+id/questionsFragment"
-        android:name="me.vponomarenko.modular.navigation.questions.QuestionsFragment"
-        android:label="QuestionsFragment">
-        <action
-            android:id="@+id/action_questionsFragment_to_questionFragment"
-            app:destination="@id/questionFragment" />
-    </fragment>
-
-    -->
-
     <activity
             android:id="@+id/mainAppActivity"
             tools:layout="@layout/activity_main"
-            android:name="com.sc.lydianlion.ui.view.MainActivity"/>
+            android:name="com.sc.lydianlion.MainActivity"/>
 
 </navigation>
