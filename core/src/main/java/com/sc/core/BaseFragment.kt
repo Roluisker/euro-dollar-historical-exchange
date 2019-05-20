@@ -1,5 +1,6 @@
 package com.sc.core
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,13 @@ import androidx.lifecycle.Observer
 
 abstract class BaseFragment : Fragment() {
 
+    private lateinit var process: ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!::process.isInitialized) {
+            createProgressDialog()
+        }
     }
 
     override fun onCreateView(
@@ -36,13 +42,49 @@ abstract class BaseFragment : Fragment() {
     private fun consumeResponse(response: DataResponse<Any>) {
 
         when (response) {
-            is DataResponse.Success ->
+            is DataResponse.Loading -> {
+                switchProgressDialog(true)
+            }
+            is DataResponse.Success -> {
                 onSuccessResponse(response.data, response.requestTag)
+                switchProgressDialog(false)
+            }
             is DataResponse.Error -> {
+                switchProgressDialog(false)
                 onFailureResponse(BasicError(1, response.exception, ""), response.requestTag)
             }
         }
 
+    }
+
+    private fun createProgressDialog() {
+        try {
+
+            activity?.let {
+                process = ProgressDialog(it)
+                process.setMessage(getString(R.string.loading))
+                process.setCancelable(false)
+                process.isIndeterminate = true
+            }
+
+        } catch (e: Exception) {
+
+        }
+    }
+
+    public fun switchProgressDialog(show: Boolean) {
+        try {
+
+            process?.let {
+                if (show && !it.isShowing) {
+                    it.show()
+                } else if (!show && it.isShowing) {
+                    it.hide()
+                }
+            }
+        } catch (e: Exception) {
+
+        }
     }
 
     abstract fun onSuccessResponse(data: Any?, request: String?)

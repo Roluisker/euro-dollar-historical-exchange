@@ -6,7 +6,8 @@ import org.joda.time.format.DateTimeFormat
 import java.util.*
 
 const val SIMPLE_TIME_FORMAT_DATE = "dd MMM"
-const val TODAY_TIME_FORMAT_DATE = "Y-MM-d"
+const val TODAY_TIME_FORMAT_DATE = "Y-MM-dd"
+const val SEARCH_TIME_FORMAT_DATE = "dd MMM Y"
 
 object DateUtilities {
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:bottom="@dimen/all_dimen_6"
+            android:drawable="@drawable/transparent_bg_bordered"
+            android:top="@dimen/all_dimen_6"/>
+
+</layer-list>

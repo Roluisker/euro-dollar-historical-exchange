@@ -23,16 +23,33 @@ class HistoricalViewModel(private val historicalRepository: HistoricalRepository
     private val axisData: MutableList<String> = ArrayList()
     private var yAxisData: MutableList<String> = ArrayList()
 
+    lateinit var currentStartDate: String
+    lateinit var currentEndDate: String
+
     var euroToKey: String = CoreConstants.USD
     var maxRange: Float = CoreConstants.MAX_USD_RANGE
 
     fun showHistorical(start: String, end: String) {
+
+        liveData.postValue(DataResponse.Loading(TIME_SERIES))
+
         scope.launch {
-            liveData.postValue(DataResponse.Success(dataToLineChartData(historicalRepository.showHistorical(start, end, TIME_SERIES)), TIME_SERIES))
+            currentStartDate = start
+            currentEndDate = end
+            liveData.postValue(
+                DataResponse.Success(
+                    dataToLineChartData(
+                        historicalRepository.showHistorical(
+                            currentStartDate,
+                            currentEndDate, TIME_SERIES
+                        )
+                    ), TIME_SERIES
+                )
+            )
         }
     }
 
-    private fun dataToLineChartData(result: DataResponse<TimeSeriesRemote>) : LineChartData {
+    private fun dataToLineChartData(result: DataResponse<TimeSeriesRemote>): LineChartData {
 
         var rateItem = TimeSeriesRemote(false)
 
@@ -41,6 +58,9 @@ class HistoricalViewModel(private val historicalRepository: HistoricalRepository
         val line = Line(yAxisValues)
         val lines = ArrayList<Line>()
         val data = LineChartData()
+
+        axisData.clear()
+        yAxisData.clear()
 
         when (result) {
             is DataResponse.Success ->

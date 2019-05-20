@@ -2,9 +2,7 @@ package com.sc.timeline.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.sc.core.BaseFragment
 import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.net.BasicError
@@ -15,19 +13,22 @@ import com.sc.timeline.ui.di.HistoricalFragmentModule
 import kotlinx.android.synthetic.main.historical_fragment.*
 import javax.inject.Inject
 import androidx.appcompat.app.AlertDialog
-import com.sc.core.AnimationUtil
 import com.sc.core.CoreConstants.Companion.JPY
 import com.sc.core.CoreConstants.Companion.MAX_USD_RANGE
 import com.sc.core.CoreConstants.Companion.MAX_YEN_RANGE
 import com.sc.core.CoreConstants.Companion.USD
-import com.sc.core.DateUtilities
 import com.sc.timeline.R
 import lecho.lib.hellocharts.model.LineChartData
 import lecho.lib.hellocharts.model.Viewport
+import android.app.DatePickerDialog
+import android.widget.DatePicker
+import com.sc.core.*
+import org.joda.time.DateTime
+import java.util.*
 
-const val DEFAULT_HISTORICAL = 180
+const val DEFAULT_HISTORICAL = 30
 
-class HistoricalFragment : BaseFragment() {
+class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
@@ -35,12 +36,20 @@ class HistoricalFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setListeners()
-        historicalViewModel.showHistorical(DateUtilities.todayMinusDays(DEFAULT_HISTORICAL), DateUtilities.today())
+        //loadHistorical(DateUtilities.todayMinusDays(DEFAULT_HISTORICAL), DateUtilities.today())
+        loadHistorical("2019-03-01", "2019-03-20")
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         initDependencyInjection()
+    }
+
+    private fun loadHistorical(start: String, end: String) {
+        historicalViewModel.showHistorical(start, end)
+        startDate.text = start
+        endDate.text = end
+        endDate.isEnabled = false
     }
 
     override fun onSuccessResponse(data: Any?, @FixerRequest request: String?) {
@@ -59,11 +68,17 @@ class HistoricalFragment : BaseFragment() {
         euroTo.setOnClickListener {
             showMoneyOptions()
         }
+        startDate.setOnClickListener {
+            selectStartDate()
+        }
+        //endDate.setOnClickListener {
+        //    selectEndDate()
+        //}
     }
 
     private fun showMoneyOptions() {
         val checkedItem = 0
-        arrayOf(USD, JPY).let {
+        arrayOf(USD).let {
 
             AlertDialog.Builder(context!!).apply {
                 setTitle(getString(R.string.euro_to))
@@ -112,6 +127,35 @@ class HistoricalFragment : BaseFragment() {
             currentViewport = viewport
             AnimationUtil.animate(lineChart, R.anim.fade_in, context)
         }
+    }
+
+    private fun selectStartDate() {
+        initDatePicker().show()
+    }
+
+    private fun initDatePicker(): DatePickerDialog {
+        val calendar = Calendar.getInstance()
+        return DatePickerDialog(
+            context,
+            this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+
+        val currentDayOfMo: Int = if (dayOfMonth == 31) {
+            30
+        } else {
+            dayOfMonth
+        }
+
+        historicalViewModel.showHistorical(
+            DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo")),
+            historicalViewModel.currentEndDate
+        )
+        startDate.text = DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo"))
+
     }
 
     private fun initDependencyInjection() =
