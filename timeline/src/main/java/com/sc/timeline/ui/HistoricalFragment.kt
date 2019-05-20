@@ -2,6 +2,7 @@ package com.sc.timeline.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.BaseFragment
 import com.sc.core.annotation.net.FixerRequest
@@ -14,6 +15,7 @@ import com.sc.timeline.ui.di.HistoricalFragmentModule
 import kotlinx.android.synthetic.main.historical_fragment.*
 import javax.inject.Inject
 import androidx.appcompat.app.AlertDialog
+import com.sc.core.AnimationUtil
 import com.sc.core.CoreConstants.Companion.JPY
 import com.sc.core.CoreConstants.Companion.MAX_USD_RANGE
 import com.sc.core.CoreConstants.Companion.MAX_YEN_RANGE
@@ -108,6 +110,7 @@ class HistoricalFragment : BaseFragment() {
             val viewport = Viewport(lineChart.maximumViewport)
             maximumViewport = viewport
             currentViewport = viewport
+            AnimationUtil.animate(lineChart, R.anim.fade_in, context)
         }
     }
 

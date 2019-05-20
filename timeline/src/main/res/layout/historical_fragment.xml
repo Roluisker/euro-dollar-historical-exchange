@@ -19,6 +19,7 @@
 
     <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/lineChart"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/all_dimen_20"
             android:layout_marginRight="@dimen/all_dimen_20"
             android:layout_marginLeft="@dimen/all_dimen_20"
