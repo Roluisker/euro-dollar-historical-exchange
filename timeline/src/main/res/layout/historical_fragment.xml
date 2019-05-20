@@ -4,8 +4,25 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TextView
+            android:id="@+id/euroTo"
+            style="?android:attr/spinnerStyle"
+            android:layout_width="fill_parent"
+            android:textSize="@dimen/all_dimen_18_sp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="@dimen/all_dimen_20"
+            android:clickable="true"
+            android:text="@string/euro_dollar"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"/>
+
     <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/lineChart"
+            android:layout_marginTop="@dimen/all_dimen_20"
+            android:layout_marginRight="@dimen/all_dimen_20"
+            android:layout_marginLeft="@dimen/all_dimen_20"
+            android:layout_marginBottom="@dimen/all_dimen_20"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

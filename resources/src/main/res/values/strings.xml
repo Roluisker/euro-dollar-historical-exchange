@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Resources</string>
+    <string name="euro_dollar">Euro to Dollar</string>
+    <string name="euro_yen">Euro to Yen</string>
+    <string name="done">Done</string>
+    <string name="hide">Hide</string>
+</resources>

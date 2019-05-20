@@ -7,7 +7,7 @@ apply from: '../config_module.gradle'
 apply from: '../base_libraries.gradle'
 apply from: '../base_dagger_libraries.gradle'
 
-android{
+android {
 
     buildTypes {
         release {
@@ -44,4 +44,5 @@ dependencies {
     api deps.coroutines.android
     api deps.coroutines.core
     api deps.data.jodaTime
+    api project(':resources')
 }
