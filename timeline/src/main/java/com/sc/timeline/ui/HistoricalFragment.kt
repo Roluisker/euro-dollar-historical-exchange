@@ -71,9 +71,6 @@ class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         startDate.setOnClickListener {
             selectStartDate()
         }
-        //endDate.setOnClickListener {
-        //    selectEndDate()
-        //}
     }
 
     private fun showMoneyOptions() {
