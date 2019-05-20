@@ -53,9 +53,9 @@ class HistoricalFragment : BaseFragment() {
         data.lines = lines
 
         val axis = Axis()
-        axis.setValues(axisValues)
-        axis.setTextSize(16)
-        axis.setTextColor(Color.parseColor("#03A9F4"))
+        axis.values = axisValues
+        axis.textSize = 16
+        axis.textColor = Color.parseColor("#03A9F4")
         data.axisXBottom = axis
 
         val yAxis = Axis()
@@ -64,11 +64,11 @@ class HistoricalFragment : BaseFragment() {
         yAxis.textSize = 16
         data.axisYLeft = yAxis
 
-        lineChart.setLineChartData(data)
-        val viewport = Viewport(lineChart.getMaximumViewport())
+        lineChart.lineChartData = data
+        val viewport = Viewport(lineChart.maximumViewport)
         viewport.top = 110f
-        lineChart.setMaximumViewport(viewport)
-        lineChart.setCurrentViewport(viewport)
+        lineChart.maximumViewport = viewport
+        lineChart.currentViewport = viewport
 
     }
 
