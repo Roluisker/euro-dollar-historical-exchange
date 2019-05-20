@@ -10,7 +10,7 @@ open class BaseRepository {
         call: suspend () -> Response<T>,
         errorMessage: String,
         requestTag: String
-    ): DataResponse<T>? {
+    ): DataResponse<T> {
         return safeApiResult(call, errorMessage, requestTag)
     }
 

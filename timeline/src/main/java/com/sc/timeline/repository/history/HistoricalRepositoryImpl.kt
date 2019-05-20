@@ -13,7 +13,7 @@ class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseRepository(
     override suspend fun showHistorical(
         startDate: String,
         endDate: String, @FixerRequest requestTag: String
-    ): DataResponse<TimeSeriesRemote>? {
+    ): DataResponse<TimeSeriesRemote> {
         Timber.i("showHistorical")
 
         val r = safeApiCall(

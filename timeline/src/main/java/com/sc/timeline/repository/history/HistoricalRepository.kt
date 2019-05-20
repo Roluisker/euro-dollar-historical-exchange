@@ -9,6 +9,6 @@ interface HistoricalRepository {
     suspend fun showHistorical(
         startDate: String,
         endDate: String, @FixerRequest request: String
-    ): DataResponse<TimeSeriesRemote>?
+    ): DataResponse<TimeSeriesRemote>
 
 }
