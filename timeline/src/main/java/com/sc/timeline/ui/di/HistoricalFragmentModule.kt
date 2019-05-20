@@ -1,5 +1,6 @@
 package com.sc.timeline.ui.di
 
+import android.content.Context
 import com.sc.core.api.MoneyApi
 import com.sc.core.ui.getViewModel
 import com.sc.timeline.ui.HistoricalViewModel
@@ -18,10 +19,10 @@ class HistoricalFragmentModule(val fragment: HistoricalFragment) {
 
     @Provides
     fun provideHistoricalViewModel(
-        repository: HistoricalRepositoryImpl
+        repository: HistoricalRepositoryImpl, context: Context
     ): HistoricalViewModel =
         fragment.getViewModel {
-            HistoricalViewModel(repository)
+            HistoricalViewModel(repository, context)
         }
 
 }

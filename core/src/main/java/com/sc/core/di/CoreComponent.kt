@@ -19,12 +19,5 @@ interface CoreComponent {
 
     fun context(): Context
     fun provideMoneyApi(): MoneyApi
-    //fun provide
 
-    /*
-    fun firebaseFirestore(): FirebaseFirestore
-    fun remoteContentRepo(): RemoteContentRepo
-    fun contentUseCases(): ContentUseCases
-    fun provideDispatchersProvider(): DispatchersProvider
-    */
 }
