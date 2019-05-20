@@ -20,5 +20,7 @@ class CoreConstants {
         const val USD = "USD"
         const val JPY = "JPY"
         const val EUR = "EUR"
+        const val MAX_USD_RANGE = 2F
+        const val MAX_YEN_RANGE = 150F
     }
 }

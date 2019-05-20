@@ -11,6 +11,6 @@ data class TimeSeriesRemote(
     val timeseries: String? = "",
     val start_date: String? = "",
     val end_date: String? = "",
-    val base: String,
+    val base: String? = "",
     val rates: TimeSeries = TimeSeries()
 )

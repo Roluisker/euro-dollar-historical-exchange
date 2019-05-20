@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
-
 fun Fragment.coreComponent() = requireActivity().coreComponent()
 
 inline fun <reified V : ViewModel> Fragment.getViewModel(key: String? = null, noinline factory: () -> V): V {

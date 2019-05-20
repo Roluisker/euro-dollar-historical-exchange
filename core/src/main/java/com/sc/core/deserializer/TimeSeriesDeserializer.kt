@@ -25,29 +25,36 @@ class TimeSeriesDeserializer : JsonDeserializer<TimeSeriesRemote>, JsonSerialize
     ): TimeSeriesRemote {
 
         val ob = json!!.asJsonObject
-        val currentRates = ob.get(RATE_LABEL).asJsonObject
 
-        val seriesRemote = TimeSeriesRemote(
-            ob.get(SUCCESS_LABEL).asBoolean, ob.get(TIME_SERIES_LABEL).asString,
-            ob.get(START_DATE_LABEL).asString, ob.get(END_DATE_LABEL).asString,
-            ob.get(BASE_LABEL).asString
-        )
+        var seriesRemote = TimeSeriesRemote(ob.get(SUCCESS_LABEL).asBoolean)
 
-        for (set in currentRates.entrySet()) {
-            val rateObjet = set.value.asJsonObject
+        if(seriesRemote.success) {
 
-            try {
+            val currentRates = ob.get(RATE_LABEL).asJsonObject
 
-                seriesRemote.rates!!.rateItem.put(
-                    set.key,
-                    hashMapOf(
-                        USD to rateObjet.get(USD).asString,
-                        JPY to rateObjet.get(JPY).asString,
-                        EUR to rateObjet.get(EUR).asString
+            seriesRemote = TimeSeriesRemote(
+                ob.get(SUCCESS_LABEL).asBoolean, ob.get(TIME_SERIES_LABEL).asString,
+                ob.get(START_DATE_LABEL).asString, ob.get(END_DATE_LABEL).asString,
+                ob.get(BASE_LABEL).asString
+            )
+
+            for (set in currentRates.entrySet()) {
+                val rateObjet = set.value.asJsonObject
+
+                try {
+
+                    seriesRemote.rates!!.rateItem.put(
+                        set.key,
+                        hashMapOf(
+                            USD to rateObjet.get(USD).asString,
+                            JPY to rateObjet.get(JPY).asString,
+                            EUR to rateObjet.get(EUR).asString
+                        )
                     )
-                )
-            } catch (error: Exception) {
-                Timber.e(error)
+                } catch (error: Exception) {
+                    Timber.e(error)
+                }
+
             }
 
         }
@@ -55,7 +62,6 @@ class TimeSeriesDeserializer : JsonDeserializer<TimeSeriesRemote>, JsonSerialize
         return seriesRemote
 
     }
-
 
     override fun serialize(src: TimeSeriesRemote?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
         return JsonObject().apply {

@@ -1,7 +1,6 @@
 package com.sc.timeline.ui
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.BaseFragment
@@ -18,19 +17,29 @@ import javax.inject.Inject
 import lecho.lib.hellocharts.model.*
 import lecho.lib.hellocharts.model.Viewport
 import androidx.appcompat.app.AlertDialog
-import com.sc.core.CoreConstants
+import androidx.core.content.ContextCompat.getColor
+import com.sc.core.CoreConstants.Companion.JPY
+import com.sc.core.CoreConstants.Companion.MAX_USD_RANGE
+import com.sc.core.CoreConstants.Companion.MAX_YEN_RANGE
+import com.sc.core.CoreConstants.Companion.USD
+import com.sc.core.DateUtilities
+import com.sc.core.SIMPLE_TIME_FORMAT_DATE
 import com.sc.timeline.R
+import org.joda.time.DateTime
+
+const val DEFAULT_HISTORICAL = 180
 
 class HistoricalFragment : BaseFragment() {
 
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
-    var euroToKey: String = CoreConstants.USD
+    var euroToKey: String = USD
+    var maxRange: Float = MAX_USD_RANGE
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setListeners()
-        historicalViewModel.showHistorical("2012-05-01", "2012-05-25")
+        historicalViewModel.showHistorical(DateUtilities.todayMinusDays(DEFAULT_HISTORICAL), DateUtilities.today())
     }
 
     override fun onAttach(context: Context?) {
@@ -58,7 +67,7 @@ class HistoricalFragment : BaseFragment() {
 
     private fun showMoneyOptions() {
         val checkedItem = 0
-        arrayOf(CoreConstants.USD, CoreConstants.JPY).let {
+        arrayOf(USD, JPY).let {
 
             AlertDialog.Builder(context!!).apply {
                 setTitle(getString(R.string.euro_to))
@@ -67,10 +76,14 @@ class HistoricalFragment : BaseFragment() {
                 ) { dialog, which ->
                     euroToKey = it[which]
                 }
-                setPositiveButton(getString(R.string.hide)) { dialog, which ->
+                setPositiveButton(getString(R.string.done)) { dialog, which ->
                     run {
                         dialog.dismiss()
                         currentMoney(euroToKey)
+                        historicalViewModel.showHistorical(
+                            DateUtilities.todayMinusDays(DEFAULT_HISTORICAL),
+                            DateUtilities.today()
+                        )
                     }
                 }
                 create()
@@ -83,11 +96,13 @@ class HistoricalFragment : BaseFragment() {
     private fun currentMoney(key: String) {
         key?.let {
             when (it) {
-                CoreConstants.USD -> {
+                USD -> {
                     euroTo.text = getString(R.string.euro_dollar)
+                    maxRange = MAX_USD_RANGE
                 }
-                CoreConstants.JPY -> {
+                JPY -> {
                     euroTo.text = getString(R.string.euro_yen)
+                    maxRange = MAX_YEN_RANGE
                 }
             }
         }
@@ -95,23 +110,32 @@ class HistoricalFragment : BaseFragment() {
 
     private fun showChartLine(rateItem: TimeSeriesRemote) {
 
-        rateItem.rates.rateItem.keys.toTypedArray()
+        val axisData: MutableList<String> = ArrayList()
+        var yAxisData: MutableList<String> = ArrayList()
 
-        var axisData =
-            rateItem.rates.rateItem.keys.toTypedArray() //arrayOf("Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec")
-        var yAxisData = intArrayOf(50, 20, 15, 30, 20, 60, 15, 40, 45, 10, 90, 18)
+        rateItem.rates.rateItem.keys.toTypedArray().forEach {
+            axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
+        }
+
+        rateItem.rates.rateItem.forEach {
+            it.value[euroToKey]?.let { it1 -> yAxisData.add(it1) }
+        }
 
         val yAxisValues = ArrayList<PointValue>()
         val axisValues = ArrayList<AxisValue>()
 
-        val line = Line(yAxisValues).setColor(Color.parseColor("#9C27B0"))
+        val line = Line(yAxisValues)
+
+        line.color = getColor(context!!, R.color.colorBlack)
+        line.setHasLabels(true)
+        line.setHasLabelsOnlyForSelected(true)
 
         for (i in 0 until axisData.size) {
             axisValues.add(i, AxisValue(i.toFloat()).setLabel(axisData[i]))
         }
 
         for (i in 0 until yAxisData.size) {
-            yAxisValues.add(PointValue(i.toFloat(), yAxisData[i].toFloat()))
+            yAxisValues.add(PointValue(i.toFloat(), yAxisData[i].toFloat()).setLabel(axisData[i] + "--" + "1 Euro -> " +yAxisData[i].toFloat()+" " + euroToKey))
         }
 
         val lines = ArrayList<Line>()
@@ -122,19 +146,19 @@ class HistoricalFragment : BaseFragment() {
 
         val axis = Axis()
         axis.values = axisValues
-        axis.textSize = 16
-        axis.textColor = Color.parseColor("#03A9F4")
+        axis.textSize = 12
+        axis.textColor = getColor(context!!, R.color.colorPrimary)
         data.axisXBottom = axis
 
         val yAxis = Axis()
-        yAxis.name = "Euro"
-        yAxis.textColor = Color.parseColor("#03A9F4")
+        yAxis.name = ""
+        yAxis.textColor = getColor(context!!, R.color.colorPrimary)
         yAxis.textSize = 16
         data.axisYLeft = yAxis
 
         lineChart.lineChartData = data
         val viewport = Viewport(lineChart.maximumViewport)
-        viewport.top = 110f
+        viewport.top = maxRange
         lineChart.maximumViewport = viewport
         lineChart.currentViewport = viewport
 
