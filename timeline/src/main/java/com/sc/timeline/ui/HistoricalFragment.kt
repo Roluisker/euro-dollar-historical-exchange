@@ -9,7 +9,6 @@ import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.net.BasicError
 import com.sc.core.net.DataResponse
 import com.sc.core.ui.coreComponent
-import com.sc.timeline.HistoricalViewModel
 import com.sc.timeline.R
 import com.sc.timeline.di.DaggerTimelineComponent
 import com.sc.timeline.ui.di.HistoricalFragmentModule
@@ -59,7 +58,7 @@ class HistoricalFragment : BaseFragment() {
         data.axisXBottom = axis
 
         val yAxis = Axis()
-        yAxis.name = "Sales in millions"
+        yAxis.name = "Euro"
         yAxis.textColor = Color.parseColor("#03A9F4")
         yAxis.textSize = 16
         data.axisYLeft = yAxis

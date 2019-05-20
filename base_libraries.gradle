@@ -1,6 +1,5 @@
 ext {
     dependencies {
-        //api deps.navigation.core
         api deps.navigation.fragmentKtx
         api deps.images.picasso
         api deps.support.appCompat

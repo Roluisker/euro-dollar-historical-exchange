@@ -3,10 +3,13 @@ package com.sc.core.deserializer
 import com.google.gson.*
 import com.sc.core.CoreConstants.Companion.BASE_LABEL
 import com.sc.core.CoreConstants.Companion.END_DATE_LABEL
+import com.sc.core.CoreConstants.Companion.EUR
+import com.sc.core.CoreConstants.Companion.JPY
 import com.sc.core.CoreConstants.Companion.RATE_LABEL
 import com.sc.core.CoreConstants.Companion.START_DATE_LABEL
 import com.sc.core.CoreConstants.Companion.SUCCESS_LABEL
 import com.sc.core.CoreConstants.Companion.TIME_SERIES_LABEL
+import com.sc.core.CoreConstants.Companion.USD
 import com.sc.core.model.remote.TimeSeriesRemote
 import timber.log.Timber
 import java.lang.Exception
@@ -37,10 +40,10 @@ class TimeSeriesDeserializer : JsonDeserializer<TimeSeriesRemote>, JsonSerialize
 
                 seriesRemote.rates!!.rateItem.put(
                     set.key,
-                    arrayListOf(
-                        rateObjet.get("USD").asString,
-                        rateObjet.get("AUD").asString,
-                        rateObjet.get("CAD").asString
+                    hashMapOf(
+                        USD to rateObjet.get(USD).asString,
+                        JPY to rateObjet.get(JPY).asString,
+                        EUR to rateObjet.get(EUR).asString
                     )
                 )
             } catch (error: Exception) {
@@ -52,6 +55,7 @@ class TimeSeriesDeserializer : JsonDeserializer<TimeSeriesRemote>, JsonSerialize
         return seriesRemote
 
     }
+
 
     override fun serialize(src: TimeSeriesRemote?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
         return JsonObject().apply {

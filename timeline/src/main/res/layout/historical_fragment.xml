@@ -4,11 +4,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
-            android:text="Historical 22"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView"/>
-
     <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/lineChart"
             android:layout_width="match_parent"

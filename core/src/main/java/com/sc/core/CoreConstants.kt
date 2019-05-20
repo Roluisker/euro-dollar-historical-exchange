@@ -17,5 +17,8 @@ class CoreConstants {
         const val RATE_LABEL = "rates"
         const val HEADER_ACCEPT_JSON: String = "Accept: application/json"
         const val HEADER_CONTENT_TYPE_JSON: String = "Content-Type: application/json"
+        const val USD = "USD"
+        const val JPY = "JPY"
+        const val EUR = "EUR"
     }
 }
