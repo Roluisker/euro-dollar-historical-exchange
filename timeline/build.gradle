@@ -9,6 +9,10 @@ apply from: '../base_dagger_libraries.gradle'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
+
+
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    //implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
     /*
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
