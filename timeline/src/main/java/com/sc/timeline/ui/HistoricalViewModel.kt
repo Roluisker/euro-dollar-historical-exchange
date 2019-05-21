@@ -38,7 +38,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
             when (historicalData) {
                 is DataResponse.Success -> {
-                    //liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
+                    liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
                 }
                 is DataResponse.Error -> {
                     liveData.postValue(historicalData)
