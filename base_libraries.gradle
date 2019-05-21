@@ -7,7 +7,7 @@ ext {
         api deps.support.constraint
         api deps.desing.material
         api deps.test.junit
-        api deps.test.androidxTestRunner
-        api deps.test.androidxTestEspresso
+        //api deps.test.androidxTestRunner
+        //api deps.test.androidxTestEspresso
     }
 }

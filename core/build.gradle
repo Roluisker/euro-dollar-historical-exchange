@@ -45,4 +45,8 @@ dependencies {
     api deps.coroutines.core
     api deps.data.jodaTime
     api project(':resources')
+
+    androidTestImplementation deps.test.androidxTestRunner
+    androidTestImplementation deps.test.androidxTestEspresso
+
 }

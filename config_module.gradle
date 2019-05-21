@@ -7,7 +7,7 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.moduleVersionCode
         versionName versions.moduleVersionName
-        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
