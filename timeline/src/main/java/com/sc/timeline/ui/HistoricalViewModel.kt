@@ -17,7 +17,7 @@ import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
 import java.util.*
 
-class HistoricalViewModel(private val historicalRepository: HistoricalRepository, private val context: Context) :
+open class HistoricalViewModel(var historicalRepository: HistoricalRepository, private val context: Context) :
     BaseViewModel() {
 
     private val axisData: MutableList<String> = ArrayList()
@@ -34,9 +34,11 @@ class HistoricalViewModel(private val historicalRepository: HistoricalRepository
         scope.launch {
             liveData.postValue(DataResponse.Loading(TIME_SERIES))
 
-            when (val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)) {
+            val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)
+
+            when (historicalData) {
                 is DataResponse.Success -> {
-                    liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
+                    //liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
                 }
                 is DataResponse.Error -> {
                     liveData.postValue(historicalData)

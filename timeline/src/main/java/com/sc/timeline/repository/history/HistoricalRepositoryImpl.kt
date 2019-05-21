@@ -6,7 +6,7 @@ import com.sc.core.api.MoneyApi
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
 
-class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseRepository(),
+open class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseRepository(),
     HistoricalRepository {
 
     override suspend fun showHistorical(
@@ -15,7 +15,7 @@ class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseRepository(
     ): DataResponse<TimeSeriesRemote> {
 
         return try {
-            DataResponse.Success(moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await(), requestTag)
+            DataResponse.Success(moneyApi.getMoneyTimeSeriesByDateAsync(startDate, endDate).await(), requestTag)
         } catch (error: Exception) {
             DataResponse.Error(TimeSeriesRemote(false), error, requestTag)
         }

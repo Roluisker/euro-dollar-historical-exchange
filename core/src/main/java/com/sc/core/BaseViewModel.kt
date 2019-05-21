@@ -7,17 +7,10 @@ import kotlinx.coroutines.*
 
 open class BaseViewModel : ViewModel() {
 
-    val liveData = MutableLiveData<DataResponse<Any>>()
+    var liveData = MutableLiveData<DataResponse<Any>>()
 
-    //val liveData = MutableLiveData<Any>()
-
-    /*
-    private val parentJob = Job()
-    private val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.Default
-    protected val scope = CoroutineScope(coroutineContext)*/
-
-    val job = SupervisorJob()
-    val scope = CoroutineScope(Dispatchers.Default + job)
+    private val job = SupervisorJob()
+    var scope = CoroutineScope(Dispatchers.Default + job)
 
     override fun onCleared() {
         super.onCleared()

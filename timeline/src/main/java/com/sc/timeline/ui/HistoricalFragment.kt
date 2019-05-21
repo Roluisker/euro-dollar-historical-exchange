@@ -23,12 +23,16 @@ import lecho.lib.hellocharts.model.Viewport
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import com.sc.core.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import java.util.*
 
 const val DEFAULT_HISTORICAL = 30
 
-class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
+open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
@@ -46,11 +50,20 @@ class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         initDependencyInjection()
     }
 
-    private fun loadHistorical(start: String, end: String) {
-        historicalViewModel.showHistorical(start, end)
-        startDate.text = start
-        endDate.text = end
-        endDate.isEnabled = false
+    fun loadHistorical(start: String, end: String) {
+
+        val job = SupervisorJob()
+        val scope = CoroutineScope(Dispatchers.Default + job)
+
+        //scope.launch {
+
+            historicalViewModel.showHistorical(start, end)
+            startDate.text = start
+            endDate.text = end
+            endDate.isEnabled = false
+
+        //}
+
     }
 
     override fun onSuccessResponse(data: Any?, @FixerRequest request: String?) {
@@ -89,7 +102,7 @@ class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
                     run {
                         dialog.dismiss()
                         currentMoney(historicalViewModel.euroToKey)
-                        historicalViewModel.showHistorical(
+                        loadHistorical(
                             DateUtilities.todayMinusDays(DEFAULT_HISTORICAL),
                             DateUtilities.today()
                         )
@@ -148,11 +161,12 @@ class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             dayOfMonth
         }
 
-        historicalViewModel.showHistorical(
-            DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo")),
-            historicalViewModel.currentEndDate
-        )
-        startDate.text = DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo"))
+        loadHistorical(
+                DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo")),
+                historicalViewModel.currentEndDate
+            )
+            startDate.text = DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo"))
+
 
     }
 
