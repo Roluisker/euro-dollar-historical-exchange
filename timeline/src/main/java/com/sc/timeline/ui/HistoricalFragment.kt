@@ -37,6 +37,7 @@ class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         super.onActivityCreated(savedInstanceState)
         setListeners()
         //loadHistorical(DateUtilities.todayMinusDays(DEFAULT_HISTORICAL), DateUtilities.today())
+        //loadHistorical("2019-03-01", "2019-03-20")
         loadHistorical("2019-03-01", "2019-03-20")
     }
 

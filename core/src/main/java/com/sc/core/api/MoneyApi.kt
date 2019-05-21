@@ -26,4 +26,12 @@ interface MoneyApi {
     ):
             Deferred<Response<TimeSeriesRemote>>
 
+    @Headers(HEADER_ACCEPT_JSON, HEADER_CONTENT_TYPE_JSON)
+    @GET(ENDPOINT_TIME_SERIES)
+    fun getMoneyTimeSeriesByDateAsync2(
+        @Query(START_DATE_LABEL) startDate: String,
+        @Query(END_DATE_LABEL) endDate: String
+    ):
+            Deferred<TimeSeriesRemote>
+
 }

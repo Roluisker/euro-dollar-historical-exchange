@@ -31,27 +31,23 @@ class HistoricalViewModel(private val historicalRepository: HistoricalRepository
 
     fun showHistorical(start: String, end: String) {
 
-        liveData.postValue(DataResponse.Loading(TIME_SERIES))
-
         scope.launch {
-            currentStartDate = start
-            currentEndDate = end
-            liveData.postValue(
-                DataResponse.Success(
-                    dataToLineChartData(
-                        historicalRepository.showHistorical(
-                            currentStartDate,
-                            currentEndDate, TIME_SERIES
-                        )
-                    ), TIME_SERIES
-                )
-            )
+            liveData.postValue(DataResponse.Loading(TIME_SERIES))
+
+            when (val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)) {
+                is DataResponse.Success -> {
+                    liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
+                }
+                is DataResponse.Error -> {
+                    liveData.postValue(historicalData)
+                }
+            }
+
         }
+
     }
 
-    private fun dataToLineChartData(result: DataResponse<TimeSeriesRemote>): LineChartData {
-
-        var rateItem = TimeSeriesRemote(false)
+    private fun dataToLineChartData(rateItem: TimeSeriesRemote): LineChartData {
 
         val yAxisValues = ArrayList<PointValue>()
         val axisValues = ArrayList<AxisValue>()
@@ -61,11 +57,6 @@ class HistoricalViewModel(private val historicalRepository: HistoricalRepository
 
         axisData.clear()
         yAxisData.clear()
-
-        when (result) {
-            is DataResponse.Success ->
-                rateItem = result.data
-        }
 
         rateItem.rates.rateItem.keys.toTypedArray().forEach {
             axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
