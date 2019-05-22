@@ -23,6 +23,7 @@ import android.app.DatePickerDialog
 import android.widget.DatePicker
 import com.sc.core.*
 import com.sc.core.net.DataResponse
+import lecho.lib.hellocharts.model.Line
 import org.joda.time.DateTime
 import timber.log.Timber
 import java.util.*
@@ -120,7 +121,9 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     private fun showChartLine(points: HashMap<Int, Any>) {
 
-        var lineChar: LineChartData
+        val line = Line(yAxisValues)
+        val lines = ArrayList<Line>()
+        val lineChar = LineChartData()
 
         Timber.i(points.toString())
 

@@ -86,9 +86,9 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
         val mapResult: HashMap<Int, Any> = HashMap()
         mapResult[0] = axisData
-        mapResult[1] = axisData
+        mapResult[1] = yAxisData
         mapResult[2] = axisValues
-        mapResult[3] = axisValues
+        mapResult[3] = yAxisValues
 
         /* end dates */
 
