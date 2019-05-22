@@ -1,13 +1,11 @@
 package com.sc.convert.ui
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import com.sc.convert.R
 import com.sc.convert.di.DaggerConvertComponent
 import com.sc.convert.ui.di.ConvertFragmentModule
 import com.sc.core.BaseFragment
 import com.sc.core.net.BasicError
-import com.sc.core.net.DataResponse
 import com.sc.core.ui.coreComponent
 
 abstract class ConvertFragment : BaseFragment() {

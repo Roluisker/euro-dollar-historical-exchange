@@ -6,7 +6,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
-import com.sc.core.net.DataResponse
 import com.sc.timeline.repository.history.HistoricalRepositoryImpl
 import com.sc.timeline.ui.HistoricalFragment
 import com.sc.timeline.ui.HistoricalViewModel
@@ -57,7 +56,7 @@ class HistoricalTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         setupContext()
-        historicalViewModel.liveData = liveData
+        historicalViewModel.liveDataResponse = liveData
         historicalViewModel.historicalRepository = historicalRepository
         historicalViewModel.scope = scope
     }
@@ -91,7 +90,7 @@ class HistoricalTest {
         val historicalViewModel = Mockito.spy(historicalViewModel)
         val livePy = Mockito.spy(liveData)
 
-        historicalViewModel.liveData = livePy
+        historicalViewModel.liveDataResponse = livePy
         val timeSeriesRemote = TimeSeriesRemote(true)
 
         val response = DataResponse.Success(timeSeriesRemote, TIME_SERIES)
@@ -151,7 +150,7 @@ class HistoricalTest {
 
     /*
 
-            //Mockito.`when`<Any>(historicalViewModel.liveData.postValue(Mockito.any())).thenReturn(response)
+            //Mockito.`when`<Any>(historicalViewModel.liveDataResponse.postValue(Mockito.any())).thenReturn(response)
 
         //historicalViewModel.showHistorical("", "")
 

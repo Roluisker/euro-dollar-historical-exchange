@@ -1,7 +1,7 @@
 package com.sc.timeline.repository.history
 
 import com.sc.core.BaseRepository
-import com.sc.core.annotation.NuevoDataResponse
+import com.sc.core.net.NuevoDataResponse
 import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.api.MoneyApi
 

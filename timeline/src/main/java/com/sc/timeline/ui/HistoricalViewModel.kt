@@ -33,7 +33,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
     fun showHistorical(start: String, end: String) {
 
         scope.launch {
-            //liveData.postValue(DataResponse.Loading(TIME_SERIES))
+            //liveDataResponse.postValue(DataResponse.Loading(TIME_SERIES))
 
             val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)
 
@@ -41,7 +41,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
                 SUCCESS -> {
                     val charData = dataToLineChartData(historicalData.data as TimeSeriesRemote)
                     historicalData.data = charData
-                    liveData.postValue(historicalData)
+                    liveDataResponse.postValue(historicalData)
                 }
                 ERROR -> {
 
@@ -52,10 +52,10 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
             /*
             when (val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)) {
                 is DataResponse.Success -> {
-                    liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
+                    liveDataResponse.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
                 }
                 is DataResponse.Error -> {
-                    liveData.postValue(historicalData)
+                    liveDataResponse.postValue(historicalData)
                 }
             }*/
 

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.net.BasicError
 import androidx.lifecycle.Observer
-import com.sc.core.annotation.NuevoDataResponse
+import com.sc.core.net.NuevoDataResponse
 
 abstract class BaseFragment : Fragment() {
 
