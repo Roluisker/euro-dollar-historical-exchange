@@ -17,13 +17,12 @@ import com.sc.core.CoreConstants.Companion.MAX_USD_RANGE
 import com.sc.core.CoreConstants.Companion.MAX_YEN_RANGE
 import com.sc.core.CoreConstants.Companion.USD
 import com.sc.timeline.R
-import lecho.lib.hellocharts.model.LineChartData
-import lecho.lib.hellocharts.model.Viewport
 import android.app.DatePickerDialog
 import android.widget.DatePicker
+import androidx.core.content.ContextCompat
 import com.sc.core.*
 import com.sc.core.net.DataResponse
-import lecho.lib.hellocharts.model.Line
+import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
 import timber.log.Timber
 import java.util.*
@@ -121,20 +120,44 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     private fun showChartLine(points: HashMap<Int, Any>) {
 
-        val line = Line(yAxisValues)
+        val line = Line(points[3] as ArrayList<PointValue>)
         val lines = ArrayList<Line>()
         val lineChar = LineChartData()
 
-        Timber.i(points.toString())
+        line.apply {
+            color = ContextCompat.getColor(context!!, R.color.colorBlack)
+            setHasLabels(true)
+            setHasLabelsOnlyForSelected(true)
+        }
 
-        /*
+        lines.add(line)
+
+        lineChar.lines = lines
+
+        val axis = Axis().apply {
+            values = points[2] as ArrayList<AxisValue>
+            textSize = 12
+            textColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
+        }
+
+        lineChar.axisXBottom = axis
+
+        val yAxis = Axis().apply {
+            name = CoreConstants.EMPTY
+            textColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
+            textSize = 16
+        }
+
+        lineChar.axisYLeft = yAxis
+
         lineChart.apply {
             lineChartData = lineChar
             val viewport = Viewport(lineChart.maximumViewport)
             maximumViewport = viewport
             currentViewport = viewport
             AnimationUtil.animate(lineChart, R.anim.fade_in, context)
-        }*/
+        }
+
     }
 
     private fun selectStartDate() {

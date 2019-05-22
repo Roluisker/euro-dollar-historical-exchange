@@ -52,7 +52,6 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
     fun dataToLineChartData(rateItem: TimeSeriesRemote): HashMap<Int, Any> {
 
-        /* dates */
         val axisData: MutableList<String> = ArrayList()
         var yAxisData: MutableList<String> = ArrayList()
 
@@ -90,76 +89,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
         mapResult[2] = axisValues
         mapResult[3] = yAxisValues
 
-        /* end dates */
-
-        /* points */
-
         return mapResult
-
-    }
-
-    fun dataToLineChartData2(rateItem: TimeSeriesRemote): LineChartData {
-
-        val axisData: MutableList<String> = ArrayList()
-        var yAxisData: MutableList<String> = ArrayList()
-
-        val yAxisValues = ArrayList<PointValue>()
-        val axisValues = ArrayList<AxisValue>()
-        val line = Line(yAxisValues)
-        val lines = ArrayList<Line>()
-        val lineChar = LineChartData()
-
-        axisData.clear()
-        yAxisData.clear()
-
-        rateItem.rates.rateItem.keys.toTypedArray().forEach {
-            axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
-        }
-
-        rateItem.rates.rateItem.forEach {
-            it.value[euroToKey]?.let { it1 -> yAxisData.add(it1) }
-        }
-
-        line.apply {
-            color = ContextCompat.getColor(context!!, R.color.colorBlack)
-            setHasLabels(true)
-            setHasLabelsOnlyForSelected(true)
-        }
-
-        for (i in 0 until axisData.size) {
-            axisValues.add(i, AxisValue(i.toFloat()).setLabel(axisData[i]))
-        }
-
-        for (i in 0 until yAxisData.size) {
-            yAxisValues.add(
-                PointValue(
-                    i.toFloat(),
-                    yAxisData[i].toFloat()
-                ).setLabel(axisData[i] + "--" + "1 Euro -> " + yAxisData[i].toFloat() + " " + euroToKey)
-            )
-        }
-
-        lines.add(line)
-
-        lineChar.lines = lines
-
-        val axis = Axis().apply {
-            values = axisValues
-            textSize = 12
-            textColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
-        }
-
-        lineChar.axisXBottom = axis
-
-        val yAxis = Axis().apply {
-            name = EMPTY
-            textColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
-            textSize = 16
-        }
-
-        lineChar.axisYLeft = yAxis
-
-        return lineChar
 
     }
 
