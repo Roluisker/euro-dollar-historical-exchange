@@ -7,6 +7,8 @@ import com.sc.core.CoreConstants
 import com.sc.core.CoreConstants.Companion.EMPTY
 import com.sc.core.DateUtilities
 import com.sc.core.SIMPLE_TIME_FORMAT_DATE
+import com.sc.core.annotation.net.ERROR
+import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
@@ -34,6 +36,19 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
         scope.launch {
             liveData.postValue(DataResponse.Loading(TIME_SERIES))
 
+            val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)
+
+            when (historicalData!!.status) {
+                SUCCESS -> {
+
+                }
+                ERROR -> {
+
+                }
+
+            }
+
+            /*
             when (val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)) {
                 is DataResponse.Success -> {
                     liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
@@ -41,7 +56,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
                 is DataResponse.Error -> {
                     liveData.postValue(historicalData)
                 }
-            }
+            }*/
 
         }
 

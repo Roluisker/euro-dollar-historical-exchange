@@ -15,6 +15,7 @@ import retrofit2.http.Query
 
 interface MoneyApi {
 
+    /*
     @GET(ENDPOINT_LATEST)
     fun getLatest(): Deferred<Response<TimeSeriesRemote>>
 
@@ -25,6 +26,7 @@ interface MoneyApi {
         @Query(END_DATE_LABEL) endDate: String
     ):
             Deferred<Response<TimeSeriesRemote>>
+            */
 
     @Headers(HEADER_ACCEPT_JSON, HEADER_CONTENT_TYPE_JSON)
     @GET(ENDPOINT_TIME_SERIES)
