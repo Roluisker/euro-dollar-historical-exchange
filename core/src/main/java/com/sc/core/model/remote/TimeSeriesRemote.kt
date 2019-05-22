@@ -6,7 +6,7 @@ import com.sc.core.deserializer.TimeSeriesDeserializer
 import com.sc.core.model.local.TimeSeries
 
 @JsonAdapter(TimeSeriesDeserializer::class)
-data class TimeSeriesRemote(
+open class TimeSeriesRemote(
     val success: Boolean,
     val timeseries: String? = "",
     val start_date: String? = "",

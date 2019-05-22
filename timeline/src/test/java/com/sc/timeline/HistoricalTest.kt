@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
+import lecho.lib.hellocharts.model.LineChartData
 import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -52,7 +53,6 @@ class HistoricalTest {
 
     private var scope = CoroutineScope(Dispatchers.Default + job)
 
-
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -84,22 +84,38 @@ class HistoricalTest {
 
     }
 
+    @Mock
+    private lateinit var timeSeriesRemoteMock: TimeSeriesRemote
+
+    @Mock
+    private lateinit var lineChar: LineChartData
+
     @Test
     fun showHistoricalShowLoaderTest() = runBlocking<Unit> {
 
         val historicalViewModel = Mockito.spy(historicalViewModel)
         val livePy = Mockito.spy(liveData)
+        val repositoryPy = Mockito.spy(historicalRepository)
+        val timeSeriesPy = Mockito.spy(timeSeriesRemoteMock)
 
         historicalViewModel.liveDataResponse = livePy
-        val timeSeriesRemote = TimeSeriesRemote(true)
+        //val timeSeriesRemote = TimeSeriesRemote(true)
 
-        //val response = DataResponse.Success(timeSeriesRemote, TIME_SERIES)
+        val response = DataResponse.success(timeSeriesPy, TIME_SERIES)
+
+        Mockito.`when`<DataResponse>(repositoryPy.showHistorical("", "", TIME_SERIES))
+            .thenReturn(response)
+
+        //Mockito.`when`<LineChartData>(historicalViewModel.dataToLineChartData(response.data as TimeSeriesRemote))
+        //    .thenReturn(lineChar)
+
+        historicalViewModel.showHistorical("", "")
 
         //val loader = DataResponse.Loading<DataResponse<Any>>(TIME_SERIES)
 
         // problema, el DataResponse se llama dos veces con diferentes valores y explota.
         //
-       // Mockito.`when`<Unit>(livePy.postValue(loader))
+        // Mockito.`when`<Unit>(livePy.postValue(loader))
         //    .thenReturn(response)
 
         /*

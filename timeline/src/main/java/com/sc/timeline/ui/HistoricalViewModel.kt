@@ -21,9 +21,6 @@ import java.util.*
 open class HistoricalViewModel(var historicalRepository: HistoricalRepository, private val context: Context) :
     BaseViewModel() {
 
-    private val axisData: MutableList<String> = ArrayList()
-    private var yAxisData: MutableList<String> = ArrayList()
-
     lateinit var currentStartDate: String
     lateinit var currentEndDate: String
 
@@ -49,27 +46,68 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
             }
 
-            /*
-            when (val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)) {
-                is DataResponse.Success -> {
-                    liveDataResponse.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
-                }
-                is DataResponse.Error -> {
-                    liveDataResponse.postValue(historicalData)
-                }
-            }*/
-
         }
 
     }
 
-    private fun dataToLineChartData(rateItem: TimeSeriesRemote): LineChartData {
+    fun dataToLineChartData(rateItem: TimeSeriesRemote): HashMap<Int, Any> {
+
+        /* dates */
+        val axisData: MutableList<String> = ArrayList()
+        var yAxisData: MutableList<String> = ArrayList()
+
+        axisData.clear()
+        yAxisData.clear()
+
+        rateItem.rates.rateItem.keys.toTypedArray().forEach {
+            axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
+        }
+
+        rateItem.rates.rateItem.forEach {
+            it.value[euroToKey]?.let { it1 -> yAxisData.add(it1) }
+        }
+
+        val axisValues = ArrayList<AxisValue>()
+
+        for (i in 0 until axisData.size) {
+            axisValues.add(i, AxisValue(i.toFloat()).setLabel(axisData[i]))
+        }
+
+        val yAxisValues = ArrayList<PointValue>()
+
+        for (i in 0 until yAxisData.size) {
+            yAxisValues.add(
+                PointValue(
+                    i.toFloat(),
+                    yAxisData[i].toFloat()
+                ).setLabel(axisData[i] + "--" + "1 Euro -> " + yAxisData[i].toFloat() + " " + euroToKey)
+            )
+        }
+
+        val mapResult: HashMap<Int, Any> = HashMap()
+        mapResult[0] = axisData
+        mapResult[1] = axisData
+        mapResult[2] = axisValues
+        mapResult[3] = axisValues
+
+        /* end dates */
+
+        /* points */
+
+        return mapResult
+
+    }
+
+    fun dataToLineChartData2(rateItem: TimeSeriesRemote): LineChartData {
+
+        val axisData: MutableList<String> = ArrayList()
+        var yAxisData: MutableList<String> = ArrayList()
 
         val yAxisValues = ArrayList<PointValue>()
         val axisValues = ArrayList<AxisValue>()
         val line = Line(yAxisValues)
         val lines = ArrayList<Line>()
-        val data = LineChartData()
+        val lineChar = LineChartData()
 
         axisData.clear()
         yAxisData.clear()
@@ -103,7 +141,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
         lines.add(line)
 
-        data.lines = lines
+        lineChar.lines = lines
 
         val axis = Axis().apply {
             values = axisValues
@@ -111,7 +149,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
             textColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
         }
 
-        data.axisXBottom = axis
+        lineChar.axisXBottom = axis
 
         val yAxis = Axis().apply {
             name = EMPTY
@@ -119,9 +157,9 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
             textSize = 16
         }
 
-        data.axisYLeft = yAxis
+        lineChar.axisYLeft = yAxis
 
-        return data
+        return lineChar
 
     }
 

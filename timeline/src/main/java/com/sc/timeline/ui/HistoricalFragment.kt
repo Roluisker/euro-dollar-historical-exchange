@@ -24,6 +24,7 @@ import android.widget.DatePicker
 import com.sc.core.*
 import com.sc.core.net.DataResponse
 import org.joda.time.DateTime
+import timber.log.Timber
 import java.util.*
 
 const val DEFAULT_HISTORICAL = 30
@@ -56,7 +57,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     override fun onSuccessResponse(data: Any?, @FixerRequest request: String?) {
         request?.let {
             when (it) {
-                TIME_SERIES -> showChartLine(data as LineChartData)
+                TIME_SERIES -> showChartLine(data as HashMap<Int, Any>)
             }
         }
     }
@@ -117,14 +118,20 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         }
     }
 
-    private fun showChartLine(lineChar: LineChartData) {
+    private fun showChartLine(points: HashMap<Int, Any>) {
+
+        var lineChar: LineChartData
+
+        Timber.i(points.toString())
+
+        /*
         lineChart.apply {
             lineChartData = lineChar
             val viewport = Viewport(lineChart.maximumViewport)
             maximumViewport = viewport
             currentViewport = viewport
             AnimationUtil.animate(lineChart, R.anim.fade_in, context)
-        }
+        }*/
     }
 
     private fun selectStartDate() {
