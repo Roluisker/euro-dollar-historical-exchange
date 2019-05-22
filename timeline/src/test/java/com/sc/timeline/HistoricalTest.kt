@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.annotation.net.TIME_SERIES
+import com.sc.core.model.local.TimeSeries
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
 import com.sc.timeline.repository.history.HistoricalRepositoryImpl
@@ -22,6 +23,7 @@ import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import java.util.HashMap
 
 @RunWith(JUnit4::class)
 class HistoricalTest {
@@ -90,6 +92,12 @@ class HistoricalTest {
     @Mock
     private lateinit var lineChar: LineChartData
 
+    @Mock
+    private lateinit var hasmMock: HashMap<Int, Any>
+
+    @Mock
+    private lateinit var ratesMock: TimeSeries
+
     @Test
     fun showHistoricalShowLoaderTest() = runBlocking<Unit> {
 
@@ -97,8 +105,11 @@ class HistoricalTest {
         val livePy = Mockito.spy(liveData)
         val repositoryPy = Mockito.spy(historicalRepository)
         val timeSeriesPy = Mockito.spy(timeSeriesRemoteMock)
+        val hasPy = Mockito.spy(hasmMock)
+        val ratesPy = Mockito.spy(ratesMock)
 
         historicalViewModel.liveDataResponse = livePy
+        timeSeriesPy.rates = ratesPy
         //val timeSeriesRemote = TimeSeriesRemote(true)
 
         val response = DataResponse.success(timeSeriesPy, TIME_SERIES)
@@ -109,7 +120,11 @@ class HistoricalTest {
         //Mockito.`when`<LineChartData>(historicalViewModel.dataToLineChartData(response.data as TimeSeriesRemote))
         //    .thenReturn(lineChar)
 
+        Mockito.`when`<HashMap<Int, Any>>(historicalViewModel.dataToLineChartData(timeSeriesPy)).thenReturn(hasPy)
+
         historicalViewModel.showHistorical("", "")
+
+        Mockito.verify(livePy, Mockito.times(1)).postValue(response)
 
         //val loader = DataResponse.Loading<DataResponse<Any>>(TIME_SERIES)
 
