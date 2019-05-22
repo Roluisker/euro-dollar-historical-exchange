@@ -96,6 +96,9 @@ class HistoricalTest {
     private lateinit var hasmMock: HashMap<Int, Any>
 
     @Mock
+    private lateinit var rateItem: HashMap<String, HashMap<String, String>>
+
+    @Mock
     private lateinit var ratesMock: TimeSeries
 
     @Test
@@ -105,11 +108,13 @@ class HistoricalTest {
         val livePy = Mockito.spy(liveData)
         val repositoryPy = Mockito.spy(historicalRepository)
         val timeSeriesPy = Mockito.spy(timeSeriesRemoteMock)
-        val hasPy = Mockito.spy(hasmMock)
+        //val hasPy = Mockito.spy(hasmMock)
         val ratesPy = Mockito.spy(ratesMock)
+        val rateItemPy = Mockito.spy(rateItem)
 
         historicalViewModel.liveDataResponse = livePy
         timeSeriesPy.rates = ratesPy
+        timeSeriesPy.rates.rateItem = rateItemPy
         //val timeSeriesRemote = TimeSeriesRemote(true)
 
         val response = DataResponse.success(timeSeriesPy, TIME_SERIES)
@@ -120,7 +125,7 @@ class HistoricalTest {
         //Mockito.`when`<LineChartData>(historicalViewModel.dataToLineChartData(response.data as TimeSeriesRemote))
         //    .thenReturn(lineChar)
 
-        Mockito.`when`<HashMap<Int, Any>>(historicalViewModel.dataToLineChartData(timeSeriesPy)).thenReturn(hasPy)
+        Mockito.`when`<HashMap<Int, Any>>(historicalViewModel.dataToLineChartData(timeSeriesPy)).thenReturn(Mockito.any(HashMap::class.java))
 
         historicalViewModel.showHistorical("", "")
 

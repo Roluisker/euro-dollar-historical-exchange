@@ -11,6 +11,7 @@ import com.sc.core.annotation.net.ERROR
 import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
+import com.sc.core.net.DataResponse
 import com.sc.timeline.R
 import com.sc.timeline.repository.history.HistoricalRepository
 import kotlinx.coroutines.launch
@@ -36,9 +37,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
             when (historicalData!!.status) {
                 SUCCESS -> {
-                    val charData = dataToLineChartData(historicalData.data as TimeSeriesRemote)
-                    historicalData.data = charData
-                    liveDataResponse.postValue(historicalData)
+                    liveDataResponse.postValue(dataToLineChartData(historicalData))
                 }
                 ERROR -> {
 
@@ -50,7 +49,9 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
     }
 
-    fun dataToLineChartData(rateItem: TimeSeriesRemote): HashMap<Int, Any> {
+    fun dataToLineChartData(dataResponse: DataResponse): DataResponse {
+
+        var rateItem = dataResponse.data as TimeSeriesRemote
 
         val axisData: MutableList<String> = ArrayList()
         var yAxisData: MutableList<String> = ArrayList()
@@ -89,7 +90,9 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
         mapResult[2] = axisValues
         mapResult[3] = yAxisValues
 
-        return mapResult
+        dataResponse.data = mapResult
+
+        return dataResponse
 
     }
 
