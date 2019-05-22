@@ -15,7 +15,7 @@ open class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseReposi
     ): DataResponse<TimeSeriesRemote> {
 
         return try {
-            DataResponse.Success(moneyApi.getMoneyTimeSeriesByDateAsync(startDate, endDate).await(), requestTag)
+            DataResponse.Success(moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await(), requestTag)
         } catch (error: Exception) {
             DataResponse.Error(TimeSeriesRemote(false), error, requestTag)
         }

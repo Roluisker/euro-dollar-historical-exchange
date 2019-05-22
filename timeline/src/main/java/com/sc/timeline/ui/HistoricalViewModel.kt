@@ -34,9 +34,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
         scope.launch {
             liveData.postValue(DataResponse.Loading(TIME_SERIES))
 
-            val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)
-
-            when (historicalData) {
+            when (val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)) {
                 is DataResponse.Success -> {
                     liveData.postValue(DataResponse.Success(dataToLineChartData(historicalData.data), TIME_SERIES))
                 }

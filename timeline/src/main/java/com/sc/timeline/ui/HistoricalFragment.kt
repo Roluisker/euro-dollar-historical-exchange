@@ -23,10 +23,6 @@ import lecho.lib.hellocharts.model.Viewport
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import com.sc.core.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import java.util.*
 
@@ -50,20 +46,11 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         initDependencyInjection()
     }
 
-    fun loadHistorical(start: String, end: String) {
-
-        val job = SupervisorJob()
-        val scope = CoroutineScope(Dispatchers.Default + job)
-
-        //scope.launch {
-
-            historicalViewModel.showHistorical(start, end)
-            startDate.text = start
-            endDate.text = end
-            endDate.isEnabled = false
-
-        //}
-
+    private fun loadHistorical(start: String, end: String) {
+        historicalViewModel.showHistorical(start, end)
+        startDate.text = start
+        endDate.text = end
+        endDate.isEnabled = false
     }
 
     override fun onSuccessResponse(data: Any?, @FixerRequest request: String?) {
@@ -102,7 +89,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
                     run {
                         dialog.dismiss()
                         currentMoney(historicalViewModel.euroToKey)
-                        loadHistorical(
+                        historicalViewModel.showHistorical(
                             DateUtilities.todayMinusDays(DEFAULT_HISTORICAL),
                             DateUtilities.today()
                         )
@@ -161,12 +148,11 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
             dayOfMonth
         }
 
-        loadHistorical(
-                DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo")),
-                historicalViewModel.currentEndDate
-            )
-            startDate.text = DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo"))
-
+        historicalViewModel.showHistorical(
+            DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo")),
+            historicalViewModel.currentEndDate
+        )
+        startDate.text = DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo"))
 
     }
 
