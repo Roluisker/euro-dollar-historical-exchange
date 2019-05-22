@@ -2,12 +2,12 @@ package com.sc.core
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sc.core.net.NuevoDataResponse
+import com.sc.core.net.DataResponse
 import kotlinx.coroutines.*
 
 open class BaseViewModel : ViewModel() {
 
-    var liveDataResponse = MutableLiveData<NuevoDataResponse>()
+    var liveDataResponse = MutableLiveData<DataResponse>()
 
     private val job = SupervisorJob()
     var scope = CoroutineScope(Dispatchers.Default + job)

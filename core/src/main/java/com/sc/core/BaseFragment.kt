@@ -10,7 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.net.BasicError
 import androidx.lifecycle.Observer
-import com.sc.core.net.NuevoDataResponse
+import com.sc.core.net.DataResponse
+
 
 abstract class BaseFragment : Fragment() {
 
@@ -34,12 +35,12 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun subscribeViewModelToConsumeResponse() {
-        mutableLiveData().observe(this, Observer<NuevoDataResponse> {
+        mutableLiveData().observe(this, Observer<DataResponse> {
             consumeResponse(it)
         })
     }
 
-    private fun consumeResponse(response: NuevoDataResponse) {
+    private fun consumeResponse(response: DataResponse) {
 
         onSuccessResponse(response.data, response.request)
 
@@ -97,6 +98,6 @@ abstract class BaseFragment : Fragment() {
     @LayoutRes
     abstract fun fragmentLayout(): Int
 
-    abstract fun mutableLiveData(): MutableLiveData<NuevoDataResponse>
+    abstract fun mutableLiveData(): MutableLiveData<DataResponse>
 
 }

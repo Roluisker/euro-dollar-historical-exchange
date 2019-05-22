@@ -6,6 +6,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
+import com.sc.core.net.DataResponse
 import com.sc.timeline.repository.history.HistoricalRepositoryImpl
 import com.sc.timeline.ui.HistoricalFragment
 import com.sc.timeline.ui.HistoricalViewModel
@@ -41,10 +42,10 @@ class HistoricalTest {
     private lateinit var historicalViewModel: HistoricalViewModel
 
     @Mock
-    private lateinit var liveData: MutableLiveData<DataResponse<Any>>
+    private lateinit var liveData: MutableLiveData<DataResponse>
 
     @Mock
-    var successfulLiveData = MutableLiveData<DataResponse<TimeSeriesRemote>>()
+    var successfulLiveData = MutableLiveData<DataResponse>()
 
     @Mock
     private val job = SupervisorJob()
@@ -84,7 +85,6 @@ class HistoricalTest {
     }
 
     @Test
-    @Ignore
     fun showHistoricalShowLoaderTest() = runBlocking<Unit> {
 
         val historicalViewModel = Mockito.spy(historicalViewModel)
@@ -93,9 +93,9 @@ class HistoricalTest {
         historicalViewModel.liveDataResponse = livePy
         val timeSeriesRemote = TimeSeriesRemote(true)
 
-        val response = DataResponse.Success(timeSeriesRemote, TIME_SERIES)
+        //val response = DataResponse.Success(timeSeriesRemote, TIME_SERIES)
 
-        val loader = DataResponse.Loading<DataResponse<Any>>(TIME_SERIES)
+        //val loader = DataResponse.Loading<DataResponse<Any>>(TIME_SERIES)
 
         // problema, el DataResponse se llama dos veces con diferentes valores y explota.
         //

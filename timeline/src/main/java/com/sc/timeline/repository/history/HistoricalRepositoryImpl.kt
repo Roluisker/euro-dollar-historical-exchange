@@ -1,7 +1,7 @@
 package com.sc.timeline.repository.history
 
 import com.sc.core.BaseRepository
-import com.sc.core.net.NuevoDataResponse
+import com.sc.core.net.DataResponse
 import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.api.MoneyApi
 
@@ -11,14 +11,12 @@ open class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseReposi
     override suspend fun showHistorical(
         startDate: String,
         endDate: String, @FixerRequest requestTag: String
-    ): NuevoDataResponse {
+    ): DataResponse {
 
         return try {
-            //DataResponse.Success(moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await(), requestTag)
-            NuevoDataResponse.success(moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await(), requestTag)
+            DataResponse.success(moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await(), requestTag)
         } catch (error: Exception) {
-            //DataResponse.Error(TimeSeriesRemote(false), error, requestTag)
-            NuevoDataResponse.error(-1, requestTag)
+            DataResponse.error(-1, requestTag)
         }
 
     }
