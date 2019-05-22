@@ -9,8 +9,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.net.BasicError
-import com.sc.core.net.DataResponse
 import androidx.lifecycle.Observer
+import com.sc.core.annotation.NuevoDataResponse
 
 abstract class BaseFragment : Fragment() {
 
@@ -34,13 +34,16 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun subscribeViewModelToConsumeResponse() {
-        mutableLiveData().observe(this, Observer<DataResponse<Any>> {
+        mutableLiveData().observe(this, Observer<NuevoDataResponse> {
             consumeResponse(it)
         })
     }
 
-    private fun consumeResponse(response: DataResponse<Any>) {
+    private fun consumeResponse(response: NuevoDataResponse) {
 
+        onSuccessResponse(response.data, response.request)
+
+        /*
         when (response) {
             is DataResponse.Loading -> {
                 switchProgressDialog(true)
@@ -53,7 +56,7 @@ abstract class BaseFragment : Fragment() {
                 switchProgressDialog(false)
                 onFailureResponse(BasicError(1, response.exception, ""), response.requestTag)
             }
-        }
+        }*/
 
     }
 
@@ -94,6 +97,6 @@ abstract class BaseFragment : Fragment() {
     @LayoutRes
     abstract fun fragmentLayout(): Int
 
-    abstract fun mutableLiveData(): MutableLiveData<DataResponse<Any>>
+    abstract fun mutableLiveData(): MutableLiveData<NuevoDataResponse>
 
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.net.BasicError
-import com.sc.core.net.DataResponse
 import com.sc.core.ui.coreComponent
 import com.sc.timeline.di.DaggerTimelineComponent
 import com.sc.timeline.ui.di.HistoricalFragmentModule
@@ -23,6 +22,7 @@ import lecho.lib.hellocharts.model.Viewport
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import com.sc.core.*
+import com.sc.core.annotation.NuevoDataResponse
 import org.joda.time.DateTime
 import java.util.*
 
@@ -164,7 +164,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
             .build()
             .inject(this)
 
-    override fun mutableLiveData(): MutableLiveData<DataResponse<Any>> = historicalViewModel.liveData
+    override fun mutableLiveData(): MutableLiveData<NuevoDataResponse> = historicalViewModel.liveData
 
     override fun fragmentLayout(): Int = R.layout.historical_fragment
 

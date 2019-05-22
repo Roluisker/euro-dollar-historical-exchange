@@ -7,7 +7,7 @@ import com.sc.core.annotation.net.SUCCESS
 
 const val ERROR_NOT_SET = -1
 
-class NuevoDataResponse (@ResponseStatus val status: String, val data: Any?, val error: Int, val request: String) {
+class NuevoDataResponse (@ResponseStatus val status: String, var data: Any?, val error: Int, val request: String) {
     companion object {
         fun loading(request: String): NuevoDataResponse {
             return NuevoDataResponse(LOADING, null, ERROR_NOT_SET, request)
