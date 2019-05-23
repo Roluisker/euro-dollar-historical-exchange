@@ -3,6 +3,7 @@ package com.sc.core.di
 import android.content.Context
 import com.sc.core.api.MoneyApi
 import dagger.Component
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 /**

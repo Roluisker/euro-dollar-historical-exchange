@@ -8,6 +8,7 @@ import com.sc.timeline.repository.history.HistoricalRepositoryImpl
 import com.sc.timeline.ui.HistoricalFragment
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 class HistoricalFragmentModule(val fragment: HistoricalFragment) {

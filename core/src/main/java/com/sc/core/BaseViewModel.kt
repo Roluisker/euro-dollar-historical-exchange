@@ -9,14 +9,14 @@ open class BaseViewModel : ViewModel() {
 
     var liveDataResponse = MutableLiveData<DataResponse>()
 
-    var job = SupervisorJob()
-    var scope = CoroutineScope(Dispatchers.Default + job)
+    //var job = SupervisorJob()
+    //var scope = CoroutineScope(Dispatchers.Default + job)
 
     override fun onCleared() {
         super.onCleared()
-        cancelAllRequests()
+        //cancelAllRequests()
     }
 
-    private fun cancelAllRequests() = scope.coroutineContext.cancelChildren()
+    //private fun cancelAllRequests() = scope.coroutineContext.cancelChildren()
 
 }

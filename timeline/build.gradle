@@ -12,9 +12,16 @@ dependencies {
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.1")
+
+    testImplementation "io.mockk:mockk:1.9"
+
+    /*
     testImplementation "org.mockito:mockito-core:2.23.4"
     testImplementation "androidx.arch.core:core-testing:2.0.0"
-    testImplementation "android.arch.core:core-testing:1.1.1"
 
     androidTestImplementation "org.mockito:mockito-core:2.23.4"
     androidTestImplementation "org.mockito:mockito-android:2.23.4"
@@ -22,16 +29,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.0.0"
     androidTestImplementation "androidx.test:rules:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.1.1"
-
-    /*
-    testImplementation deps.test.junit
-    testImplementation deps.test.archCoreTesting
-    testImplementation "org.mockito:mockito-core:2.23.4"
-    testImplementation "androidx.arch.core:core-testing:2.0.0"
-
-    androidTestImplementation deps.test.testCore
-    androidTestImplementation deps.test.extJunit
-    androidTestImplementation deps.test.testRules
-    androidTestImplementation deps.test.androidxTestEspresso
     */
+
 }

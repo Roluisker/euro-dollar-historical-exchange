@@ -16,13 +16,17 @@ import com.sc.core.net.DataResponse
 import com.sc.timeline.R
 import com.sc.timeline.model.GraphLineData
 import com.sc.timeline.repository.history.HistoricalRepository
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
+import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Named
 
-open class HistoricalViewModel(var historicalRepository: HistoricalRepository, private val context: Context) :
-    BaseViewModel() {
+open class HistoricalViewModel(
+    var historicalRepository: HistoricalRepository, private val context: Context
+) : BaseViewModel() {
 
     var liveGraph = MutableLiveData<GraphLineData>()
 
@@ -32,8 +36,46 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
     var euroToKey: String = CoreConstants.USD
     var maxRange: Float = CoreConstants.MAX_USD_RANGE
 
+    var mainDispacher = Dispatchers.Main
+    var ioDispacher = Dispatchers.IO
+
+    private val job = Job()
+
+    private val uiScope = CoroutineScope(mainDispacher + job)
+
+    val ioScope = CoroutineScope(ioDispacher + job)
+
     fun showHistorical(start: String, end: String) {
 
+        uiScope.launch {
+
+            try {
+
+                val historicalData = ioScope.async {
+                    return@async historicalRepository.showHistorical(start, end, TIME_SERIES)
+                }.await()
+
+                when (historicalData!!.status) {
+                    SUCCESS -> {
+                        dataToLineChartData(historicalData)
+                    }
+                    ERROR -> {
+                        handleError(historicalData)
+                    }
+                }
+
+                Timber.d(historicalData.status)
+
+            } catch (error: Exception) {
+                Timber.d(error)
+            }
+
+        }
+
+    }
+
+    /*
+    fun showHistorical(start: String, end: String) {
 
         scope.launch {
             //liveDataResponse.postValue(DataResponse.Loading(TIME_SERIES))
@@ -57,9 +99,9 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
         }
 
-    }
+    }*/
 
-     fun handleError(dataResponse: DataResponse) {
+    fun handleError(dataResponse: DataResponse) {
 
     }
 

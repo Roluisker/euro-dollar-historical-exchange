@@ -31,7 +31,7 @@ buildscript {
             'googleMaterial'    : '1.0.0-alpha1',
             'imgPicasso'        : '2.71828',
             'coroutinesAdapter' : '0.9.2',
-            'coroutinesAndroid' : '1.0.1',
+            'coroutinesAndroid' : '1.1.0',
             'coroutinesCore'    : '1.0.1',
             'jodaTime'          : '2.10.1.2',
             'archCoreTesting'   : '2.0.0',
