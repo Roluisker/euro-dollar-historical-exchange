@@ -17,7 +17,7 @@ open class HistoricalRepositoryImpl(var moneyApi: MoneyApi) : BaseRepository(),
         return try {
             DataResponse.success(moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await(), requestTag)
         } catch (error: Exception) {
-            DataResponse.error(-1, requestTag)
+            DataResponse.error(1, requestTag)
         }
 
     }

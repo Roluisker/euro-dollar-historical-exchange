@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.annotation.net.TIME_SERIES
-import com.sc.core.net.BasicError
+import com.sc.core.net.ViewBasicError
 import com.sc.core.ui.coreComponent
 import com.sc.timeline.di.DaggerTimelineComponent
 import com.sc.timeline.ui.di.HistoricalFragmentModule
@@ -27,6 +27,7 @@ import com.sc.timeline.model.GraphLineData
 import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
 import androidx.lifecycle.Observer
+import timber.log.Timber
 import java.util.*
 
 const val DEFAULT_HISTORICAL = 30
@@ -61,16 +62,20 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         endDate.isEnabled = false
     }
 
+    /*In the future you can handle the response behaibuur by response  */
     override fun onSuccessResponse(data: Any?, @FixerRequest request: String?) {
         request?.let {
             when (it) {
-                TIME_SERIES -> {/*showChartLine(data)*/}
+                TIME_SERIES -> {
+                }
             }
         }
     }
 
-    override fun onFailureResponse(error: BasicError?, @FixerRequest request: String?) {
-
+    override fun onFailureResponse(errorView: ViewBasicError?, @FixerRequest request: String?) {
+        errorView?.let {
+            Timber.i(it.code.toString()+ "--" + request)
+        }
     }
 
     private fun setListeners() {
@@ -210,7 +215,9 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
             .build()
             .inject(this)
 
-    override fun mutableLiveData(): MutableLiveData<DataResponse> = historicalViewModel.liveDataResponse
+    override fun dataResponseLiveData(): MutableLiveData<DataResponse> = historicalViewModel.liveDataResponse
+
+    override fun errorHandlerLiveData(): MutableLiveData<DataResponse> = historicalViewModel.liveDataErrorResponse
 
     override fun fragmentLayout(): Int = R.layout.historical_fragment
 

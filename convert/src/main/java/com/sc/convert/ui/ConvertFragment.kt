@@ -5,7 +5,7 @@ import com.sc.convert.R
 import com.sc.convert.di.DaggerConvertComponent
 import com.sc.convert.ui.di.ConvertFragmentModule
 import com.sc.core.BaseFragment
-import com.sc.core.net.BasicError
+import com.sc.core.net.ViewBasicError
 import com.sc.core.ui.coreComponent
 
 abstract class ConvertFragment : BaseFragment() {
@@ -20,7 +20,7 @@ abstract class ConvertFragment : BaseFragment() {
 
     }
 
-    override fun onFailureResponse(error: BasicError?, request: String?) {
+    override fun onFailureResponse(errorView: ViewBasicError?, request: String?) {
 
     }
 

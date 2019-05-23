@@ -1,11 +1,10 @@
 package com.sc.timeline.ui
 
 import android.content.Context
-import androidx.core.content.ContextCompat
+
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.BaseViewModel
 import com.sc.core.CoreConstants
-import com.sc.core.CoreConstants.Companion.EMPTY
 import com.sc.core.DateUtilities
 import com.sc.core.SIMPLE_TIME_FORMAT_DATE
 import com.sc.core.annotation.net.ERROR
@@ -13,7 +12,7 @@ import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
-import com.sc.timeline.R
+
 import com.sc.timeline.model.GraphLineData
 import com.sc.timeline.repository.history.HistoricalRepository
 import kotlinx.coroutines.*
@@ -21,8 +20,6 @@ import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
 import timber.log.Timber
 import java.util.*
-import javax.inject.Inject
-import javax.inject.Named
 
 open class HistoricalViewModel(
     var historicalRepository: HistoricalRepository, private val context: Context,
@@ -38,9 +35,6 @@ open class HistoricalViewModel(
     var euroToKey: String = CoreConstants.USD
     var maxRange: Float = CoreConstants.MAX_USD_RANGE
 
-    //var mainDispacher = Dispatchers.Main
-    //var ioDispacher = Dispatchers.IO
-
     private val job = Job()
 
     private val uiScope = CoroutineScope(mainDispacher + job)
@@ -53,59 +47,26 @@ open class HistoricalViewModel(
 
             try {
 
-                val historicalData = ioScope.async {
+                val currentResponse = ioScope.async {
                     return@async historicalRepository.showHistorical(start, end, TIME_SERIES)
                 }.await()
 
-                when (historicalData!!.status) {
+                when (currentResponse!!.status) {
                     SUCCESS -> {
-                       val grap = dataToLineChartData(historicalData)
-                        liveDataResponse.value = historicalData
+                        val grap = dataToLineChartData(currentResponse)
+                        liveDataResponse.value = currentResponse
                         liveGraph.value = grap
                     }
                     ERROR -> {
-                        handleError(historicalData)
+                        liveDataErrorResponse.value = currentResponse
                     }
                 }
-
-                Timber.d(historicalData.status)
 
             } catch (error: Exception) {
                 Timber.d(error)
             }
 
         }
-
-    }
-
-    /*
-    fun showHistorical(start: String, end: String) {
-
-        scope.launch {
-            //liveDataResponse.postValue(DataResponse.Loading(TIME_SERIES))
-
-            val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)
-
-            //dataToLineChartData(historicalData)
-
-
-            when (historicalData!!.status) {
-                SUCCESS -> {
-                    dataToLineChartData(historicalData)
-                    //historicalData.clearData()
-                    //liveDataResponse.postValue(historicalData)
-                }
-                ERROR -> {
-                    handleError(historicalData)
-                }
-
-            }
-
-        }
-
-    }*/
-
-    fun handleError(dataResponse: DataResponse) {
 
     }
 
@@ -117,8 +78,13 @@ open class HistoricalViewModel(
         var yAxisData: MutableList<String> = ArrayList()
 
         rateItem.rates.rateItem.keys.toTypedArray().forEach {
-            //axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
-            axisData.add(it)
+            axisData.add(
+                DateUtilities.format(
+                    SIMPLE_TIME_FORMAT_DATE,
+                    DateTime(it)
+                )
+            ) // joda time have a problem with unit testing
+            //axisData.add(it)
         }
 
         rateItem.rates.rateItem.forEach {
@@ -143,10 +109,6 @@ open class HistoricalViewModel(
         }
 
         return GraphLineData(axisValues, yAxisValues)
-
-        //liveGraph.value = GraphLineData(axisValues, yAxisValues)
-
-        //liveGraph.postValue(GraphLineData(axisValues, yAxisValues))
 
     }
 

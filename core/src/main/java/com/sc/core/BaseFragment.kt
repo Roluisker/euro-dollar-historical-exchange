@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import com.sc.core.net.BasicError
+import com.sc.core.net.ViewBasicError
 import androidx.lifecycle.Observer
 import com.sc.core.net.DataResponse
-
 
 abstract class BaseFragment : Fragment() {
 
@@ -32,34 +31,35 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeViewModelToConsumeResponse()
+        subscribeViewModelToErrorHandler()
     }
 
     private fun subscribeViewModelToConsumeResponse() {
-        mutableLiveData().observe(this, Observer<DataResponse> {
-            consumeResponse(it)
+        dataResponseLiveData().observe(this, Observer<DataResponse> {
+            onSuccessResponse(it.data, it.request)
         })
     }
 
-    private fun consumeResponse(response: DataResponse) {
-
-        onSuccessResponse(response.data, response.request)
-
-        /*
-        when (response) {
-            is DataResponse.Loading -> {
-                switchProgressDialog(true)
-            }
-            is DataResponse.Success -> {
-                onSuccessResponse(response.data, response.requestTag)
-                switchProgressDialog(false)
-            }
-            is DataResponse.Error -> {
-                switchProgressDialog(false)
-                onFailureResponse(BasicError(1, response.exception, ""), response.requestTag)
-            }
-        }*/
-
+    private fun subscribeViewModelToErrorHandler() {
+        errorHandlerLiveData().observe(this, Observer<DataResponse> {
+            onFailureResponse(ViewBasicError(it.error), it.request)
+        })
     }
+
+    /*
+       when (response) {
+           is DataResponse.Loading -> {
+               switchProgressDialog(true)
+           }
+           is DataResponse.Success -> {
+               onSuccessResponse(response.data, response.requestTag)
+               switchProgressDialog(false)
+           }
+           is DataResponse.Error -> {
+               switchProgressDialog(false)
+               onFailureResponse(ViewBasicError(1, response.exception, ""), response.requestTag)
+           }
+       }*/
 
     private fun createProgressDialog() {
         try {
@@ -93,11 +93,13 @@ abstract class BaseFragment : Fragment() {
 
     abstract fun onSuccessResponse(data: Any?, request: String?)
 
-    abstract fun onFailureResponse(error: BasicError?, request: String?)
+    abstract fun onFailureResponse(errorView: ViewBasicError?, request: String?)
 
     @LayoutRes
     abstract fun fragmentLayout(): Int
 
-    abstract fun mutableLiveData(): MutableLiveData<DataResponse>
+    abstract fun dataResponseLiveData(): MutableLiveData<DataResponse>
+
+    abstract fun errorHandlerLiveData(): MutableLiveData<DataResponse>
 
 }
