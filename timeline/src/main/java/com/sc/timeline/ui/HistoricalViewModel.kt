@@ -60,6 +60,7 @@ open class HistoricalViewModel(
                 when (historicalData!!.status) {
                     SUCCESS -> {
                        val grap = dataToLineChartData(historicalData)
+                        liveDataResponse.value = historicalData
                         liveGraph.value = grap
                     }
                     ERROR -> {
@@ -116,7 +117,8 @@ open class HistoricalViewModel(
         var yAxisData: MutableList<String> = ArrayList()
 
         rateItem.rates.rateItem.keys.toTypedArray().forEach {
-            axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
+            //axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
+            axisData.add(it)
         }
 
         rateItem.rates.rateItem.forEach {

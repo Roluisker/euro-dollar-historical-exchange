@@ -90,18 +90,13 @@ class HistoricalViewModelTest {
 
         JodaTimeAndroid.init(context)*/
 
+
         Timber.i(historicalViewModel.toString())
 
     }
 
     @Test
     fun fetchData() {
-
-        //var timeSeriesRemote = mockkClass(TimeSeriesRemote::class)
-        //timeSeriesRemote.rates = mockkClass(TimeSeries::class)
-        //timeSeriesRemote.rates = ratesMap
-
-
 
         val mapResult: HashMap<String, HashMap<String, String>> = hashMapOf(
             "2019-03-01" to
@@ -113,9 +108,6 @@ class HistoricalViewModelTest {
         )
 
         every { timeSeriesRemote.rates.rateItem } returns mapResult
-        //every { DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, any()) } returns "-"
-
-        //timeSeriesRemote.rates = timeSeries
 
         val response = DataResponse.success(timeSeriesRemote, TIME_SERIES)
 
