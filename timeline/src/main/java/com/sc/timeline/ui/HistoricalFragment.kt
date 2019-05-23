@@ -18,13 +18,15 @@ import com.sc.core.CoreConstants.Companion.MAX_YEN_RANGE
 import com.sc.core.CoreConstants.Companion.USD
 import com.sc.timeline.R
 import android.app.DatePickerDialog
+import android.view.View
 import android.widget.DatePicker
 import androidx.core.content.ContextCompat
 import com.sc.core.*
 import com.sc.core.net.DataResponse
+import com.sc.timeline.model.GraphLineData
 import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
-import timber.log.Timber
+import androidx.lifecycle.Observer
 import java.util.*
 
 const val DEFAULT_HISTORICAL = 30
@@ -33,6 +35,11 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        subscribeViewModelToGrapData()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -57,7 +64,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     override fun onSuccessResponse(data: Any?, @FixerRequest request: String?) {
         request?.let {
             when (it) {
-                TIME_SERIES -> showChartLine(data as HashMap<Int, Any>)
+                TIME_SERIES -> {/*showChartLine(data)*/}
             }
         }
     }
@@ -118,9 +125,15 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         }
     }
 
-    private fun showChartLine(points: HashMap<Int, Any>) {
+    private fun subscribeViewModelToGrapData() {
+        historicalViewModel.liveGraph.observe(this, Observer<GraphLineData> {
+            showChartLine(it)
+        })
+    }
 
-        val line = Line(points[3] as ArrayList<PointValue>)
+    private fun showChartLine(points: GraphLineData) {
+
+        val line = Line(points.yAxisValues)
         val lines = ArrayList<Line>()
         val lineChar = LineChartData()
 
@@ -135,7 +148,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         lineChar.lines = lines
 
         val axis = Axis().apply {
-            values = points[2] as ArrayList<AxisValue>
+            values = points.axisValues
             textSize = 12
             textColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
         }

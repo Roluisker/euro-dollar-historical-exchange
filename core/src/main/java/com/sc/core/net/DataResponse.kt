@@ -7,7 +7,7 @@ import com.sc.core.annotation.net.SUCCESS
 
 const val ERROR_NOT_SET = -1
 
-class DataResponse (@ResponseStatus val status: String, var data: Any?, val error: Int, val request: String) {
+open class DataResponse(@ResponseStatus val status: String, var data: Any?, val error: Int, val request: String) {
     companion object {
         fun loading(request: String): DataResponse {
             return DataResponse(LOADING, null, ERROR_NOT_SET, request)
@@ -21,4 +21,9 @@ class DataResponse (@ResponseStatus val status: String, var data: Any?, val erro
             return DataResponse(ERROR, ERROR_NOT_SET, errorCode, request)
         }
     }
+
+    fun clearData() {
+        data = null
+    }
+
 }

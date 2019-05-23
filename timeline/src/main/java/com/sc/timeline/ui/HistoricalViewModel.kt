@@ -2,6 +2,7 @@ package com.sc.timeline.ui
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import com.sc.core.BaseViewModel
 import com.sc.core.CoreConstants
 import com.sc.core.CoreConstants.Companion.EMPTY
@@ -13,6 +14,7 @@ import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
 import com.sc.timeline.R
+import com.sc.timeline.model.GraphLineData
 import com.sc.timeline.repository.history.HistoricalRepository
 import kotlinx.coroutines.launch
 import lecho.lib.hellocharts.model.*
@@ -21,6 +23,8 @@ import java.util.*
 
 open class HistoricalViewModel(var historicalRepository: HistoricalRepository, private val context: Context) :
     BaseViewModel() {
+
+    var liveGraph = MutableLiveData<GraphLineData>()
 
     lateinit var currentStartDate: String
     lateinit var currentEndDate: String
@@ -35,29 +39,30 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
             val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)
 
+            dataToLineChartData(historicalData)
+            /*
             when (historicalData!!.status) {
                 SUCCESS -> {
-                    liveDataResponse.postValue(dataToLineChartData(historicalData))
+                    dataToLineChartData(historicalData)
+                    //historicalData.clearData()
+                    //liveDataResponse.postValue(historicalData)
                 }
                 ERROR -> {
 
                 }
 
-            }
+            }*/
 
         }
 
     }
 
-    fun dataToLineChartData(dataResponse: DataResponse): DataResponse {
+    fun dataToLineChartData(dataResponse: DataResponse) {
 
-        var rateItem = dataResponse.data as TimeSeriesRemote
+       var rateItem = dataResponse.data as TimeSeriesRemote
 
         val axisData: MutableList<String> = ArrayList()
         var yAxisData: MutableList<String> = ArrayList()
-
-        axisData.clear()
-        yAxisData.clear()
 
         rateItem.rates.rateItem.keys.toTypedArray().forEach {
             axisData.add(DateUtilities.format(SIMPLE_TIME_FORMAT_DATE, DateTime(it)))
@@ -84,15 +89,7 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
             )
         }
 
-        val mapResult: HashMap<Int, Any> = HashMap()
-        mapResult[0] = axisData
-        mapResult[1] = yAxisData
-        mapResult[2] = axisValues
-        mapResult[3] = yAxisValues
-
-        dataResponse.data = mapResult
-
-        return dataResponse
+        liveGraph.postValue(GraphLineData(axisValues, yAxisValues))
 
     }
 
