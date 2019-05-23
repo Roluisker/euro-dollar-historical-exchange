@@ -25,7 +25,9 @@ import javax.inject.Inject
 import javax.inject.Named
 
 open class HistoricalViewModel(
-    var historicalRepository: HistoricalRepository, private val context: Context
+    var historicalRepository: HistoricalRepository, private val context: Context,
+    mainDispacher: CoroutineDispatcher = Dispatchers.Main,
+    ioDispacher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseViewModel() {
 
     var liveGraph = MutableLiveData<GraphLineData>()
@@ -36,8 +38,8 @@ open class HistoricalViewModel(
     var euroToKey: String = CoreConstants.USD
     var maxRange: Float = CoreConstants.MAX_USD_RANGE
 
-    var mainDispacher = Dispatchers.Main
-    var ioDispacher = Dispatchers.IO
+    //var mainDispacher = Dispatchers.Main
+    //var ioDispacher = Dispatchers.IO
 
     private val job = Job()
 
@@ -57,7 +59,8 @@ open class HistoricalViewModel(
 
                 when (historicalData!!.status) {
                     SUCCESS -> {
-                        dataToLineChartData(historicalData)
+                       val grap = dataToLineChartData(historicalData)
+                        liveGraph.value = grap
                     }
                     ERROR -> {
                         handleError(historicalData)
@@ -105,7 +108,7 @@ open class HistoricalViewModel(
 
     }
 
-    fun dataToLineChartData(dataResponse: DataResponse) {
+    fun dataToLineChartData(dataResponse: DataResponse): GraphLineData {
 
         var rateItem = dataResponse.data as TimeSeriesRemote
 
@@ -137,7 +140,11 @@ open class HistoricalViewModel(
             )
         }
 
-        liveGraph.postValue(GraphLineData(axisValues, yAxisValues))
+        return GraphLineData(axisValues, yAxisValues)
+
+        //liveGraph.value = GraphLineData(axisValues, yAxisValues)
+
+        //liveGraph.postValue(GraphLineData(axisValues, yAxisValues))
 
     }
 

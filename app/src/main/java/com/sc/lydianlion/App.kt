@@ -5,6 +5,7 @@ import com.sc.core.di.ContextModule
 import com.sc.core.di.CoreComponent
 import com.sc.core.di.CoreComponentProvider
 import com.sc.core.di.DaggerCoreComponent
+import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 
 class App : Application(), CoreComponentProvider {
@@ -18,7 +19,7 @@ class App : Application(), CoreComponentProvider {
             .builder()
             .contextModule(ContextModule(this))
             .build()
-
+        JodaTimeAndroid.init(this)
     }
 
     override fun provideCoreComponent(): CoreComponent = coreComponent
