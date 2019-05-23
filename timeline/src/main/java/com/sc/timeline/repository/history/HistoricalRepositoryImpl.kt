@@ -5,7 +5,8 @@ import com.sc.core.net.DataResponse
 import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.api.MoneyApi
 
-open class HistoricalRepositoryImpl(private val moneyApi: MoneyApi) : BaseRepository(),
+// cambio avar api
+open class HistoricalRepositoryImpl(var moneyApi: MoneyApi) : BaseRepository(),
     HistoricalRepository {
 
     override suspend fun showHistorical(

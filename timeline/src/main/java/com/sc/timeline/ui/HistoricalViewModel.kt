@@ -34,13 +34,15 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
 
     fun showHistorical(start: String, end: String) {
 
+
         scope.launch {
             //liveDataResponse.postValue(DataResponse.Loading(TIME_SERIES))
 
             val historicalData = historicalRepository.showHistorical(start, end, TIME_SERIES)
 
-            dataToLineChartData(historicalData)
-            /*
+            //dataToLineChartData(historicalData)
+
+
             when (historicalData!!.status) {
                 SUCCESS -> {
                     dataToLineChartData(historicalData)
@@ -48,18 +50,22 @@ open class HistoricalViewModel(var historicalRepository: HistoricalRepository, p
                     //liveDataResponse.postValue(historicalData)
                 }
                 ERROR -> {
-
+                    handleError(historicalData)
                 }
 
-            }*/
+            }
 
         }
 
     }
 
+     fun handleError(dataResponse: DataResponse) {
+
+    }
+
     fun dataToLineChartData(dataResponse: DataResponse) {
 
-       var rateItem = dataResponse.data as TimeSeriesRemote
+        var rateItem = dataResponse.data as TimeSeriesRemote
 
         val axisData: MutableList<String> = ArrayList()
         var yAxisData: MutableList<String> = ArrayList()

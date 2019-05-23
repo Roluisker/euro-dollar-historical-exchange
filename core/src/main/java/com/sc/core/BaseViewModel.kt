@@ -9,7 +9,7 @@ open class BaseViewModel : ViewModel() {
 
     var liveDataResponse = MutableLiveData<DataResponse>()
 
-    private val job = SupervisorJob()
+    var job = SupervisorJob()
     var scope = CoroutineScope(Dispatchers.Default + job)
 
     override fun onCleared() {
