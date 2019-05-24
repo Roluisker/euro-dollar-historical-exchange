@@ -63,7 +63,7 @@ open class HistoricalViewModel(
                 }
 
             } catch (error: Exception) {
-                Timber.d(error)
+                liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
             }
 
         }

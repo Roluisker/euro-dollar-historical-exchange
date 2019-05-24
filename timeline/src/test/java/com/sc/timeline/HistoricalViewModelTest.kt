@@ -6,6 +6,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.sc.core.CoreConstants.Companion.EUR
 import com.sc.core.CoreConstants.Companion.JPY
 import com.sc.core.CoreConstants.Companion.USD
+import com.sc.core.annotation.net.ERROR
 
 import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
@@ -90,6 +91,20 @@ class HistoricalViewModelTest {
 
         assert(historicalViewModel.liveDataResponse.value == null)
         assert(historicalViewModel.liveGraph.value == null)
+        assert(historicalViewModel.liveDataErrorResponse.value!!.status == ERROR)
+
+    }
+
+    @Test
+    fun showHistoricalUnexpectedErrorTest() {
+
+        coEvery { historicalRepository.showHistorical(any(), any(), TIME_SERIES) } coAnswers { throw Exception("UnexpectedError") }
+
+        historicalViewModel.showHistorical("", "")
+
+        assert(historicalViewModel.liveDataResponse.value == null)
+        assert(historicalViewModel.liveGraph.value == null)
+        assert(historicalViewModel.liveDataErrorResponse.value!!.status == ERROR)
 
     }
 
