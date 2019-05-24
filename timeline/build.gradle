@@ -6,7 +6,7 @@ apply plugin: "androidx.navigation.safeargs"
 apply from: '../config_module.gradle'
 apply from: '../base_dagger_libraries.gradle'
 
-//puesto para probar
+//puesto para probar unit test
 android {
     testOptions {
         unitTests.returnDefaultValues = true
