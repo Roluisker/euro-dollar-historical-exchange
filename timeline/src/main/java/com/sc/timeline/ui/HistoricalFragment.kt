@@ -55,11 +55,13 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         initDependencyInjection()
     }
 
-    private fun loadHistorical(start: String, end: String) {
-        historicalViewModel.showHistorical(start, end)
-        startDate.text = start
-        endDate.text = end
-        endDate.isEnabled = false
+    fun loadHistorical(start: String, end: String) {
+        val isCalled = historicalViewModel.showHistorical(start, end)
+        if (isCalled) {
+            startDate.text = start
+            endDate.text = end
+            endDate.isEnabled = false
+        }
     }
 
     /*In the future you can handle the response behaibuur by response  */
@@ -74,7 +76,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     override fun onFailureResponse(errorView: ViewBasicError?, @FixerRequest request: String?) {
         errorView?.let {
-            Timber.i(it.code.toString()+ "--" + request)
+            Timber.i(it.code.toString() + "--" + request)
         }
     }
 

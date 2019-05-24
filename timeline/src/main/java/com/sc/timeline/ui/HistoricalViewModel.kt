@@ -41,7 +41,9 @@ open class HistoricalViewModel(
 
     val ioScope = CoroutineScope(ioDispacher + job)
 
-    fun showHistorical(start: String, end: String) {
+    fun showHistorical(start: String, end: String): Boolean {
+
+        var isFetchHistoricalLaunched = false
 
         try {
 
@@ -66,13 +68,17 @@ open class HistoricalViewModel(
 
                 } catch (error: Exception) {
                     liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
+                    isFetchHistoricalLaunched = false
                 }
 
             }
 
         } catch (error: Exception) {
             liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
+            isFetchHistoricalLaunched = false
         }
+
+        return isFetchHistoricalLaunched
 
     }
 

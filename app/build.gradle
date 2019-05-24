@@ -3,24 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
-apply plugin: 'jacoco-android'
 apply from: '../base_libraries.gradle'
 apply from: '../base_dagger_libraries.gradle'
-
-
-jacoco {
-    toolVersion = "0.8.3"
-}
-
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-}
-
-jacocoAndroidUnitTestReport {
-    csv.enabled false
-    html.enabled true
-    xml.enabled true
-}
 
 android {
 
