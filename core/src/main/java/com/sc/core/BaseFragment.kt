@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.net.ViewBasicError
 import androidx.lifecycle.Observer

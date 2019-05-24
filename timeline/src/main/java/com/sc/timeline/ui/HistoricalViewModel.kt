@@ -14,11 +14,10 @@ import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
 
 import com.sc.timeline.model.GraphLineData
-import com.sc.timeline.repository.history.HistoricalRepository
+import com.sc.timeline.repository.HistoricalRepository
 import kotlinx.coroutines.*
 import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
-import timber.log.Timber
 import java.util.*
 
 open class HistoricalViewModel(
@@ -35,7 +34,7 @@ open class HistoricalViewModel(
     var euroToKey: String = CoreConstants.USD
     var maxRange: Float = CoreConstants.MAX_USD_RANGE
 
-    private val job = Job()
+    //private val job = Job()
 
     private val uiScope = CoroutineScope(mainDispacher + job)
 

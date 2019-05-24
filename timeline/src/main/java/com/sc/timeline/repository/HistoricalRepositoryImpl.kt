@@ -1,4 +1,4 @@
-package com.sc.timeline.repository.history
+package com.sc.timeline.repository
 
 import com.sc.core.BaseRepository
 import com.sc.core.net.DataResponse

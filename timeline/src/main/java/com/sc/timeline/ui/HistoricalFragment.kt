@@ -50,7 +50,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         loadHistorical("2019-03-01", "2019-03-20")
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         initDependencyInjection()
     }

@@ -11,7 +11,7 @@ import com.sc.core.ui.coreComponent
 abstract class ConvertFragment : BaseFragment() {
 
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         initDependencyInjection()
     }

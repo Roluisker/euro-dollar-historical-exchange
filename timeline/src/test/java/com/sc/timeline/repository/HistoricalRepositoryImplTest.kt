@@ -1,4 +1,4 @@
-package com.sc.timeline
+package com.sc.timeline.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.sc.core.annotation.net.ERROR
@@ -8,8 +8,6 @@ import com.sc.core.api.MoneyApi
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
 import com.sc.core.net.ERROR_NOT_SET
-import com.sc.timeline.repository.history.HISTORICAL_UNEXPECTED_ERROR
-import com.sc.timeline.repository.history.HistoricalRepositoryImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -22,7 +20,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class HistoricalRepositoryTest {
+class HistoricalRepositoryImplTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -62,9 +60,11 @@ class HistoricalRepositoryTest {
     }
 
     @Test
-    fun fetchHistoricalErrorTest()  = runBlocking {
+    fun fetchHistoricalErrorTest() = runBlocking {
 
-        coEvery { moneyApi.getMoneyTimeSeriesByDateAsync2(any(), any()).await() } coAnswers { throw Exception("UnexpectedError") }
+        coEvery {
+            moneyApi.getMoneyTimeSeriesByDateAsync2(any(), any()).await()
+        } coAnswers { throw Exception("UnexpectedError") }
 
         val fetchResponse = historicalImpl.fetchHistorical("", "", TIME_SERIES)
 

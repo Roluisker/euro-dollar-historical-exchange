@@ -4,11 +4,10 @@ import android.content.Context
 import com.sc.core.api.MoneyApi
 import com.sc.core.ui.getViewModel
 import com.sc.timeline.ui.HistoricalViewModel
-import com.sc.timeline.repository.history.HistoricalRepositoryImpl
+import com.sc.timeline.repository.HistoricalRepositoryImpl
 import com.sc.timeline.ui.HistoricalFragment
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 class HistoricalFragmentModule(val fragment: HistoricalFragment) {

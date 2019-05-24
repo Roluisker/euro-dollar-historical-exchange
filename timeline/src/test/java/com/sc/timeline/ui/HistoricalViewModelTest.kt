@@ -1,4 +1,4 @@
-package com.sc.timeline
+package com.sc.timeline.ui
 
 import android.content.Context
 
@@ -13,8 +13,7 @@ import com.sc.core.annotation.net.TIME_SERIES
 
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
-import com.sc.timeline.repository.history.HistoricalRepositoryImpl
-import com.sc.timeline.ui.HistoricalViewModel
+import com.sc.timeline.repository.HistoricalRepositoryImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
