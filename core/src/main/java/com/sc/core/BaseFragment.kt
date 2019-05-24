@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.net.ViewBasicError
 import androidx.lifecycle.Observer
@@ -36,13 +35,13 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun subscribeViewModelToConsumeResponse() {
-        dataResponseLiveData().observe(this, Observer<DataResponse> {
+        dataResponseLiveData()?.observe(this, Observer<DataResponse> {
             onSuccessResponse(it.data, it.request)
         })
     }
 
     private fun subscribeViewModelToErrorHandler() {
-        errorHandlerLiveData().observe(this, Observer<DataResponse> {
+        errorHandlerLiveData()?.observe(this, Observer<DataResponse> {
             onFailureResponse(ViewBasicError(it.error), it.request)
         })
     }
@@ -99,8 +98,8 @@ abstract class BaseFragment : Fragment() {
     @LayoutRes
     abstract fun fragmentLayout(): Int
 
-    abstract fun dataResponseLiveData(): MutableLiveData<DataResponse>
+    abstract fun dataResponseLiveData(): MutableLiveData<DataResponse>?
 
-    abstract fun errorHandlerLiveData(): MutableLiveData<DataResponse>
+    abstract fun errorHandlerLiveData(): MutableLiveData<DataResponse>?
 
 }

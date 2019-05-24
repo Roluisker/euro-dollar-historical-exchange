@@ -23,7 +23,6 @@
 
     <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/lineChart"
-            android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="@dimen/all_dimen_20"
@@ -41,7 +40,7 @@
             android:id="@+id/startDate"
             android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/lineChart"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="62dp"
-            app:layout_constraintEnd_toStartOf="@+id/textView" android:layout_marginEnd="5dp"/>
+            app:layout_constraintEnd_toStartOf="@+id/dateText" android:layout_marginEnd="5dp"/>
 
     <Button android:textColor="@color/colorPrimary"
             android:layout_gravity="right"
@@ -52,7 +51,7 @@
             android:id="@+id/endDate"
             android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/lineChart"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="62dp"
-            app:layout_constraintStart_toEndOf="@+id/textView"/>
+            app:layout_constraintStart_toEndOf="@+id/dateText"/>
 
     <TextView
             android:text="@string/to"
@@ -60,7 +59,7 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView" app:layout_constraintEnd_toStartOf="@+id/endDate"
+            android:id="@+id/dateText" app:layout_constraintEnd_toStartOf="@+id/endDate"
             android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/startDate"
             android:layout_marginStart="16dp" app:layout_constraintTop_toBottomOf="@+id/lineChart"
             android:layout_marginTop="28dp"/>

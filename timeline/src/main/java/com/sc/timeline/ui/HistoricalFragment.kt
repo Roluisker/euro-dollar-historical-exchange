@@ -56,11 +56,13 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     }
 
     fun loadHistorical(start: String, end: String) {
-        val isCalled = historicalViewModel.showHistorical(start, end)
-        if (isCalled) {
-            startDate.text = start
-            endDate.text = end
-            endDate.isEnabled = false
+        if (::historicalViewModel.isInitialized) {
+            val isCalled = historicalViewModel.showHistorical(start, end)
+            if (isCalled) {
+                startDate.text = start
+                endDate.text = end
+                endDate.isEnabled = false
+            }
         }
     }
 
@@ -133,9 +135,11 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     }
 
     private fun subscribeViewModelToGrapData() {
-        historicalViewModel.liveGraph.observe(this, Observer<GraphLineData> {
-            showChartLine(it)
-        })
+        if (::historicalViewModel.isInitialized) {
+            historicalViewModel.liveGraph.observe(this, Observer<GraphLineData> {
+                showChartLine(it)
+            })
+        }
     }
 
     private fun showChartLine(points: GraphLineData) {
@@ -209,17 +213,31 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     }
 
-    private fun initDependencyInjection() =
-        DaggerTimelineComponent
-            .builder()
-            .coreComponent(coreComponent())
-            .historicalFragmentModule(HistoricalFragmentModule(this))
-            .build()
-            .inject(this)
+    private fun initDependencyInjection() {
+        val coreComponent = coreComponent()
+        if (coreComponent != null) {
+            DaggerTimelineComponent
+                .builder()
+                .coreComponent(coreComponent)
+                .historicalFragmentModule(HistoricalFragmentModule(this))
+                .build()
+                .inject(this)
+        }
+    }
 
-    override fun dataResponseLiveData(): MutableLiveData<DataResponse> = historicalViewModel.liveDataResponse
+    override fun dataResponseLiveData(): MutableLiveData<DataResponse>? {
+        if (::historicalViewModel.isInitialized) {
+            return historicalViewModel.liveDataResponse
+        }
+        return null
+    }
 
-    override fun errorHandlerLiveData(): MutableLiveData<DataResponse> = historicalViewModel.liveDataErrorResponse
+    override fun errorHandlerLiveData(): MutableLiveData<DataResponse>? {
+        if (::historicalViewModel.isInitialized) {
+            historicalViewModel.liveDataErrorResponse
+        }
+        return null
+    }
 
     override fun fragmentLayout(): Int = R.layout.historical_fragment
 
