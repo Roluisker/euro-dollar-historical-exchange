@@ -43,29 +43,35 @@ open class HistoricalViewModel(
 
     fun showHistorical(start: String, end: String) {
 
-        uiScope.launch {
+        try {
 
-            try {
+            uiScope.launch {
 
-                val currentResponse = ioScope.async {
-                    return@async historicalRepository.showHistorical(start, end, TIME_SERIES)
-                }.await()
+                try {
 
-                when (currentResponse!!.status) {
-                    SUCCESS -> {
-                        val grap = dataToLineChartData(currentResponse)
-                        liveDataResponse.value = currentResponse
-                        liveGraph.value = grap
+                    val currentResponse = ioScope.async {
+                        return@async historicalRepository.fetchHistorical(start, end, TIME_SERIES)
+                    }.await()
+
+                    when (currentResponse!!.status) {
+                        SUCCESS -> {
+                            val grap = dataToLineChartData(currentResponse)
+                            liveDataResponse.value = currentResponse
+                            liveGraph.value = grap
+                        }
+                        ERROR -> {
+                            liveDataErrorResponse.value = currentResponse
+                        }
                     }
-                    ERROR -> {
-                        liveDataErrorResponse.value = currentResponse
-                    }
+
+                } catch (error: Exception) {
+                    liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
                 }
 
-            } catch (error: Exception) {
-                liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
             }
 
+        } catch (error: Exception) {
+            liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
         }
 
     }

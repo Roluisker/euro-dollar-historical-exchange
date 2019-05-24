@@ -5,7 +5,7 @@ import com.sc.core.annotation.net.FixerRequest
 
 interface HistoricalRepository {
 
-    suspend fun showHistorical(
+    suspend fun fetchHistorical(
         startDate: String,
         endDate: String, @FixerRequest request: String
     ): DataResponse

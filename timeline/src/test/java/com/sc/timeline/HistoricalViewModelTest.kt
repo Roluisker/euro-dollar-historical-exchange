@@ -10,7 +10,6 @@ import com.sc.core.annotation.net.ERROR
 
 import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
-import com.sc.core.model.local.TimeSeries
 
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
@@ -27,7 +26,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import timber.log.Timber
 
 @RunWith(JUnit4::class)
 class HistoricalViewModelTest {
@@ -44,9 +42,6 @@ class HistoricalViewModelTest {
     @MockK
     lateinit var timeSeriesRemote: TimeSeriesRemote
 
-    @MockK
-    lateinit var timeSeries: TimeSeries
-
     lateinit var historicalViewModel: HistoricalViewModel
 
     val dispatcher = Dispatchers.Unconfined
@@ -55,7 +50,6 @@ class HistoricalViewModelTest {
     fun setup() {
         MockKAnnotations.init(this)
         historicalViewModel = HistoricalViewModel(historicalRepository, context, dispatcher, dispatcher)
-        Timber.i(historicalViewModel.toString())
     }
 
     @Test
@@ -65,7 +59,7 @@ class HistoricalViewModelTest {
 
         val response = DataResponse.success(timeSeriesRemote, TIME_SERIES)
 
-        coEvery { historicalRepository.showHistorical(any(), any(), TIME_SERIES) } returns response
+        coEvery { historicalRepository.fetchHistorical(any(), any(), TIME_SERIES) } returns response
 
         historicalViewModel.liveDataResponse.observeForever { }
 
@@ -83,7 +77,7 @@ class HistoricalViewModelTest {
 
         val errorResponse = DataResponse.error(1, TIME_SERIES)
 
-        coEvery { historicalRepository.showHistorical(any(), any(), TIME_SERIES) } returns errorResponse
+        coEvery { historicalRepository.fetchHistorical(any(), any(), TIME_SERIES) } returns errorResponse
 
         historicalViewModel.liveDataResponse.observeForever { }
 
@@ -98,7 +92,13 @@ class HistoricalViewModelTest {
     @Test
     fun showHistoricalUnexpectedErrorTest() {
 
-        coEvery { historicalRepository.showHistorical(any(), any(), TIME_SERIES) } coAnswers { throw Exception("UnexpectedError") }
+        coEvery {
+            historicalRepository.fetchHistorical(
+                any(),
+                any(),
+                TIME_SERIES
+            )
+        } coAnswers { throw Exception("UnexpectedError") }
 
         historicalViewModel.showHistorical("", "")
 
