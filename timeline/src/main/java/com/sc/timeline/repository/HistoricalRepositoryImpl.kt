@@ -46,7 +46,7 @@ open class HistoricalRepositoryImpl(
 
         when (error) {
             is UnknownHostException -> {
-                //Timber.d(timeSeriesDao.seriesByDates("2019-03-05", "2019-03-24").id.toString())
+
                 val timeSeriesList = timeSeriesDao.series()
 
                 if (timeSeriesList.isNotEmpty()) {
