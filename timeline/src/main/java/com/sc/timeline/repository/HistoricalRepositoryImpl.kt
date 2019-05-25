@@ -4,11 +4,15 @@ import com.sc.core.BaseRepository
 import com.sc.core.net.DataResponse
 import com.sc.core.annotation.net.FixerRequest
 import com.sc.core.api.MoneyApi
+import com.sc.core.db.TimeSeriesDao
 
 const val HISTORICAL_UNEXPECTED_ERROR = 1
 
 // cambio avar api
-open class HistoricalRepositoryImpl(var moneyApi: MoneyApi) : BaseRepository(),
+open class HistoricalRepositoryImpl(
+    var moneyApi: MoneyApi,
+    val timeSeriesDao: TimeSeriesDao
+) : BaseRepository(),
     HistoricalRepository {
 
     override suspend fun fetchHistorical(

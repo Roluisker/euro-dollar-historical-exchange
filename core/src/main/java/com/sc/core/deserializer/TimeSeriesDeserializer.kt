@@ -13,7 +13,6 @@ import com.sc.core.CoreConstants.Companion.USD
 import com.sc.core.model.remote.TimeSeriesRemote
 import timber.log.Timber
 import java.lang.Exception
-
 import java.lang.reflect.Type
 
 class TimeSeriesDeserializer : JsonDeserializer<TimeSeriesRemote>, JsonSerializer<TimeSeriesRemote> {

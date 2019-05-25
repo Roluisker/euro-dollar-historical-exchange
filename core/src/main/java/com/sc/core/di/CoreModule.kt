@@ -1,5 +1,7 @@
 package com.sc.core.di
 
+import android.content.Context
+import androidx.room.Room
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -7,6 +9,8 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.sc.core.BuildConfig
 import com.sc.core.CoreConstants
 import com.sc.core.api.MoneyApi
+import com.sc.core.db.LydianLionDatabase
+import com.sc.core.db.TimeSeriesDao
 import com.sc.core.net.RequestInterceptor
 import dagger.Module
 import dagger.Provides
@@ -16,9 +20,21 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 class CoreModule {
+
+    @Provides
+    @Singleton
+    fun provideTimeSeriesDao(db: LydianLionDatabase): TimeSeriesDao = db.timeSeriesDao()
+
+    @Provides
+    @Singleton
+    fun provideLydianLionDatabase(context: Context) =
+        Room.databaseBuilder(context, LydianLionDatabase::class.java, "lydian_lionDatabase.db")
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Provides
     @Reusable

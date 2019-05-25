@@ -2,8 +2,8 @@ package com.sc.core.di
 
 import android.content.Context
 import com.sc.core.api.MoneyApi
+import com.sc.core.db.TimeSeriesDao
 import dagger.Component
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 /**
@@ -20,5 +20,6 @@ interface CoreComponent {
 
     fun context(): Context
     fun provideMoneyApi(): MoneyApi
+    fun provideTimeSeriesDao(): TimeSeriesDao
 
 }

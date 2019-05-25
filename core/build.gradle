@@ -39,7 +39,7 @@ dependencies {
     implementation deps.okHttp3.core
 
     implementation deps.database.roomRuntime
-    annotationProcessor deps.database.roomCompiler
+    kapt deps.database.roomCompiler
     implementation deps.database.roomKtx
     testImplementation deps.test.roomTest
 

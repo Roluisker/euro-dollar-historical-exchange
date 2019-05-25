@@ -1,32 +1,24 @@
 package com.sc.core.db
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sc.core.deserializer.TimeSeriesDeserializer
+import com.sc.core.model.local.TimeSeries
 
-//@Dao
-class TimeSeriesDao {
+@Dao
+interface TimeSeriesDao {
 
-    /*
-
-    @Query("SELECT * FROM Movie WHERE id = :movieId")
-    fun movie(movieId: String): Single<Movie>
-
-    @Query("SELECT * FROM Movie")
-    fun movies(): Single<List<Movie>>
-
-    @Query("DELETE FROM Movie WHERE id = :movieId")
-    fun deleteMovie(movieId: String): Int
-
-    @Query("DELETE FROM Movie")
-    fun dropMovies(): Int
+    @Query("SELECT * FROM TimeSeries WHERE start_date = :startDate AND end_date = :endDate")
+    suspend fun seriesByDates(startDate: String, endDate: String): TimeSeries
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovies(movies: List<Movie>)
+    suspend fun insertSeries(movies: TimeSeries)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movies: Movie)
-     */
+    @Query("DELETE FROM TimeSeries")
+    suspend fun dropSeries(): Int
 
+    @Query("SELECT * FROM TimeSeries")
+    suspend fun series(): List<TimeSeries>
 
 }
