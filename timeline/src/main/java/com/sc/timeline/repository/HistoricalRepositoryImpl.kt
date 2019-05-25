@@ -31,7 +31,7 @@ open class HistoricalRepositoryImpl(
 
     }
 
-    suspend fun errorHandler(error: Exception, @FixerRequest requestTag: String): DataResponse {
+    override suspend fun errorHandler(error: Exception, @FixerRequest requestTag: String): DataResponse {
 
         when (error) {
             is UnknownHostException -> {
