@@ -30,8 +30,8 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeViewModelToConsumeResponse()
-        subscribeViewModelToErrorHandler()
+            subscribeViewModelToConsumeResponse()
+            subscribeViewModelToErrorHandler()
     }
 
     private fun subscribeViewModelToConsumeResponse() {
@@ -101,5 +101,6 @@ abstract class BaseFragment : Fragment() {
     abstract fun dataResponseLiveData(): MutableLiveData<DataResponse>?
 
     abstract fun errorHandlerLiveData(): MutableLiveData<DataResponse>?
+
 
 }

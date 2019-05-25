@@ -18,6 +18,7 @@ import com.sc.timeline.repository.HistoricalRepository
 import kotlinx.coroutines.*
 import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
+import timber.log.Timber
 import java.util.*
 
 open class HistoricalViewModel(
@@ -83,23 +84,24 @@ open class HistoricalViewModel(
 
     fun dataToLineChartData(dataResponse: DataResponse): GraphLineData {
 
-        var rateItem = dataResponse.data as TimeSeriesRemote
+        var timeSeriesRemote = dataResponse.data as TimeSeriesRemote
+
+        val datesAndValues = TreeMap(timeSeriesRemote.rates.rateItem)
 
         val axisData: MutableList<String> = ArrayList()
         var yAxisData: MutableList<String> = ArrayList()
 
-        rateItem.rates.rateItem.keys.toTypedArray().forEach {
+        datesAndValues.forEach {
+
             axisData.add(
                 DateUtilities.format(
                     SIMPLE_TIME_FORMAT_DATE,
-                    DateTime(it)
+                    DateTime(it.key)
                 )
-            ) // joda time have a problem with unit testing
-            //axisData.add(it)
-        }
+            )
 
-        rateItem.rates.rateItem.forEach {
             it.value[euroToKey]?.let { it1 -> yAxisData.add(it1) }
+
         }
 
         val axisValues = ArrayList<AxisValue>()

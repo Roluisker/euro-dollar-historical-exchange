@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 class HistoricalFragmentTest {
 
     @Test
-    fun componentsAvailableToUser() {
+    fun mainComponentsAvailable() {
 
         launchFragmentInContainer<HistoricalFragment>()
 
@@ -40,7 +40,7 @@ class HistoricalFragmentTest {
      */
 
     @Test
-    fun clickT() {
+    fun dateDialogAvailable() {
 
         val scenario = launchFragmentInContainer<HistoricalFragment>()
 

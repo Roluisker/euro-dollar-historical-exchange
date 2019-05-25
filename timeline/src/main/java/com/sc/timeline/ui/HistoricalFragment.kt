@@ -34,6 +34,7 @@ const val DEFAULT_HISTORICAL = 30
 
 open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
+
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
 
@@ -58,7 +59,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     }
 
     fun loadHistorical(start: String, end: String) {
-        if (::historicalViewModel.isInitialized) {
+        if (isHistoricalViewModelAvailable()) {
             val isCalled = historicalViewModel.showHistorical(start, end)
             if (isCalled) {
                 startDate.text = start
@@ -137,7 +138,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     }
 
     private fun subscribeViewModelToGrapData() {
-        if (::historicalViewModel.isInitialized) {
+        if (isHistoricalViewModelAvailable()) {
             historicalViewModel.liveGraph.observe(this, Observer<GraphLineData> {
                 showChartLine(it)
             })
@@ -230,18 +231,20 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     }
 
     override fun dataResponseLiveData(): MutableLiveData<DataResponse>? {
-        if (::historicalViewModel.isInitialized) {
+        if (isHistoricalViewModelAvailable()) {
             return historicalViewModel.liveDataResponse
         }
         return null
     }
 
     override fun errorHandlerLiveData(): MutableLiveData<DataResponse>? {
-        if (::historicalViewModel.isInitialized) {
+        if (isHistoricalViewModelAvailable()) {
             historicalViewModel.liveDataErrorResponse
         }
         return null
     }
+
+    private fun isHistoricalViewModelAvailable(): Boolean = ::historicalViewModel.isInitialized
 
     override fun fragmentLayout(): Int = R.layout.historical_fragment
 
