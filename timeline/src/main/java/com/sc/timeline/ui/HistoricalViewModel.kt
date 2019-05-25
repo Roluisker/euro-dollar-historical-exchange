@@ -91,6 +91,8 @@ open class HistoricalViewModel(
         val axisData: MutableList<String> = ArrayList()
         var yAxisData: MutableList<String> = ArrayList()
 
+        val axisValues = ArrayList<AxisValue>()
+
         datesAndValues.forEach {
 
             axisData.add(
@@ -103,8 +105,6 @@ open class HistoricalViewModel(
             it.value[euroToKey]?.let { it1 -> yAxisData.add(it1) }
 
         }
-
-        val axisValues = ArrayList<AxisValue>()
 
         for (i in 0 until axisData.size) {
             axisValues.add(i, AxisValue(i.toFloat()).setLabel(axisData[i]))
