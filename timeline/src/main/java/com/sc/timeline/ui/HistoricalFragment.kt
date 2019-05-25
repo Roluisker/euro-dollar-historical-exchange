@@ -37,6 +37,8 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
 
+    private lateinit var startDateDialog: DatePickerDialog
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeViewModelToGrapData()
@@ -184,8 +186,10 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     }
 
-    private fun selectStartDate() {
-        initDatePicker().show()
+    fun selectStartDate() {
+        startDateDialog = initDatePicker()
+        startDateDialog.setTitle("Fecha")
+        startDateDialog.show()
     }
 
     private fun initDatePicker(): DatePickerDialog {
