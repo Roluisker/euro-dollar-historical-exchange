@@ -34,7 +34,6 @@ const val DEFAULT_HISTORICAL = 30
 
 open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
-
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
 

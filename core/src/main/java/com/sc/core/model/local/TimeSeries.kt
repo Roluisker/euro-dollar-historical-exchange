@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "timeseries")
 open class TimeSeries(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
     var start_date: String? = "",
     var end_date: String? = "",
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L,
     @Ignore var rateItem: HashMap<String, HashMap<String, String>> = HashMap()
 )

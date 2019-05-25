@@ -11,5 +11,5 @@ open class TimeSeriesRemote(
     val start_date: String = "",
     val end_date: String = "",
     val base: String? = "",
-    var rates: TimeSeries = TimeSeries(1, start_date, end_date)
+    var rates: TimeSeries = TimeSeries(start_date, end_date)
 )
