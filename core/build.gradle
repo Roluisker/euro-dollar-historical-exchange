@@ -34,12 +34,15 @@ dependencies {
     api deps.lifecycle.reactStreams
     implementation deps.data.gsonCore
     api deps.retrofit.core
-    //api deps.retrofit.adapterRxJava2
+
     api deps.retrofit.converterGson
     implementation deps.okHttp3.core
+
     implementation deps.database.roomRuntime
-    kapt deps.database.roomCompiler
-    //implementation deps.database.roomRxjava2
+    annotationProcessor deps.database.roomCompiler
+    implementation deps.database.roomKtx
+    testImplementation deps.test.roomTest
+
     api deps.coroutines.adapter
     api deps.coroutines.android
     api deps.coroutines.core
