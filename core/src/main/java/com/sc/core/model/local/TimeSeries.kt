@@ -8,7 +8,9 @@ import androidx.room.PrimaryKey
 open class TimeSeries(
     var start_date: String? = "",
     var end_date: String? = "",
+    var rateItemJson: String? = "",
+    @Ignore var rateItem: HashMap<String, HashMap<String, String>> = HashMap(),
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
-    @Ignore var rateItem: HashMap<String, HashMap<String, String>> = HashMap()
+    var id: Long = 0L
 )
+
