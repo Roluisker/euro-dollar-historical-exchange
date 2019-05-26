@@ -28,6 +28,10 @@ object DateUtilities {
 
     fun today(): String = DateTime().toString(TODAY_TIME_FORMAT_DATE)
 
-    fun todayMinusDays(daysToMinus: Int): String = DateTime().minusDays(daysToMinus).toString(TODAY_TIME_FORMAT_DATE)
+    fun todayMinusDays(daysToMinus: Int): String {
+        var today = DateTime()
+        var todayMinus = today.minusDays(daysToMinus)
+        return todayMinus.toString(TODAY_TIME_FORMAT_DATE)
+    }
 
 }

@@ -118,7 +118,7 @@ class HistoricalRepositoryImplTest {
     }
 
     @Test
-    fun errorHandlerUnexpectedException() = runBlocking {
+    fun errorHandlerUnexpectedExceptionTest() = runBlocking {
 
         coEvery { timeSeriesDao.series() } coAnswers { throw Exception("UnexpectedError") }
 
@@ -131,7 +131,7 @@ class HistoricalRepositoryImplTest {
     }
 
     @Test
-    fun errorHandlerDataFromLocal() = runBlocking {
+    fun errorHandlerDataFromLocalTest() = runBlocking {
 
         var timeSeries = TimeSeries()
         timeSeries.rateItemJson = FROM_GSON

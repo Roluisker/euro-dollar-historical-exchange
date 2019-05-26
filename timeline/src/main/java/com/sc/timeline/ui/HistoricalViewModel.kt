@@ -12,7 +12,6 @@ import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
-import com.sc.core.net.RESPONSE_FROM_LOCAL
 
 import com.sc.timeline.model.GraphLineData
 import com.sc.timeline.repository.HistoricalRepository

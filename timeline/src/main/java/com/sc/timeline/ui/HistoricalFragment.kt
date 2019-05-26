@@ -30,7 +30,7 @@ import androidx.lifecycle.Observer
 import timber.log.Timber
 import java.util.*
 
-const val DEFAULT_HISTORICAL = 30
+const val DEFAULT_HISTORICAL = 20
 
 open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
@@ -47,9 +47,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setListeners()
-        //loadHistorical(DateUtilities.todayMinusDays(DEFAULT_HISTORICAL), DateUtilities.today())
-        //loadHistorical("2019-03-01", "2019-03-20")
-        loadHistorical("2019-03-05", "2019-03-24")
+        loadHistorical(DateUtilities.todayMinusDays(DEFAULT_HISTORICAL), DateUtilities.todayMinusDays(1))
     }
 
     override fun onAttach(context: Context) {
@@ -57,18 +55,15 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         initDependencyInjection()
     }
 
-    fun loadHistorical(start: String, end: String) {
+    private fun loadHistorical(start: String, end: String) {
         if (isHistoricalViewModelAvailable()) {
-            val isCalled = historicalViewModel.showHistorical(start, end)
-            if (isCalled) {
-                startDate.text = start
-                endDate.text = end
-                endDate.isEnabled = false
-            }
+            historicalViewModel.showHistorical(start, end)
+            startDate.text = start
+            endDate.text = end
+            endDate.isEnabled = false
         }
     }
 
-    /*In the future you can handle the response behaibuur by response  */
     override fun onSuccessResponse(data: Any?, @FixerRequest request: String?) {
         request?.let {
             when (it) {

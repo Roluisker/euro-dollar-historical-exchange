@@ -36,32 +36,17 @@ class HistoricalFragmentTest {
 
     }
 
-    /*
-     */
-
     @Test
     fun dateDialogAvailable() {
 
-        val scenario = launchFragmentInContainer<HistoricalFragment>()
-
+        launchFragmentInContainer<HistoricalFragment>()
 
         onView(withId(R.id.startDate))
             .perform(click())
 
-        var titleId = 0
-
-/*
-        scenario.onFragment { fragment ->
-            //onView(withId(R.id.startDate))
-            //    .perform(click())
-            titleId = fragment.activity!!.resources.getIdentifier("alertTitle", "id", "android")
-            //onView(isRoot()).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        }*/
-
         onView(withText("OK"))
             .inRoot(isDialog()) // <---
             .check(matches(isDisplayed()))
-
 
     }
 

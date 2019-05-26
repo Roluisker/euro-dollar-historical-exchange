@@ -14,9 +14,9 @@ import java.net.UnknownHostException
 
 const val HISTORICAL_UNEXPECTED_ERROR = 1
 
-open class HistoricalRepositoryImpl(
-    var moneyApi: MoneyApi,
-    val timeSeriesDao: TimeSeriesDao
+class HistoricalRepositoryImpl(
+   private  var moneyApi: MoneyApi,
+   private val timeSeriesDao: TimeSeriesDao
 ) : BaseRepository(),
     HistoricalRepository {
 
