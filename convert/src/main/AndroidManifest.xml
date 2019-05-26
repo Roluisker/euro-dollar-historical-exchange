@@ -18,20 +18,22 @@
             android:theme="@style/AppTheme">
         <activity android:name=".ui.ConvertActivity"
                   android:screenOrientation="portrait">
+
             <intent-filter
                     android:autoVerify="true"
-                    android:order="1">
+                    android:order="2">
 
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
 
-                <data android:scheme="http" />
-                <data android:scheme="https" />
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
                 <data android:host="lydian-lion-instant.com"/>
                 <data android:pathPrefix="/convert"/>
 
             </intent-filter>
+
         </activity>
 
     </application>
