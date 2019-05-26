@@ -12,12 +12,10 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", '"http://data.fixer.io/api/"'
             buildConfigField "String", "API_KEY", '"f53fe70184f79507a924e35b9e2dd52f"'
         }
         debug {
-            //minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", '"http://data.fixer.io/api/"'
             buildConfigField "String", "API_KEY", '"f53fe70184f79507a924e35b9e2dd52f"'
@@ -50,7 +48,18 @@ dependencies {
     api deps.data.jodaTime
     api project(':resources')
 
-    androidTestImplementation deps.test.androidxTestRunner
+    testImplementation deps.test.junit
+    testImplementation deps.test.archCoreTest
+    androidTestImplementation deps.test.supportTestRunner
+    testImplementation deps.test.kotCoroutinesTest
+    testImplementation deps.test.ioMockk
+    testImplementation deps.data.jodaTime
+    debugImplementation deps.test.androidxFragmentTest
     androidTestImplementation deps.test.androidxTestEspresso
+    androidTestImplementation deps.test.androidxTestRunner
+    androidTestImplementation deps.test.androidxTestRules
+    androidTestImplementation deps.test.extJunit
+    testImplementation deps.test.extJunit
+    testImplementation deps.test.roomTest
 
 }

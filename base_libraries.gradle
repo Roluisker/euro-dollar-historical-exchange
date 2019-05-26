@@ -8,7 +8,5 @@ ext {
         api deps.desing.material
         api deps.test.junit
         api 'com.google.android.instantapps:instantapps:1.1.0'
-        //api deps.test.androidxTestRunner
-        //api deps.test.androidxTestEspresso
     }
 }

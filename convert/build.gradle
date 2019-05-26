@@ -26,6 +26,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
     implementation project(':app')
-    androidTestImplementation deps.test.androidxTestRunner
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.archCoreTest
+    androidTestImplementation deps.test.supportTestRunner
+    testImplementation deps.test.kotCoroutinesTest
+    testImplementation deps.test.ioMockk
+    testImplementation deps.data.jodaTime
+    debugImplementation deps.test.androidxFragmentTest
     androidTestImplementation deps.test.androidxTestEspresso
+    androidTestImplementation deps.test.androidxTestRunner
+    androidTestImplementation deps.test.androidxTestRules
+    androidTestImplementation deps.test.extJunit
+    testImplementation deps.test.extJunit
+    testImplementation deps.test.roomTest
+
 }
