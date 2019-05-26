@@ -80,9 +80,9 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         euroTo.setOnClickListener {
             showMoneyOptions()
         }
-        //startDate.setOnClickListener {
-        //    selectStartDate()
-        //}
+        dateSelector.setOnClickListener{
+            selectStartDate()
+        }
     }
 
     private fun showMoneyOptions() {
