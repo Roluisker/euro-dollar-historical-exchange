@@ -2,41 +2,45 @@
 buildscript {
 
     ext.versions = [
-            'applicationId'     : "com.sc.lydianlion",
-            'minSdk'            : 19,
-            'compileSdk'        : 28,
-            'targetSdkVersion'  : 28,
-            'moduleVersionCode' : 8,
-            'moduleVersionName' : "8",
-            'gsonCore'          : '2.8.5',
-            'androidPlugin'     : '3.3.0',
-            'mavenPlugin'       : '2.0',
-            'androidxCore'      : '1.1.0-alpha04',
-            'androidxAppCompat' : '1.0.0',
-            'androidxConstrains': '1.1.3',
-            'junit'             : '4.12',
-            'testRunner'        : '1.1.0-alpha4',
-            'espressoCore'      : '3.1.0',
-            'room'              : '2.1.0-alpha07',
-            'supportMultidex'   : '1.0.3',
-            'daggerInjection'   : '2.19',
-            'kotlin'            : '1.3.21',
-            'archLifecycle'     : '2.0.0',
-            'daggerGoogle'      : '2.21',
-            'retrofitNet'       : '2.4.0',
-            'okHttpNet'         : '3.13.1',
-            'timberLogger'      : '4.7.1',
-            'xNavigation'       : '2.0.0-rc02',
-            'googleMaterial'    : '1.0.0-rc01',
-            'imgPicasso'        : '2.71828',
-            'coroutinesAdapter' : '0.9.2',
-            'coroutinesAndroid' : '1.1.1',
-            'coroutinesCore'    : '1.1.1',
-            'jodaTime'          : '2.10.1.2',
-            'archCoreTesting'   : '2.0.0',
-            'testCore'          : '1.1.0',
-            'extTestJunit'      : '1.1.0',
-            'xTestRules'        : '1.1.1'
+            'applicationId'      : "com.sc.lydianlion",
+            'minSdk'             : 19,
+            'compileSdk'         : 28,
+            'targetSdkVersion'   : 28,
+            'moduleVersionCode'  : 8,
+            'moduleVersionName'  : "8",
+            'gsonCore'           : '2.8.5',
+            'androidPlugin'      : '3.3.0',
+            'mavenPlugin'        : '2.0',
+            'androidxCore'       : '1.1.0-alpha04',
+            'androidxAppCompat'  : '1.0.0',
+            'androidxConstrains' : '1.1.3',
+            'junit'              : '4.12',
+            'testRunner'         : '1.1.0-alpha4',
+            'espressoCore'       : '3.1.0',
+            'room'               : '2.1.0-alpha07',
+            'supportMultidex'    : '1.0.3',
+            'daggerInjection'    : '2.19',
+            'kotlin'             : '1.3.21',
+            'archLifecycle'      : '2.0.0',
+            'daggerGoogle'       : '2.21',
+            'retrofitNet'        : '2.4.0',
+            'okHttpNet'          : '3.13.1',
+            'timberLogger'       : '4.7.1',
+            'xNavigation'        : '2.0.0-rc02',
+            'googleMaterial'     : '1.0.0-rc01',
+            'imgPicasso'         : '2.71828',
+            'coroutinesAdapter'  : '0.9.2',
+            'coroutinesAndroid'  : '1.1.1',
+            'coroutinesCore'     : '1.1.1',
+            'jodaTime'           : '2.10.1.2',
+            'archCoreTesting'    : '2.0.0',
+            'testCore'           : '1.1.0',
+            'extTestJunit'       : '1.1.0',
+            'xTestRules'         : '1.1.1',
+            'androidArchCoreTest': '1.1.1',
+            'supRunnerTest'      : '1.0.2',
+            'coroutinesTest'     : '1.1.1',
+            'chartVersion'       : '1.5.8@aar'
     ]
 
     ext.deps = [
@@ -58,7 +62,10 @@ buildscript {
                     'junit'               : "junit:junit:${versions.junit}",
                     'androidxTestRunner'  : "androidx.test:runner:${versions.testRunner}",
                     'androidxTestEspresso': "androidx.test.espresso:espresso-core:${versions.espressoCore}",
-                    'roomTest'            : "androidx.room:room-testing:${versions.room}"
+                    'roomTest'            : "androidx.room:room-testing:${versions.room}",
+                    'archCoreTest'        : "android.arch.core:core-testing:${versions.androidArchCoretest}",
+                    'supportTestRunner'   : "com.android.support.test:runner:${versions.supRunnerTest}",
+                    'kotCoroutinesTest'   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutinesTest}"
             ],
             database  : [
                     'roomRuntime' : "androidx.room:room-runtime:${versions.room}",
@@ -104,7 +111,8 @@ buildscript {
                     'fragmentKtx'        : "android.arch.navigation:navigation-fragment-ktx:1.0.0"
             ],
             desing    : [
-                    'material': "com.google.android.material:material:${versions.googleMaterial}"
+                    'material'   : "com.google.android.material:material:${versions.googleMaterial}",
+                    'helloCharts': "com.github.lecho:hellocharts-library:${versions.chartVersion}"
             ],
             images    : [
                     'picasso': "com.squareup.picasso:picasso:${versions.imgPicasso}"
@@ -138,7 +146,7 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
-        maven {  url "https://maven.google.com" }
+        maven { url "https://maven.google.com" }
     }
 }
 

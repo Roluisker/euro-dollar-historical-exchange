@@ -15,13 +15,21 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
-    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation "android.arch.core:core-testing:1.1.1"
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    //implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation deps.desing.helloCharts
 
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.1")
+    //testImplementation 'junit:junit:4.12'
+    testImplementation deps.test.junit
+
+    //testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation deps.test.archCoreTest
+
+    //androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation deps.test.supportTestRunner
+
+    //testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.1")
+    testImplementation deps.test.kotCoroutinesTest
 
     testImplementation "io.mockk:mockk:1.9"
     testImplementation deps.data.jodaTime
