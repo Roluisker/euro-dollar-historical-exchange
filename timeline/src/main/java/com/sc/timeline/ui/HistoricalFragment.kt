@@ -55,9 +55,9 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     private fun loadHistorical(start: String, end: String) {
         if (isHistoricalViewModelAvailable()) {
             historicalViewModel.showHistorical(start, end)
-            startDate.text = start
-            endDate.text = end
-            endDate.isEnabled = false
+            //startDate.text = start
+            //endDate.text = end
+            //endDate.isEnabled = false
         }
     }
 
@@ -80,9 +80,9 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         euroTo.setOnClickListener {
             showMoneyOptions()
         }
-        startDate.setOnClickListener {
-            selectStartDate()
-        }
+        //startDate.setOnClickListener {
+        //    selectStartDate()
+        //}
     }
 
     private fun showMoneyOptions() {
