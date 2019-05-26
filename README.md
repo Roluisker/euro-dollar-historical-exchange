@@ -13,6 +13,7 @@ Euro to dollar historical
 	* Espresso
 	* Material Design
 	* Android Jetpack
+	* AppBundle
 
 Special features:
 	
