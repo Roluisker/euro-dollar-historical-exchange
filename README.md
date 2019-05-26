@@ -6,8 +6,6 @@
 
 Euro to dollar historical
 
-Tech
-
 	* Kotlin
 	* Coroutines
 	* Dagger 2
