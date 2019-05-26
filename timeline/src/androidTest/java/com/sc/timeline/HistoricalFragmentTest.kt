@@ -1,5 +1,6 @@
 package com.sc.timeline
 
+import android.os.Bundle
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -17,21 +18,12 @@ class HistoricalFragmentTest {
     @Test
     fun mainComponentsAvailable() {
 
-        launchFragmentInContainer<HistoricalFragment>()
-
-        onView(withId(R.id.startDate))
-            .check(matches(isDisplayed()))
-
-        onView(withId(R.id.endDate))
-            .check(matches(isDisplayed()))
-
-        onView(withId(R.id.euroTo))
-            .check(matches(isDisplayed()))
+        launchFragmentInContainer<HistoricalFragment>(Bundle(), R.style.Theme_AppCompat)
 
         onView(withId(R.id.lineChart))
             .check(matches(isDisplayed()))
-
-        onView(withId(R.id.dateText))
+        
+        onView(withId(R.id.dateSelector))
             .check(matches(isDisplayed()))
 
     }
@@ -39,13 +31,13 @@ class HistoricalFragmentTest {
     @Test
     fun dateDialogAvailable() {
 
-        launchFragmentInContainer<HistoricalFragment>()
+        launchFragmentInContainer<HistoricalFragment>(Bundle(), R.style.Theme_AppCompat)
 
-        onView(withId(R.id.startDate))
+        onView(withId(R.id.dateSelector))
             .perform(click())
 
         onView(withText("OK"))
-            .inRoot(isDialog()) // <---
+            .inRoot(isDialog())
             .check(matches(isDisplayed()))
 
     }
