@@ -102,39 +102,28 @@ class HistoricalRepositoryImplTest {
 
     @Test
     fun errorHandlerDatabaseWithoutDataTest() = runBlocking {
-
         coEvery { timeSeriesDao.series() } returns emptyList()
-
         val error = historicalImpl.errorHandler(UnknownHostException(CoreConstants.EMPTY), TIME_SERIES)
-
         assertNotNull(error)
         assert(error is DataResponse)
         assert(error.error == HISTORICAL_UNEXPECTED_ERROR)
-
     }
 
     @Test
     fun errorHandlerGenericExceptionTest() = runBlocking {
-
         val error = historicalImpl.errorHandler(Exception(CoreConstants.EMPTY), TIME_SERIES)
-
         assertNotNull(error)
         assert(error is DataResponse)
         assert(error.error == HISTORICAL_UNEXPECTED_ERROR)
-
     }
 
     @Test
     fun errorHandlerUnexpectedExceptionTest() = runBlocking {
-
         coEvery { timeSeriesDao.series() } coAnswers { throw Exception(CoreConstants.UNEXPECTED_ERROR) }
-
         val error = historicalImpl.errorHandler(UnknownHostException(CoreConstants.EMPTY), TIME_SERIES)
-
         assertNotNull(error)
         assert(error is DataResponse)
         assert(error.error == HISTORICAL_UNEXPECTED_ERROR)
-
     }
 
     @Test

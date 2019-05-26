@@ -36,7 +36,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     @Inject
     lateinit var historicalViewModel: HistoricalViewModel
 
-    private lateinit var startDateDialog: DatePickerDialog
+    lateinit var startDateDialog: DatePickerDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -146,12 +146,12 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     }
 
-   private fun selectStartDate() {
+    private fun selectStartDate() {
         startDateDialog = initDatePicker()
         startDateDialog.show()
     }
 
-    private fun initDatePicker(): DatePickerDialog {
+    fun initDatePicker(): DatePickerDialog {
 
         val calendar = DateUtilities.nativeCalendarToday()
 

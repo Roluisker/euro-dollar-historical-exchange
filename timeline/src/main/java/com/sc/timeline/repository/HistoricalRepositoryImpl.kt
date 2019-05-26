@@ -37,7 +37,7 @@ class HistoricalRepositoryImpl(
 
     }
 
-    suspend fun storeInLocal(timeSeriesRemote: TimeSeriesRemote) {
+    private suspend fun storeInLocal(timeSeriesRemote: TimeSeriesRemote) {
 
         try {
 

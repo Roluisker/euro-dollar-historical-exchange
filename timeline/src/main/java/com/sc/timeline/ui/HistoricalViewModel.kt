@@ -20,7 +20,7 @@ import java.util.*
 
 const val HISTORICAL_VIEW_MODEL_UNEXPECTED_ERROR = 2
 
-open class HistoricalViewModel(
+class HistoricalViewModel(
     private var historicalRepository: HistoricalRepository,
     mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
     ioDispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -75,7 +75,7 @@ open class HistoricalViewModel(
 
     }
 
-    fun dataToLineChartData(dataResponse: DataResponse): GraphLineData {
+    private fun dataToLineChartData(dataResponse: DataResponse): GraphLineData {
 
         var timeSeriesRemote = dataResponse.data as TimeSeriesRemote
 

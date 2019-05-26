@@ -7,7 +7,6 @@ import java.util.*
 
 const val SIMPLE_TIME_FORMAT_DATE = "dd MMM"
 const val TODAY_TIME_FORMAT_DATE = "Y-MM-dd"
-const val SEARCH_TIME_FORMAT_DATE = "dd MMM Y"
 
 object DateUtilities {
 
@@ -21,12 +20,10 @@ object DateUtilities {
                 .print(dateTime)
 
         } catch (error: Exception) {
-            ""
+            CoreConstants.EMPTY
         }
 
     }
-
-    fun today(): String = DateTime().toString(TODAY_TIME_FORMAT_DATE)
 
     fun todayMinusDays(daysToMinus: Int): String {
         var today = DateTime()
