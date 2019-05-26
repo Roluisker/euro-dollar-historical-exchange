@@ -22,7 +22,7 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
                 style="@style/Widget.MaterialComponents.BottomAppBar"
-                android:id="@+id/bottom_app_bar"
+                android:id="@+id/bottomAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_date_range_24"
-                app:layout_anchor="@id/bottom_app_bar"/>
+                app:layout_anchor="@id/bottomAppBar"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

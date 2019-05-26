@@ -14,6 +14,7 @@ import javax.inject.Inject
 import com.sc.timeline.R
 import android.app.DatePickerDialog
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.DatePicker
 import androidx.core.content.ContextCompat
 import com.sc.core.*
@@ -60,6 +61,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         request?.let {
             when (it) {
                 TIME_SERIES -> {
+                    dateSelector.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
                 }
             }
         }
