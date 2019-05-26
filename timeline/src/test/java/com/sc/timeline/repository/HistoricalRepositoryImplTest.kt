@@ -2,6 +2,7 @@ package com.sc.timeline.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.gson.Gson
+import com.sc.core.CoreConstants
 
 import com.sc.core.annotation.net.ERROR
 import com.sc.core.annotation.net.SUCCESS
@@ -56,8 +57,8 @@ class HistoricalRepositoryImplTest {
 
         every { mockkClass(Gson::class).toJson(any()) } returns FROM_GSON
 
-        every { timeSeriesRemote.end_date } returns ""
-        every { timeSeriesRemote.start_date } returns ""
+        every { timeSeriesRemote.end_date } returns CoreConstants.EMPTY
+        every { timeSeriesRemote.start_date } returns CoreConstants.EMPTY
 
         coEvery { historicalImpl.fetchHistorical(any(), any(), TIME_SERIES) } returns DataResponse.success(
             timeSeriesRemote,
@@ -66,7 +67,10 @@ class HistoricalRepositoryImplTest {
 
         coEvery { moneyApi.getMoneyTimeSeriesByDateAsync(any(), any()).await() } returns timeSeriesRemote
 
-        val fetchResponse = historicalImpl.fetchHistorical("", "", TIME_SERIES)
+        val fetchResponse = historicalImpl.fetchHistorical(
+            CoreConstants.EMPTY, CoreConstants.EMPTY,
+            TIME_SERIES
+        )
 
         assertNotNull(fetchResponse)
         assert(fetchResponse is DataResponse)
@@ -81,9 +85,12 @@ class HistoricalRepositoryImplTest {
 
         coEvery {
             moneyApi.getMoneyTimeSeriesByDateAsync(any(), any()).await()
-        } coAnswers { throw Exception("UnexpectedError") }
+        } coAnswers { throw Exception(CoreConstants.UNEXPECTED_ERROR) }
 
-        val fetchResponse = historicalImpl.fetchHistorical("", "", TIME_SERIES)
+        val fetchResponse = historicalImpl.fetchHistorical(
+            CoreConstants.EMPTY, CoreConstants.EMPTY,
+            TIME_SERIES
+        )
 
         assertNotNull(fetchResponse)
         assert(fetchResponse is DataResponse)
@@ -98,7 +105,7 @@ class HistoricalRepositoryImplTest {
 
         coEvery { timeSeriesDao.series() } returns emptyList()
 
-        val error = historicalImpl.errorHandler(UnknownHostException(""), TIME_SERIES)
+        val error = historicalImpl.errorHandler(UnknownHostException(CoreConstants.EMPTY), TIME_SERIES)
 
         assertNotNull(error)
         assert(error is DataResponse)
@@ -109,7 +116,7 @@ class HistoricalRepositoryImplTest {
     @Test
     fun errorHandlerGenericExceptionTest() = runBlocking {
 
-        val error = historicalImpl.errorHandler(Exception(""), TIME_SERIES)
+        val error = historicalImpl.errorHandler(Exception(CoreConstants.EMPTY), TIME_SERIES)
 
         assertNotNull(error)
         assert(error is DataResponse)
@@ -120,9 +127,9 @@ class HistoricalRepositoryImplTest {
     @Test
     fun errorHandlerUnexpectedExceptionTest() = runBlocking {
 
-        coEvery { timeSeriesDao.series() } coAnswers { throw Exception("UnexpectedError") }
+        coEvery { timeSeriesDao.series() } coAnswers { throw Exception(CoreConstants.UNEXPECTED_ERROR) }
 
-        val error = historicalImpl.errorHandler(UnknownHostException(""), TIME_SERIES)
+        val error = historicalImpl.errorHandler(UnknownHostException(CoreConstants.EMPTY), TIME_SERIES)
 
         assertNotNull(error)
         assert(error is DataResponse)
@@ -140,7 +147,9 @@ class HistoricalRepositoryImplTest {
 
         coEvery { timeSeriesDao.series() } returns timeSeriesList
 
-        val dataResponse = historicalImpl.errorHandler(UnknownHostException(""), TIME_SERIES)
+        val dataResponse = historicalImpl.errorHandler(
+            UnknownHostException(CoreConstants.EMPTY),
+            TIME_SERIES)
 
         assertNotNull(dataResponse)
         assert(dataResponse is DataResponse)

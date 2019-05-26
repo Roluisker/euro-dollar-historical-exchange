@@ -118,4 +118,8 @@ open class HistoricalViewModel(
 
     }
 
+    override fun uiScope(): CoroutineScope = uiScope
+
+    override fun ioScope(): CoroutineScope = ioScope
+
 }

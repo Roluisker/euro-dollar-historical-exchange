@@ -30,8 +30,4 @@ open class DataResponse(
             DataResponse(ERROR, ERROR_NOT_SET, errorCode, request)
     }
 
-    fun clearData() {
-        data = null
-    }
-
 }

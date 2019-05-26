@@ -3,4 +3,6 @@
     <dimen name="all_dimen_18_sp">18sp</dimen>
     <dimen name="all_dimen_6">6dp</dimen>
     <dimen name="all_dimen_20">20dp</dimen>
+    <dimen name="all_dimen_16">16dp</dimen>
+    <dimen name="all_dimen_120">120dp</dimen>
 </resources>

@@ -20,5 +20,6 @@ class CoreConstants {
         const val EUR = "EUR"
         const val NOT_NETWORK_MODE = 543
         const val LINE = "-"
+        const val UNEXPECTED_ERROR = "UnexpectedError"
     }
 }

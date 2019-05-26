@@ -1,6 +1,8 @@
 package com.sc.timeline.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.sc.core.CoreConstants
+import com.sc.core.CoreConstants.Companion.UNEXPECTED_ERROR
 import com.sc.core.annotation.net.ERROR
 import com.sc.core.annotation.net.LOADING
 
@@ -37,7 +39,7 @@ class HistoricalViewModelTest {
 
     lateinit var historicalViewModel: HistoricalViewModel
 
-    val dispatcher = Dispatchers.Unconfined
+    private val dispatcher = Dispatchers.Unconfined
 
     @Before
     fun setup() {
@@ -56,7 +58,7 @@ class HistoricalViewModelTest {
 
         historicalViewModel.liveDataResponse.observeForever { }
 
-        historicalViewModel.showHistorical("", "")
+        historicalViewModel.showHistorical(CoreConstants.EMPTY, CoreConstants.EMPTY)
 
         assert(historicalViewModel.liveDataResponse.value != null)
         assert(historicalViewModel.liveDataResponse.value!!.status == SUCCESS)
@@ -74,7 +76,7 @@ class HistoricalViewModelTest {
 
         historicalViewModel.liveDataResponse.observeForever { }
 
-        historicalViewModel.showHistorical("", "")
+        historicalViewModel.showHistorical(CoreConstants.EMPTY, CoreConstants.EMPTY)
 
         assert(historicalViewModel.liveDataResponse.value!!.status == LOADING)
         assert(historicalViewModel.liveGraph.value == null)
@@ -91,9 +93,9 @@ class HistoricalViewModelTest {
                 any(),
                 TIME_SERIES
             )
-        } coAnswers { throw Exception("UnexpectedError") }
+        } coAnswers { throw Exception(UNEXPECTED_ERROR) }
 
-        historicalViewModel.showHistorical("", "")
+        historicalViewModel.showHistorical(CoreConstants.EMPTY, CoreConstants.EMPTY)
 
         assert(historicalViewModel.liveDataResponse.value!!.status == LOADING)
         assert(historicalViewModel.liveGraph.value == null)
