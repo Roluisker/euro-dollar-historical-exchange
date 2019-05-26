@@ -28,10 +28,10 @@ Special features:
 1. Fully Modular desing:
 
 	* Core -> Main library (Retrofit, base classes, models, core Dagger components, etc)
-	* App -> Installable module. (With NavHostFragment) [Reference](https://developer.android.com/guide/navigation/navigation-getting-started)
+	* App -> Installable/InstantApp module. (With NavHostFragment,) [Reference](https://developer.android.com/guide/navigation/navigation-getting-started)
 	* Convert -> Dinamyc Feature module [Reference](https://developer.android.com/studio/projects/dynamic-delivery)
 	* Timeline -> Historical timeline. (Main fragment)
-	* Resources -> Common resources (strings, vectors.. etc)
+	* Resources -> Common resorces (strings, vectors.. etc)
 
 2. Gradle
 	
