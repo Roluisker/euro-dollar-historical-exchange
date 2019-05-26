@@ -1,7 +1,5 @@
 package com.sc.timeline.ui
 
-import android.content.Context
-
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.BaseViewModel
 import com.sc.core.CoreConstants
@@ -23,17 +21,16 @@ import java.util.*
 const val HISTORICAL_VIEW_MODEL_UNEXPECTED_ERROR = 2
 
 open class HistoricalViewModel(
-    var historicalRepository: HistoricalRepository,
-    private val context: Context,
-    mainDispacher: CoroutineDispatcher = Dispatchers.Main,
-    ioDispacher: CoroutineDispatcher = Dispatchers.IO
+    private var historicalRepository: HistoricalRepository,
+    mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
+    ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseViewModel() {
 
     var liveGraph = MutableLiveData<GraphLineData>()
 
-    private val uiScope = CoroutineScope(mainDispacher + job)
+    private val uiScope = CoroutineScope(mainDispatcher + job)
 
-    private val ioScope = CoroutineScope(ioDispacher + job)
+    private val ioScope = CoroutineScope(ioDispatcher + job)
 
     fun showHistorical(start: String, end: String): Boolean {
 

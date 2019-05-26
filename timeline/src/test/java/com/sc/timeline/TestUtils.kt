@@ -12,7 +12,6 @@ object TestUtils {
             "2019-03-01" to
                     hashMapOf(
                         CoreConstants.USD to "1.1",
-                        CoreConstants.JPY to "2",
                         CoreConstants.EUR to "1"
                     )
         )

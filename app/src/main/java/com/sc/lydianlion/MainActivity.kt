@@ -10,13 +10,15 @@ import android.net.Uri
 import android.view.MenuItem
 import com.google.android.instantapps.InstantApps
 
+const val CONVERT_FEATURE_URI = "https://lydian-lion-instant.com/convert"
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initDependencyInjection()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar?.title = "Euro to Dollar"
+        supportActionBar?.title = getString(R.string.euro_dollar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             R.id.isolatedModule -> {
                 val intent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://lydian-lion-instant.com/convert")
+                    Uri.parse(CONVERT_FEATURE_URI)
                 )
                 intent.addCategory(Intent.CATEGORY_BROWSABLE)
                 startActivity(intent)

@@ -1,9 +1,8 @@
 package com.sc.timeline.ui
 
-import android.content.Context
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.sc.core.annotation.net.ERROR
+import com.sc.core.annotation.net.LOADING
 
 import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
@@ -34,9 +33,6 @@ class HistoricalViewModelTest {
     lateinit var historicalRepository: HistoricalRepositoryImpl
 
     @MockK
-    lateinit var context: Context
-
-    @MockK
     lateinit var timeSeriesRemote: TimeSeriesRemote
 
     lateinit var historicalViewModel: HistoricalViewModel
@@ -46,7 +42,7 @@ class HistoricalViewModelTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        historicalViewModel = HistoricalViewModel(historicalRepository, context, dispatcher, dispatcher)
+        historicalViewModel = HistoricalViewModel(historicalRepository, dispatcher, dispatcher)
     }
 
     @Test
@@ -80,7 +76,7 @@ class HistoricalViewModelTest {
 
         historicalViewModel.showHistorical("", "")
 
-        assert(historicalViewModel.liveDataResponse.value == null)
+        assert(historicalViewModel.liveDataResponse.value!!.status == LOADING)
         assert(historicalViewModel.liveGraph.value == null)
         assert(historicalViewModel.liveDataErrorResponse.value!!.status == ERROR)
 
@@ -99,7 +95,7 @@ class HistoricalViewModelTest {
 
         historicalViewModel.showHistorical("", "")
 
-        assert(historicalViewModel.liveDataResponse.value == null)
+        assert(historicalViewModel.liveDataResponse.value!!.status == LOADING)
         assert(historicalViewModel.liveGraph.value == null)
         assert(historicalViewModel.liveDataErrorResponse.value!!.status == ERROR)
 

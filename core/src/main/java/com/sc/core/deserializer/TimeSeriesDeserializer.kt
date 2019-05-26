@@ -4,7 +4,6 @@ import com.google.gson.*
 import com.sc.core.CoreConstants.Companion.BASE_LABEL
 import com.sc.core.CoreConstants.Companion.END_DATE_LABEL
 import com.sc.core.CoreConstants.Companion.EUR
-import com.sc.core.CoreConstants.Companion.JPY
 import com.sc.core.CoreConstants.Companion.RATE_LABEL
 import com.sc.core.CoreConstants.Companion.START_DATE_LABEL
 import com.sc.core.CoreConstants.Companion.SUCCESS_LABEL
@@ -46,7 +45,6 @@ class TimeSeriesDeserializer : JsonDeserializer<TimeSeriesRemote>, JsonSerialize
                         set.key,
                         hashMapOf(
                             USD to rateObjet.get(USD).asString,
-                            JPY to rateObjet.get(JPY).asString,
                             EUR to rateObjet.get(EUR).asString
                         )
                     )

@@ -1,6 +1,5 @@
 package com.sc.timeline.ui.di
 
-import android.content.Context
 import com.sc.core.api.MoneyApi
 import com.sc.core.db.TimeSeriesDao
 import com.sc.core.ui.getViewModel
@@ -11,7 +10,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class HistoricalFragmentModule(val fragment: HistoricalFragment) {
+class HistoricalFragmentModule(private val fragment: HistoricalFragment) {
 
     @Provides
     fun provideHistoricalRepository(
@@ -23,10 +22,8 @@ class HistoricalFragmentModule(val fragment: HistoricalFragment) {
 
     @Provides
     fun provideHistoricalViewModel(
-        repository: HistoricalRepositoryImpl, context: Context
+        repository: HistoricalRepositoryImpl
     ): HistoricalViewModel =
-        fragment.getViewModel {
-            HistoricalViewModel(repository, context)
-        }
+        fragment.getViewModel { HistoricalViewModel(repository) }
 
 }

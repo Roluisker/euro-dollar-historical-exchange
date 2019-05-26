@@ -64,7 +64,7 @@ class HistoricalRepositoryImplTest {
             TIME_SERIES
         )
 
-        coEvery { moneyApi.getMoneyTimeSeriesByDateAsync2(any(), any()).await() } returns timeSeriesRemote
+        coEvery { moneyApi.getMoneyTimeSeriesByDateAsync(any(), any()).await() } returns timeSeriesRemote
 
         val fetchResponse = historicalImpl.fetchHistorical("", "", TIME_SERIES)
 
@@ -80,7 +80,7 @@ class HistoricalRepositoryImplTest {
     fun fetchHistoricalErrorTest() = runBlocking {
 
         coEvery {
-            moneyApi.getMoneyTimeSeriesByDateAsync2(any(), any()).await()
+            moneyApi.getMoneyTimeSeriesByDateAsync(any(), any()).await()
         } coAnswers { throw Exception("UnexpectedError") }
 
         val fetchResponse = historicalImpl.fetchHistorical("", "", TIME_SERIES)

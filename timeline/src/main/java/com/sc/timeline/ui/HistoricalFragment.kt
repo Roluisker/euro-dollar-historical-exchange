@@ -82,7 +82,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
             when {
                 InstantApps.isInstantApp(context!!) -> InstantApps.showInstallPrompt(
                     activity!!, Intent(),
-                    1, "-"
+                    1, CoreConstants.LINE
                 )
                 else -> selectStartDate()
             }
