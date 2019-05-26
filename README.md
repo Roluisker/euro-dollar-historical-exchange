@@ -13,7 +13,7 @@ Tech
 	* Dagger 2
 	* Junit
 	* Espresso
-	* Meterial
+	* Material Design
 
 Special features:
 	
