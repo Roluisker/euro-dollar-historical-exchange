@@ -11,7 +11,7 @@
               android:layout_marginRight="16dp"
               android:textSize="16sp"
               android:gravity="center"
-              android:text="Isolated module.. \n in the future could be downloaded even in run time as Dynamic Delivery"
+              android:text="Convert module.. \n in the future could be downloaded even in run time as Dynamic Delivery"
               android:layout_height="wrap_content"/>
 
 </LinearLayout>

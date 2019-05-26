@@ -19,8 +19,7 @@
         <activity android:name=".ui.ConvertActivity"
                   android:screenOrientation="portrait">
 
-            <intent-filter
-                    android:order="2">
+            <intent-filter>
 
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.BROWSABLE"/>

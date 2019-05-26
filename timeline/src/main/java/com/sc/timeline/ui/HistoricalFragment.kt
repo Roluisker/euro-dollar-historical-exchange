@@ -146,7 +146,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     }
 
-    fun selectStartDate() {
+   private fun selectStartDate() {
         startDateDialog = initDatePicker()
         startDateDialog.show()
     }
@@ -162,7 +162,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
         )
 
         picker.datePicker.minDate = DateUtilities.nativeCalendarDaysAgo(DEFAULT_HISTORICAL).timeInMillis
-        picker.datePicker.maxDate = DateUtilities.nativeCalendarDaysAgo(1).timeInMillis
+        picker.datePicker.maxDate = DateUtilities.nativeCalendarDaysAgo(3).timeInMillis
 
         return picker
 
