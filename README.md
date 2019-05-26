@@ -6,6 +6,15 @@
 
 Euro to dollar historical
 
+Tech
+
+	* Kotlin
+	* Coroutines
+	* Dagger 2
+	* Junit
+	* Espresso
+	* Meterial
+
 Special features:
 	
 	* InstantApp Ready
