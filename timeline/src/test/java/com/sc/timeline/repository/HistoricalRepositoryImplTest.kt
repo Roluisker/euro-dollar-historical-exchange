@@ -2,7 +2,7 @@ package com.sc.timeline.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.gson.Gson
-import com.sc.core.CoreConstants
+
 import com.sc.core.annotation.net.ERROR
 import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
@@ -22,6 +22,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import java.net.UnknownHostException
 
 @RunWith(JUnit4::class)
 class HistoricalRepositoryImplTest {
@@ -90,5 +91,41 @@ class HistoricalRepositoryImplTest {
 
     }
 
+    @Test
+    fun errorHandlerDatabaseWithoutDataTest() = runBlocking {
+
+        coEvery { timeSeriesDao.series() } returns emptyList()
+
+        val error = historicalImpl.errorHandler(UnknownHostException(""), TIME_SERIES)
+
+        assertNotNull(error)
+        assert(error is DataResponse)
+        assert(error.error == HISTORICAL_UNEXPECTED_ERROR)
+
+    }
+
+    @Test
+    fun errorHandlerGenericExceptionTest() = runBlocking {
+
+        val error = historicalImpl.errorHandler(Exception(""), TIME_SERIES)
+
+        assertNotNull(error)
+        assert(error is DataResponse)
+        assert(error.error == HISTORICAL_UNEXPECTED_ERROR)
+
+    }
+
+    @Test
+    fun errorHandlerUnexpectedException() = runBlocking {
+
+        coEvery { timeSeriesDao.series() } coAnswers { throw Exception("UnexpectedError") }
+
+        val error = historicalImpl.errorHandler(UnknownHostException(""), TIME_SERIES)
+
+        assertNotNull(error)
+        assert(error is DataResponse)
+        assert(error.error == HISTORICAL_UNEXPECTED_ERROR)
+
+    }
 
 }

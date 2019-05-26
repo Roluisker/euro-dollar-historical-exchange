@@ -57,39 +57,42 @@ open class HistoricalRepositoryImpl(
 
     override suspend fun errorHandler(error: Exception, @FixerRequest requestTag: String): DataResponse {
 
-        when (error) {
-            is UnknownHostException -> {
+        try {
 
-                val timeSeriesList = timeSeriesDao.series()
+            when (error) {
+                is UnknownHostException -> {
 
-                if (timeSeriesList.isNotEmpty()) {
+                    val timeSeriesList = timeSeriesDao.series()
 
-                    val valuesFromDb =
-                        Gson().fromJson<HashMap<String, HashMap<String, String>>>(
-                            timeSeriesList[0].rateItemJson,
-                            object : TypeToken<HashMap<String, HashMap<String, String>>>() {
-                            }.type
-                        )
+                    if (timeSeriesList.isNotEmpty()) {
 
-                    Timber.d(valuesFromDb.isEmpty().toString())
+                        val valuesFromDb =
+                            Gson().fromJson<HashMap<String, HashMap<String, String>>>(
+                                timeSeriesList[0].rateItemJson,
+                                object : TypeToken<HashMap<String, HashMap<String, String>>>() {
+                                }.type
+                            )
 
-                    var timeRemote = TimeSeriesRemote(true, "-", "-")
+                        var timeRemote = TimeSeriesRemote(true, "-", "-")
 
-                    var timeSeries = TimeSeries()
-                    timeSeries.rateItem = valuesFromDb
+                        var timeSeries = TimeSeries()
+                        timeSeries.rateItem = valuesFromDb
+                        timeRemote.rates = timeSeries
 
-                    timeRemote.rates = timeSeries
+                        return DataResponse.successFromLocal(timeRemote, requestTag)
 
-                    return DataResponse.successFromLocal(timeRemote, requestTag)
+                    } else {
+                        return DataResponse.error(HISTORICAL_UNEXPECTED_ERROR, requestTag)
+                    }
 
-                } else {
-                    return DataResponse.error(HISTORICAL_UNEXPECTED_ERROR, requestTag)
                 }
-
             }
-        }
 
-        return DataResponse.error(HISTORICAL_UNEXPECTED_ERROR, requestTag)
+            return DataResponse.error(HISTORICAL_UNEXPECTED_ERROR, requestTag)
+
+        } catch (error: Exception) {
+            return DataResponse.error(HISTORICAL_UNEXPECTED_ERROR, requestTag)
+        }
 
     }
 
