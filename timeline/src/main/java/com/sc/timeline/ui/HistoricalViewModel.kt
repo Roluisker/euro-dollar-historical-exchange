@@ -12,17 +12,20 @@ import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
+import com.sc.core.net.RESPONSE_FROM_LOCAL
 
 import com.sc.timeline.model.GraphLineData
 import com.sc.timeline.repository.HistoricalRepository
 import kotlinx.coroutines.*
 import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
-import timber.log.Timber
 import java.util.*
 
+const val HISTORICAL_VIEW_MODEL_UNEXPECTED_ERROR = 2
+
 open class HistoricalViewModel(
-    var historicalRepository: HistoricalRepository, private val context: Context,
+    var historicalRepository: HistoricalRepository,
+    private val context: Context,
     mainDispacher: CoroutineDispatcher = Dispatchers.Main,
     ioDispacher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseViewModel() {
@@ -67,14 +70,15 @@ open class HistoricalViewModel(
                     }
 
                 } catch (error: Exception) {
-                    liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
+                    liveDataErrorResponse.value =
+                        DataResponse.error(HISTORICAL_VIEW_MODEL_UNEXPECTED_ERROR, TIME_SERIES)
                     isFetchHistoricalLaunched = false
                 }
 
             }
 
         } catch (error: Exception) {
-            liveDataErrorResponse.value = DataResponse.error(2, TIME_SERIES)
+            liveDataErrorResponse.value = DataResponse.error(HISTORICAL_VIEW_MODEL_UNEXPECTED_ERROR, TIME_SERIES)
             isFetchHistoricalLaunched = false
         }
 

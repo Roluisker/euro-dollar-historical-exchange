@@ -10,7 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.sc.core.net.ViewBasicError
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
+import com.sc.core.CoreConstants.Companion.NOT_NETWORK_MODE
 import com.sc.core.net.DataResponse
+import com.sc.core.ui.showSnackbar
+import timber.log.Timber
 
 abstract class BaseFragment : Fragment() {
 
@@ -30,8 +34,8 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            subscribeViewModelToConsumeResponse()
-            subscribeViewModelToErrorHandler()
+        subscribeViewModelToConsumeResponse()
+        subscribeViewModelToErrorHandler()
     }
 
     private fun subscribeViewModelToConsumeResponse() {
@@ -42,24 +46,12 @@ abstract class BaseFragment : Fragment() {
 
     private fun subscribeViewModelToErrorHandler() {
         errorHandlerLiveData()?.observe(this, Observer<DataResponse> {
+            if (it.error == NOT_NETWORK_MODE) {
+                view!!.showSnackbar("Off line mode on", Snackbar.LENGTH_LONG)
+            }
             onFailureResponse(ViewBasicError(it.error), it.request)
         })
     }
-
-    /*
-       when (response) {
-           is DataResponse.Loading -> {
-               switchProgressDialog(true)
-           }
-           is DataResponse.Success -> {
-               onSuccessResponse(response.data, response.requestTag)
-               switchProgressDialog(false)
-           }
-           is DataResponse.Error -> {
-               switchProgressDialog(false)
-               onFailureResponse(ViewBasicError(1, response.exception, ""), response.requestTag)
-           }
-       }*/
 
     private fun createProgressDialog() {
         try {

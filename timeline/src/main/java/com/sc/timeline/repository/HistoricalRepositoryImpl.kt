@@ -20,24 +20,37 @@ open class HistoricalRepositoryImpl(
 ) : BaseRepository(),
     HistoricalRepository {
 
+
     override suspend fun fetchHistorical(
         startDate: String,
         endDate: String,
         @FixerRequest requestTag: String
     ): DataResponse {
 
-        return try {
-            var result = moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await()
+        try {
+
+            var timeSeriesRemote = moneyApi.getMoneyTimeSeriesByDateAsync2(startDate, endDate).await()
+            storeInLocal(timeSeriesRemote)
+            return DataResponse.success(timeSeriesRemote, requestTag)
+        } catch (error: Exception) {
+            return errorHandler(error, requestTag)
+        }
+
+    }
+
+    suspend fun storeInLocal(timeSeriesRemote: TimeSeriesRemote) {
+
+        try {
+
             timeSeriesDao.insertSeries(
                 TimeSeries(
-                    result.start_date,
-                    result.end_date,
-                    Gson().toJson(result.rates.rateItem)
+                    timeSeriesRemote.start_date,
+                    timeSeriesRemote.end_date,
+                    Gson().toJson(timeSeriesRemote.rates.rateItem)
                 )
             )
-            DataResponse.success(result, requestTag)
         } catch (error: Exception) {
-            errorHandler(error, requestTag)
+            Timber.e("This error could be sent to crashlytics or something similar")
         }
 
     }
@@ -67,7 +80,7 @@ open class HistoricalRepositoryImpl(
 
                     timeRemote.rates = timeSeries
 
-                    return DataResponse.success(timeRemote, requestTag)
+                    return DataResponse.successFromLocal(timeRemote, requestTag)
 
                 } else {
                     return DataResponse.error(HISTORICAL_UNEXPECTED_ERROR, requestTag)

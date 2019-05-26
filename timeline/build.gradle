@@ -6,7 +6,6 @@ apply plugin: "androidx.navigation.safeargs"
 apply from: '../config_module.gradle'
 apply from: '../base_dagger_libraries.gradle'
 
-//puesto para probar unit test
 android {
     testOptions {
         unitTests.returnDefaultValues = true
@@ -36,5 +35,7 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     testImplementation 'androidx.test.ext:junit:1.1.0'
-    
+
+    testImplementation deps.test.roomTest
+
 }

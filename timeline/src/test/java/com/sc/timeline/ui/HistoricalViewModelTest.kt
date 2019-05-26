@@ -3,9 +3,6 @@ package com.sc.timeline.ui
 import android.content.Context
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.sc.core.CoreConstants.Companion.EUR
-import com.sc.core.CoreConstants.Companion.JPY
-import com.sc.core.CoreConstants.Companion.USD
 import com.sc.core.annotation.net.ERROR
 
 import com.sc.core.annotation.net.SUCCESS
@@ -13,6 +10,7 @@ import com.sc.core.annotation.net.TIME_SERIES
 
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
+import com.sc.timeline.TestUtils
 import com.sc.timeline.repository.HistoricalRepositoryImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -54,7 +52,7 @@ class HistoricalViewModelTest {
     @Test
     fun showHistoricalSuccessTest() {
 
-        every { timeSeriesRemote.rates.rateItem } returns mapResult()
+        every { timeSeriesRemote.rates.rateItem } returns TestUtils.mapResult()
 
         val response = DataResponse.success(timeSeriesRemote, TIME_SERIES)
 
@@ -72,7 +70,7 @@ class HistoricalViewModelTest {
     @Test
     fun showHistoricalExpectedErrorTest() {
 
-        every { timeSeriesRemote.rates.rateItem } returns mapResult()
+        every { timeSeriesRemote.rates.rateItem } returns TestUtils.mapResult()
 
         val errorResponse = DataResponse.error(1, TIME_SERIES)
 
@@ -107,17 +105,5 @@ class HistoricalViewModelTest {
 
     }
 
-    fun mapResult(): HashMap<String, HashMap<String, String>> {
-
-        return hashMapOf(
-            "2019-03-01" to
-                    hashMapOf(
-                        USD to "1.1",
-                        JPY to "2",
-                        EUR to "1"
-                    )
-        )
-
-    }
 
 }

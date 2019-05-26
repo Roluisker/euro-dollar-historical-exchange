@@ -1,15 +1,19 @@
 package com.sc.timeline.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.google.gson.Gson
+import com.sc.core.CoreConstants
 import com.sc.core.annotation.net.ERROR
 import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.api.MoneyApi
+import com.sc.core.db.TimeSeriesDao
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
 import com.sc.core.net.ERROR_NOT_SET
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
+import com.sc.timeline.FROM_GSON
+import com.sc.timeline.TestUtils
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
@@ -31,16 +35,26 @@ class HistoricalRepositoryImplTest {
     @MockK
     lateinit var timeSeriesRemote: TimeSeriesRemote
 
+    @MockK
+    lateinit var timeSeriesDao: TimeSeriesDao
+
     lateinit var historicalImpl: HistoricalRepositoryImpl
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        historicalImpl = HistoricalRepositoryImpl(moneyApi)
+        historicalImpl = HistoricalRepositoryImpl(moneyApi, timeSeriesDao)
     }
 
     @Test
     fun fetchHistoricalSuccessTest() = runBlocking {
+
+        every { timeSeriesRemote.rates.rateItem } returns TestUtils.mapResult()
+
+        every { mockkClass(Gson::class).toJson(any()) } returns FROM_GSON
+
+        every { timeSeriesRemote.end_date } returns ""
+        every { timeSeriesRemote.start_date } returns ""
 
         coEvery { historicalImpl.fetchHistorical(any(), any(), TIME_SERIES) } returns DataResponse.success(
             timeSeriesRemote,
@@ -75,5 +89,6 @@ class HistoricalRepositoryImplTest {
         assert(fetchResponse.request == TIME_SERIES)
 
     }
+
 
 }

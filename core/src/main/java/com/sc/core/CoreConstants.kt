@@ -22,5 +22,6 @@ class CoreConstants {
         const val EUR = "EUR"
         const val MAX_USD_RANGE = 2F
         const val MAX_YEN_RANGE = 150F
+        const val NOT_NETWORK_MODE = 543
     }
 }
