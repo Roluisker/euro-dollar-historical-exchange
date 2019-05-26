@@ -31,9 +31,6 @@ open class HistoricalViewModel(
 
     var liveGraph = MutableLiveData<GraphLineData>()
 
-    lateinit var currentStartDate: String
-    lateinit var currentEndDate: String
-
     private val uiScope = CoroutineScope(mainDispacher + job)
 
     private val ioScope = CoroutineScope(ioDispacher + job)

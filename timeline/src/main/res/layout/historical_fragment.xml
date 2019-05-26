@@ -5,30 +5,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <TextView
-            android:id="@+id/euroTo"
-            style="?android:attr/spinnerStyle"
-            android:layout_width="fill_parent"
-            android:textSize="@dimen/all_dimen_18_sp"
-            android:paddingLeft="@dimen/all_dimen_20"
-            android:clickable="true"
-            android:layout_gravity="top"
-            android:text="@string/euro_dollar"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"/>
-
     <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/lineChart"
             android:layout_marginRight="@dimen/all_dimen_20"
             android:layout_marginLeft="@dimen/all_dimen_20"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:layout_height="390dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
             android:layout_marginTop="16dp"/>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

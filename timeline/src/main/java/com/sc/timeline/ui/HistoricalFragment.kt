@@ -11,8 +11,6 @@ import com.sc.timeline.di.DaggerTimelineComponent
 import com.sc.timeline.ui.di.HistoricalFragmentModule
 import kotlinx.android.synthetic.main.historical_fragment.*
 import javax.inject.Inject
-import androidx.appcompat.app.AlertDialog
-import com.sc.core.CoreConstants.Companion.USD
 import com.sc.timeline.R
 import android.app.DatePickerDialog
 import android.view.View
@@ -55,9 +53,6 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     private fun loadHistorical(start: String, end: String) {
         if (isHistoricalViewModelAvailable()) {
             historicalViewModel.showHistorical(start, end)
-            //startDate.text = start
-            //endDate.text = end
-            //endDate.isEnabled = false
         }
     }
 
@@ -77,49 +72,8 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
     }
 
     private fun setListeners() {
-        euroTo.setOnClickListener {
-            showMoneyOptions()
-        }
-        dateSelector.setOnClickListener{
+        dateSelector.setOnClickListener {
             selectStartDate()
-        }
-    }
-
-    private fun showMoneyOptions() {
-        val checkedItem = 0
-        arrayOf(USD).let {
-
-            AlertDialog.Builder(context!!).apply {
-                setTitle(getString(R.string.euro_to))
-                setSingleChoiceItems(
-                    it, checkedItem
-                ) { dialog, which ->
-
-                }
-                setPositiveButton(getString(R.string.done)) { dialog, which ->
-                    run {
-                        dialog.dismiss()
-                        currentMoney(USD)
-                        historicalViewModel.showHistorical(
-                            DateUtilities.todayMinusDays(DEFAULT_HISTORICAL),
-                            DateUtilities.today()
-                        )
-                    }
-                }
-                create()
-                show()
-            }
-
-        }
-    }
-
-    private fun currentMoney(key: String) {
-        key?.let {
-            when (it) {
-                USD -> {
-                    euroTo.text = getString(R.string.euro_dollar)
-                }
-            }
         }
     }
 

@@ -2,7 +2,6 @@ package com.sc.lydianlion
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.sc.core.CoreConstants
 import com.sc.core.ui.coreComponent
 import com.sc.lydianlion.di.DaggerMainActivityComponent
 
@@ -12,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         initDependencyInjection()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar?.title = CoreConstants.EMPTY
+        supportActionBar?.title = "Euro to Dollar"
     }
 
     private fun initDependencyInjection() =
