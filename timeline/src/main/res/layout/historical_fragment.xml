@@ -37,15 +37,6 @@
                 android:src="@drawable/ic_date_range_24"
                 app:layout_anchor="@id/bottomAppBar"/>
 
-        <!--
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/dateSelector2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fabAlignmentMode="end"
-                android:src="@drawable/ic_dashboard"
-                app:layout_anchor="@id/bottomAppBar"/> -->
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

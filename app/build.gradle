@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdkVersion
-        versionCode 5
-        versionName "5.0"
+        versionCode 7
+        versionName "7.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

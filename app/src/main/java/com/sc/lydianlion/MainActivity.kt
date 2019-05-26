@@ -8,6 +8,7 @@ import android.view.Menu
 import android.content.Intent
 import android.net.Uri
 import android.view.MenuItem
+import com.google.android.instantapps.InstantApps
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.default_menu, menu)
+        when {
+            InstantApps.isInstantApp(applicationContext) -> (menu.findItem(R.id.isolatedModule) as MenuItem).isVisible =
+                false
+            else -> (menu.findItem(R.id.isolatedModule) as MenuItem).isVisible = true
+        }
         return true
     }
 

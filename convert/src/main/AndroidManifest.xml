@@ -4,7 +4,7 @@
 
     <dist:module
             dist:onDemand="false"
-            dist:instant="true"
+            dist:instant="false"
             dist:title="@string/title_convert">
         <dist:fusing dist:include="true"/>
     </dist:module>
@@ -20,7 +20,6 @@
                   android:screenOrientation="portrait">
 
             <intent-filter
-                    android:autoVerify="true"
                     android:order="2">
 
                 <action android:name="android.intent.action.VIEW"/>
