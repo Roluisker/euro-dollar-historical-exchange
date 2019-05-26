@@ -12,9 +12,6 @@ import com.sc.timeline.ui.di.HistoricalFragmentModule
 import kotlinx.android.synthetic.main.historical_fragment.*
 import javax.inject.Inject
 import androidx.appcompat.app.AlertDialog
-import com.sc.core.CoreConstants.Companion.JPY
-import com.sc.core.CoreConstants.Companion.MAX_USD_RANGE
-import com.sc.core.CoreConstants.Companion.MAX_YEN_RANGE
 import com.sc.core.CoreConstants.Companion.USD
 import com.sc.timeline.R
 import android.app.DatePickerDialog
@@ -97,12 +94,12 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
                 setSingleChoiceItems(
                     it, checkedItem
                 ) { dialog, which ->
-                    historicalViewModel.euroToKey = it[which]
+
                 }
                 setPositiveButton(getString(R.string.done)) { dialog, which ->
                     run {
                         dialog.dismiss()
-                        currentMoney(historicalViewModel.euroToKey)
+                        currentMoney(USD)
                         historicalViewModel.showHistorical(
                             DateUtilities.todayMinusDays(DEFAULT_HISTORICAL),
                             DateUtilities.today()
@@ -121,11 +118,6 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
             when (it) {
                 USD -> {
                     euroTo.text = getString(R.string.euro_dollar)
-                    historicalViewModel.maxRange = MAX_USD_RANGE
-                }
-                JPY -> {
-                    euroTo.text = getString(R.string.euro_yen)
-                    historicalViewModel.maxRange = MAX_YEN_RANGE
                 }
             }
         }
@@ -183,17 +175,24 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     fun selectStartDate() {
         startDateDialog = initDatePicker()
-        startDateDialog.setTitle("Fecha")
         startDateDialog.show()
     }
 
     private fun initDatePicker(): DatePickerDialog {
-        val calendar = Calendar.getInstance()
-        return DatePickerDialog(
+
+        val calendar = DateUtilities.nativeCalendarToday()
+
+        var picker = DatePickerDialog(
             context,
             this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
+
+        picker.datePicker.minDate = DateUtilities.nativeCalendarDaysAgo(DEFAULT_HISTORICAL).timeInMillis
+        picker.datePicker.maxDate = DateUtilities.nativeCalendarDaysAgo(1).timeInMillis
+
+        return picker
+
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -204,11 +203,12 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
             dayOfMonth
         }
 
-        historicalViewModel.showHistorical(
-            DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo")),
-            historicalViewModel.currentEndDate
+        var mo = month + 1
+
+        loadHistorical(
+            DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$mo-$currentDayOfMo")),
+            DateUtilities.todayMinusDays(1)
         )
-        startDate.text = DateUtilities.format(TODAY_TIME_FORMAT_DATE, DateTime("$year-$month-$currentDayOfMo"))
 
     }
 

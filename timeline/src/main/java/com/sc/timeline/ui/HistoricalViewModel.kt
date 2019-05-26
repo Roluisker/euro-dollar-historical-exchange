@@ -34,14 +34,9 @@ open class HistoricalViewModel(
     lateinit var currentStartDate: String
     lateinit var currentEndDate: String
 
-    var euroToKey: String = CoreConstants.USD
-    var maxRange: Float = CoreConstants.MAX_USD_RANGE
-
-    //private val job = Job()
-
     private val uiScope = CoroutineScope(mainDispacher + job)
 
-    val ioScope = CoroutineScope(ioDispacher + job)
+    private val ioScope = CoroutineScope(ioDispacher + job)
 
     fun showHistorical(start: String, end: String): Boolean {
 
@@ -59,9 +54,8 @@ open class HistoricalViewModel(
 
                     when (currentResponse!!.status) {
                         SUCCESS -> {
-                            val grap = dataToLineChartData(currentResponse)
+                            liveGraph.value = dataToLineChartData(currentResponse)
                             liveDataResponse.value = currentResponse
-                            liveGraph.value = grap
                         }
                         ERROR -> {
                             liveDataErrorResponse.value = currentResponse
@@ -105,7 +99,7 @@ open class HistoricalViewModel(
                 )
             )
 
-            it.value[euroToKey]?.let { it1 -> yAxisData.add(it1) }
+            it.value[CoreConstants.USD]?.let { it1 -> yAxisData.add(it1) }
 
         }
 
@@ -120,7 +114,7 @@ open class HistoricalViewModel(
                 PointValue(
                     i.toFloat(),
                     yAxisData[i].toFloat()
-                ).setLabel(axisData[i] + "--" + "1 Euro -> " + yAxisData[i].toFloat() + " " + euroToKey)
+                ).setLabel(axisData[i] + "--" + "1 Euro -> " + yAxisData[i].toFloat() + " " + CoreConstants.USD)
             )
         }
 

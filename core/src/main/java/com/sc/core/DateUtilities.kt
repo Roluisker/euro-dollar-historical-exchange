@@ -34,4 +34,12 @@ object DateUtilities {
         return todayMinus.toString(TODAY_TIME_FORMAT_DATE)
     }
 
+    fun nativeCalendarDaysAgo(daysAgo: Int): Calendar {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+        return calendar
+    }
+
+    fun nativeCalendarToday(): Calendar = Calendar.getInstance()
+
 }
