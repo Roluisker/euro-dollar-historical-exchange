@@ -22,7 +22,7 @@ class HistoricalFragmentTest {
 
         onView(withId(R.id.lineChart))
             .check(matches(isDisplayed()))
-        
+
         onView(withId(R.id.dateSelector))
             .check(matches(isDisplayed()))
 

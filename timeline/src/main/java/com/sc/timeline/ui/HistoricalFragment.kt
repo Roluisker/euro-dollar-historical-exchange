@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.historical_fragment.*
 import javax.inject.Inject
 import com.sc.timeline.R
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.DatePicker
@@ -23,6 +24,7 @@ import com.sc.timeline.model.GraphLineData
 import lecho.lib.hellocharts.model.*
 import org.joda.time.DateTime
 import androidx.lifecycle.Observer
+import com.google.android.instantapps.InstantApps
 import timber.log.Timber
 import java.util.*
 
@@ -42,6 +44,7 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        putActionIcon()
         setListeners()
         loadHistorical(DateUtilities.todayMinusDays(DEFAULT_HISTORICAL), DateUtilities.todayMinusDays(1))
     }
@@ -75,7 +78,20 @@ open class HistoricalFragment : BaseFragment(), DatePickerDialog.OnDateSetListen
 
     private fun setListeners() {
         dateSelector.setOnClickListener {
-            selectStartDate()
+            when {
+                InstantApps.isInstantApp(context!!) -> InstantApps.showInstallPrompt(
+                    activity!!, Intent(),
+                    1, "-"
+                )
+                else -> selectStartDate()
+            }
+        }
+    }
+
+    private fun putActionIcon() {
+        when {
+            InstantApps.isInstantApp(context!!) -> dateSelector.setImageResource(R.drawable.ic_file_download_24)
+            else -> dateSelector.setImageResource(R.drawable.ic_date_range_24)
         }
     }
 

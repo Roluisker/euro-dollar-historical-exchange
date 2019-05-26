@@ -75,7 +75,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    public fun switchProgressDialog(show: Boolean) {
+    private fun switchProgressDialog(show: Boolean) {
         try {
 
             process?.let {
