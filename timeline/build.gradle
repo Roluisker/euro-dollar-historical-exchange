@@ -16,34 +16,20 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
 
-    //implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
     implementation deps.desing.helloCharts
 
-    //testImplementation 'junit:junit:4.12'
     testImplementation deps.test.junit
-
-    //testImplementation "android.arch.core:core-testing:1.1.1"
     testImplementation deps.test.archCoreTest
-
-    //androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation deps.test.supportTestRunner
-
-    //testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.1")
     testImplementation deps.test.kotCoroutinesTest
-
-    testImplementation "io.mockk:mockk:1.9"
+    testImplementation deps.test.ioMockk
     testImplementation deps.data.jodaTime
-
-    implementation 'androidx.fragment:fragment:1.1.0-alpha09'
-    debugImplementation 'androidx.fragment:fragment-testing:1.1.0-alpha09'
-
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test:rules:1.1.0'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    testImplementation 'androidx.test.ext:junit:1.1.0'
-
+    debugImplementation deps.test.androidxFragmentTest
+    androidTestImplementation deps.test.androidxTestEspresso
+    androidTestImplementation deps.test.androidxTestRunner
+    androidTestImplementation deps.test.androidxTestRules
+    androidTestImplementation deps.test.extJunit
+    testImplementation deps.test.extJunit
     testImplementation deps.test.roomTest
 
 }

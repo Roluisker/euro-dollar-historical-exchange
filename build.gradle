@@ -15,7 +15,7 @@ buildscript {
             'androidxAppCompat'  : '1.0.0',
             'androidxConstrains' : '1.1.3',
             'junit'              : '4.12',
-            'testRunner'         : '1.1.0-alpha4',
+            'testRunner'         : '1.1.0',
             'espressoCore'       : '3.1.0',
             'room'               : '2.1.0-alpha07',
             'supportMultidex'    : '1.0.3',
@@ -40,8 +40,20 @@ buildscript {
             'androidArchCoreTest': '1.1.1',
             'supRunnerTest'      : '1.0.2',
             'coroutinesTest'     : '1.1.1',
-            'chartVersion'       : '1.5.8@aar'
+            'chartVersion'       : '1.5.8@aar',
+            'moKkTest'           : '1.9',
+            'xFragment'          : '1.1.0-alpha09',
+            'fragmentTest'       : '1.1.0-alpha09',
+            'testRules'          : '1.1.0',
+            'testExtJunit'       : '1.1.0'
     ]
+
+    /*
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    testImplementation 'androidx.test.ext:junit:1.1.0'
+
+     */
 
     ext.deps = [
             android   : [
@@ -54,9 +66,10 @@ buildscript {
                     'stdlib'      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
             ],
             support   : [
-                    'appCompat'   : "androidx.appcompat:appcompat:${versions.androidxAppCompat}",
-                    'androidxCore': "androidx.core:core-ktx:${versions.androidxCore}",
-                    'constraint'  : "androidx.constraintlayout:constraintlayout:${versions.androidxConstrains}"
+                    'appCompat'       : "androidx.appcompat:appcompat:${versions.androidxAppCompat}",
+                    'androidxCore'    : "androidx.core:core-ktx:${versions.androidxCore}",
+                    'constraint'      : "androidx.constraintlayout:constraintlayout:${versions.androidxConstrains}",
+                    'androidxFragment': "androidx.fragment:fragment-testing:${versions.xFragment}"
             ],
             test      : [
                     'junit'               : "junit:junit:${versions.junit}",
@@ -65,7 +78,11 @@ buildscript {
                     'roomTest'            : "androidx.room:room-testing:${versions.room}",
                     'archCoreTest'        : "android.arch.core:core-testing:${versions.androidArchCoretest}",
                     'supportTestRunner'   : "com.android.support.test:runner:${versions.supRunnerTest}",
-                    'kotCoroutinesTest'   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutinesTest}"
+                    'kotCoroutinesTest'   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutinesTest}",
+                    'ioMockk'             : "io.mockk:mockk:${versions.moKkTest}",
+                    'androidxFragmentTest': "androidx.fragment:fragment-testing:${versions.fragmentTest}",
+                    'androidxTestRules'   : "androidx.test:rules:${versions.testRules}",
+                    'extJunit'            : "androidx.test.ext:junit:${versions.testExtJunit}"
             ],
             database  : [
                     'roomRuntime' : "androidx.room:room-runtime:${versions.room}",

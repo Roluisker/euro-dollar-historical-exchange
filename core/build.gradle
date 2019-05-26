@@ -43,6 +43,7 @@ dependencies {
     implementation deps.database.roomKtx
     testImplementation deps.test.roomTest
 
+    api deps.support.androidxFragment
     api deps.coroutines.adapter
     api deps.coroutines.android
     api deps.coroutines.core
