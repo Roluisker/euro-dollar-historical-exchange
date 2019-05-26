@@ -20,7 +20,6 @@ open class HistoricalRepositoryImpl(
 ) : BaseRepository(),
     HistoricalRepository {
 
-
     override suspend fun fetchHistorical(
         startDate: String,
         endDate: String,

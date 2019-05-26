@@ -8,9 +8,11 @@ import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.annotation.net.TIME_SERIES
 import com.sc.core.api.MoneyApi
 import com.sc.core.db.TimeSeriesDao
+import com.sc.core.model.local.TimeSeries
 import com.sc.core.model.remote.TimeSeriesRemote
 import com.sc.core.net.DataResponse
 import com.sc.core.net.ERROR_NOT_SET
+import com.sc.core.net.RESPONSE_FROM_LOCAL
 import com.sc.timeline.FROM_GSON
 import com.sc.timeline.TestUtils
 import io.mockk.*
@@ -125,6 +127,25 @@ class HistoricalRepositoryImplTest {
         assertNotNull(error)
         assert(error is DataResponse)
         assert(error.error == HISTORICAL_UNEXPECTED_ERROR)
+
+    }
+
+    @Test
+    fun errorHandlerDataFromLocal() = runBlocking {
+
+        var timeSeries = TimeSeries()
+        timeSeries.rateItemJson = FROM_GSON
+
+        var timeSeriesList = listOf(timeSeries)
+
+        coEvery { timeSeriesDao.series() } returns timeSeriesList
+
+        val dataResponse = historicalImpl.errorHandler(UnknownHostException(""), TIME_SERIES)
+
+        assertNotNull(dataResponse)
+        assert(dataResponse is DataResponse)
+        assert(dataResponse.status == SUCCESS)
+        assert(dataResponse.responseFrom == RESPONSE_FROM_LOCAL)
 
     }
 
