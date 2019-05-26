@@ -12,9 +12,10 @@ import com.sc.core.net.ViewBasicError
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.sc.core.CoreConstants.Companion.NOT_NETWORK_MODE
+import com.sc.core.annotation.net.LOADING
+import com.sc.core.annotation.net.SUCCESS
 import com.sc.core.net.DataResponse
 import com.sc.core.ui.showSnackbar
-import timber.log.Timber
 
 abstract class BaseFragment : Fragment() {
 
@@ -40,7 +41,13 @@ abstract class BaseFragment : Fragment() {
 
     private fun subscribeViewModelToConsumeResponse() {
         dataResponseLiveData()?.observe(this, Observer<DataResponse> {
-            onSuccessResponse(it.data, it.request)
+            when {
+                it.status == LOADING -> switchProgressDialog(true)
+                it.status == SUCCESS -> {
+                    switchProgressDialog(false)
+                    onSuccessResponse(it.data, it.request)
+                }
+            }
         })
     }
 

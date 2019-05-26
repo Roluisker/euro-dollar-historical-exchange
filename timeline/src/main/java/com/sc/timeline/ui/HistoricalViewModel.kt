@@ -45,6 +45,8 @@ open class HistoricalViewModel(
 
                 try {
 
+                    liveDataResponse.value = DataResponse.loading(TIME_SERIES)
+
                     val currentResponse = ioScope.async {
                         return@async historicalRepository.fetchHistorical(start, end, TIME_SERIES)
                     }.await()
