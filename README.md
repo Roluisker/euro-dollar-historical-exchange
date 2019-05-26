@@ -14,6 +14,7 @@ Tech
 	* Junit
 	* Espresso
 	* Material Design
+	* Android Jetpack
 
 Special features:
 	
