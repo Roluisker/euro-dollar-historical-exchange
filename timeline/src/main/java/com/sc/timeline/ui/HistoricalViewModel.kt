@@ -48,7 +48,7 @@ class HistoricalViewModel(
                         return@async historicalRepository.fetchHistorical(start, end, TIME_SERIES)
                     }.await()
 
-                    when (currentResponse!!.status) {
+                    when (currentResponse.status) {
                         SUCCESS -> {
                             liveGraph.value = dataToLineChartData(currentResponse)
                             liveDataResponse.value = currentResponse

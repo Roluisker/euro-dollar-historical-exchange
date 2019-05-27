@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdkVersion
-        versionCode 8
-        versionName "8.0"
+        versionCode 9
+        versionName "9.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

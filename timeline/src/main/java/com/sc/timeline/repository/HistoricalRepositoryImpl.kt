@@ -27,7 +27,6 @@ class HistoricalRepositoryImpl(
     ): DataResponse {
 
         try {
-
             var timeSeriesRemote = moneyApi.getMoneyTimeSeriesByDateAsync(startDate, endDate).await()
             storeInLocal(timeSeriesRemote)
             return DataResponse.success(timeSeriesRemote, requestTag)

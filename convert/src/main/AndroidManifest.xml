@@ -22,7 +22,7 @@
 
             <intent-filter
                     android:autoVerify="true"
-                    android:order="1">
+                    android:order="2">
 
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
