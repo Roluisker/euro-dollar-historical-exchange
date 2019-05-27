@@ -4,8 +4,6 @@
 
 ![picture](https://media.giphy.com/media/RiVeK5qEzqn9M0dt0t/giphy.gif)
 
-![picture](https://i.ibb.co/Prf6MQJ/3.jpg)
-
 Euro to dollar historical
 
 	* Kotlin
