@@ -73,6 +73,12 @@ Deploy as instant app
 
 <a href="https://ibb.co/QJvtM0K"><img src="https://i.ibb.co/WHvjfC2/Screenshot-from-2019-05-26-22-09-30.png" alt="Screenshot-from-2019-05-26-22-09-30" border="0"></a>
 
+Result
+
+	Download icon. Select date not available
+
+<a href="https://ibb.co/S76rFyn"><img src="https://i.ibb.co/YTNZHQk/Screenshot-20190526-225847-Lydian-Lion.jpg" alt="Screenshot-20190526-225847-Lydian-Lion" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>post picture</a><br />
+
 Default config
 
 <a href="https://ibb.co/ZYjKjC9"><img src="https://i.ibb.co/2s9P9BJ/Screenshot-from-2019-05-26-22-26-35.png" alt="Screenshot-from-2019-05-26-22-26-35" border="0"></a>
