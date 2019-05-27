@@ -4,7 +4,7 @@
 
 ![picture](https://media.giphy.com/media/RiVeK5qEzqn9M0dt0t/giphy.gif)
 
-Euro to dollar historical
+Euro to dollar
 
 	* Kotlin
 	* Coroutines
@@ -65,3 +65,14 @@ Timeline
 
 <a href="https://ibb.co/3rvW4Dd"><img src="https://i.ibb.co/VjxDJ79/Screenshot-from-2019-05-26-14-50-05.png" alt="Screenshot-from-2019-05-26-14-50-05" border="0" /></a>
 
+## Run as instant app in local
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/H4ZrvKq/Screenshot-from-2019-05-26-22-09-19.png" alt="Screenshot-from-2019-05-26-22-09-19" border="0"></a>
+
+Deploy as instant app
+
+<a href="https://ibb.co/QJvtM0K"><img src="https://i.ibb.co/WHvjfC2/Screenshot-from-2019-05-26-22-09-30.png" alt="Screenshot-from-2019-05-26-22-09-30" border="0"></a>
+
+Default config
+
+<a href="https://ibb.co/ZYjKjC9"><img src="https://i.ibb.co/2s9P9BJ/Screenshot-from-2019-05-26-22-26-35.png" alt="Screenshot-from-2019-05-26-22-26-35" border="0"></a>
