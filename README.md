@@ -75,9 +75,9 @@ Deploy as instant app
 
 Result
 
-	Download icon. Select date not available
+Download icon. Select date not available
 
-<a href="https://ibb.co/S76rFyn"><img src="https://i.ibb.co/YTNZHQk/Screenshot-20190526-225847-Lydian-Lion.jpg" alt="Screenshot-20190526-225847-Lydian-Lion" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>post picture</a><br />
+<a href="https://ibb.co/S76rFyn"><img src="https://i.ibb.co/YTNZHQk/Screenshot-20190526-225847-Lydian-Lion.jpg" alt="Screenshot-20190526-225847-Lydian-Lion" border="0"></a>
 
 Default config
 
