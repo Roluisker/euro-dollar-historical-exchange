@@ -1,7 +1,5 @@
 # Lydian Lion 
 
-[GooglePlay](https://play.google.com/store/apps/details?id=com.sc.lydianlion)
-
 ![picture](https://media.giphy.com/media/RiVeK5qEzqn9M0dt0t/giphy.gif)
 
 Euro to dollar
